@@ -8,7 +8,7 @@ public class DemoVscodeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoVscodeApplication.class, args);
-		System.out.println("Martin es homo");
+		System.out.println("Test de web");
 	}
 
 }
