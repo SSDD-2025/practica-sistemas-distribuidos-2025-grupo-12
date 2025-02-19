@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <link rel="stylesheet" href="chatstyle.css">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <ul class="chat-list" id="chatList">
+        <li onclick="openChat('Tayson')">Tayson</li>
+        <li onclick="openChat('Dani')">Dani</li>
+        <li onclick="openChat('Martín')">Martín</li>
+      </ul>
+    </div>
+    <div class="chat">
+      <div class="chat-header">
+        <a href="index.html">&#8592;</a>
+        <span id="chatHeader">Selecciona un chat</span>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Escribe un mensaje..." disabled>
+        <button onclick="sendMessage()" disabled id="sendButton">Enviar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chats = {
+      'Tayson': [
+        { text: '¡Hola!', type: 'received' },
+        { text: '¿Te sigue interesando mi play 2?', type: 'received' },
+      ],
+      'Dani': [
+        { text: 'Buenas, he visto su anuncio de los juegos de crash bandicoot y me interesan', type: 'sent' },
+      ],
+      'Martín': [
+        { text: 'Te ofrezco 35 por el mando de xbox 360', type: 'sent' },
+        { text: 'Los acepto, ¿Cuándo puedes quedar?', type: 'received' },
+      ],
+    };
+
+    let currentChat = null;
+
+    function openChat(name) {
+      currentChat = name;
+      document.getElementById('chatHeader').innerText = name;
+      const messagesContainer = document.getElementById('chatMessages');
+      messagesContainer.innerHTML = '';
+      chats[name].forEach(msg => {
+        const div = document.createElement('div');
+        div.className = `message ${msg.type}`;
+        div.innerText = msg.text;
+        messagesContainer.appendChild(div);
+      });
+      document.getElementById('messageInput').disabled = false;
+      document.getElementById('sendButton').disabled = false;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('messageInput');
+      const text = input.value.trim();
+      if (text && currentChat) {
+        const message = { text, type: 'sent' };
+        chats[currentChat].push(message);
+        const messagesContainer = document.getElementById('chatMessages');
+        const div = document.createElement('div');
+        div.className = 'message sent';
+        div.innerText = text;
+        messagesContainer.appendChild(div);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        input.value = '';
+      }
+    }
+
+    document.getElementById('messageInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+</body>
+</html>
