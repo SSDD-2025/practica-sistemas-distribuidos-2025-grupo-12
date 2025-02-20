@@ -1,4 +1,4 @@
-package es.grupo12.practica;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
