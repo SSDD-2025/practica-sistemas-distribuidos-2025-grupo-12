@@ -35,8 +35,10 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 
-	public Product save(Product product) throws IOException {
-
+	public Product save(Product product,MultipartFile imageField) throws IOException {
+		if (imageField != null && !imageField.isEmpty()){
+			product.setImg(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
+		}
 		return productRepository.save(product);
 	}
 

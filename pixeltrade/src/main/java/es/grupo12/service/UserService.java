@@ -19,6 +19,8 @@ public class UserService {
 	@Autowired
 	private UserRepository UserRepository;
 
+	
+
 	public Optional<User> findById(long id) {
 		return UserRepository.findById(id);
 	}
@@ -35,8 +37,7 @@ public class UserService {
 		return UserRepository.findAll();
 	}
 
-	public User save(User User) throws IOException {
-
-		return UserRepository.save(User);
+	public User save(User user){
+		return UserRepository.save(user);
 	}
 }

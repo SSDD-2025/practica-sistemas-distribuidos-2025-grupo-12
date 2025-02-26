@@ -1,11 +1,14 @@
 package es.grupo12.model;
 
+import java.sql.Blob;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+
 
 
 @Entity
@@ -18,7 +21,8 @@ public class Product {
 	private String title;
 	private String descr;
     private double price;
-    private String img;
+	@Lob
+    private Blob img;
 
 	@ManyToOne
 	private User buyer;
@@ -29,19 +33,23 @@ public class Product {
 	
 	
 
+	
+
+	public Product(String title, String descr, double price, User buyer, User seller) {
+		this.title = title;
+		this.descr = descr;
+		this.price = price;
+		this.buyer = buyer;
+		this.seller = seller;
+	}
+
+
+
 	public Product() {
 		// Used by JPA
 	}
 
-	public Product(String title, String desc, double price, String img, User buyer, User seller) {
-		this.title = title;
-		this.descr = desc;
-        this.price = price;
-        this.img = img;
-		this.buyer = buyer;
-		this.seller = seller;
-
-	}
+	
 
     public long getId() {
         return this.id;
@@ -51,17 +59,12 @@ public class Product {
 		return this.title;
 	}
 
-	public String getDesc() {
-		return this.descr;
-	}
 
     public double getPrice() {
         return this.price;
     }
 
-    public String getImg() {
-        return this.img;
-    }
+    
 
 	public User getBuyer(){
 		return this.buyer;
@@ -70,12 +73,27 @@ public class Product {
 	public User getSeller(){
 		return this.seller;
 	}
-
-
+	public Blob getImg() {
+		return img;
+	}
+	public String getDescr() {
+		return descr;
+	}
 
 	@Override
 	public String toString() {
 		return String.format("Product[id=%d, title='%s', desc='%s', price='%f']",
 				id, title, descr, price);
 	}
+
+
+	public void setImg(Blob img) {
+		this.img = img;
+	}
+
+	
+
+	
+
+	
 }

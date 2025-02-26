@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PixeltradeApplication",
+            "request": "launch",
+            "mainClass": "es.grupo12.pixeltrade.PixeltradeApplication",
+            "projectName": "pixeltrade"
+        },
+        {
+            "type": "java",
             "name": "PracticaApplication",
             "request": "launch",
             "mainClass": "PracticaApplication",
