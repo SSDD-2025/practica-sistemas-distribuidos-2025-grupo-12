@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.grupo12.model.Product;
+import es.grupo12.repository.ProductRepository;
 import es.grupo12.service.ProductService;
 
 
@@ -71,6 +72,13 @@ public class ProductWebController {
 	@GetMapping("/upload_product")
 	public String uploadProduct(Model model) {
 		return "uploadProduct";
+	}
+
+	@PostMapping("/uploaded_product")
+	public String uploadedProduct(Model model, @RequestParam String title, @RequestParam MultipartFile image, @RequestParam String description, @RequestParam double price) throws IOException {
+		Product newprod = new Product(title, description, price, null, null);
+		productService.save(newprod, image);
+		return "uploadedProduct";
 	}
 
 }

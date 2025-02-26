@@ -49,8 +49,6 @@ public class Product {
 		// Used by JPA
 	}
 
-	
-
     public long getId() {
         return this.id;
     }
@@ -63,9 +61,7 @@ public class Product {
     public double getPrice() {
         return this.price;
     }
-
     
-
 	public User getBuyer(){
 		return this.buyer;
 	}
@@ -73,9 +69,11 @@ public class Product {
 	public User getSeller(){
 		return this.seller;
 	}
+
 	public Blob getImg() {
 		return img;
 	}
+
 	public String getDescr() {
 		return descr;
 	}
@@ -86,9 +84,38 @@ public class Product {
 				id, title, descr, price);
 	}
 
-
 	public void setImg(Blob img) {
 		this.img = img;
+	}
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+	public void setDescr(String descr) {
+		this.descr = descr;
+	}
+
+
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+
+
+	public void setBuyer(User buyer) {
+		this.buyer = buyer;
+	}
+
+
+
+	public void setSeller(User seller) {
+		this.seller = seller;
 	}
 
 	
