@@ -34,7 +34,7 @@ public class ProductWebController {
 
 	@GetMapping("/")
 	public String showRecommended(Model model) {
-		List<Product> allProducts = productService.findAll();
+		List<Product> allProducts = productService.findByBuyerIsNull();
     	List<Product> limitedProducts = allProducts.stream().limit(3).toList(); // Máximo 3
 		model.addAttribute("products", limitedProducts);
 		return "mainweb";
@@ -42,22 +42,35 @@ public class ProductWebController {
 
 
 	@GetMapping("/products")
-	public String showBooks(Model model) {
-		model.addAttribute("products", productService.findAll());
+	public String showProducts(Model model) {
+		model.addAttribute("products", productService.findByBuyerIsNull());
 		return "products";
 	}
 
-	@GetMapping("/books/{id}")
-	public String showBook(Model model, @PathVariable long id) {
+	@GetMapping("/products/{id}")
+	public String showProduct(Model model, @PathVariable long id) {
 
-		Optional<Product> book = productService.findById(id);
-		if (book.isPresent()) {
-			model.addAttribute("book", book.get());
-			return "book";
+		Optional<Product> product = productService.findById(id);
+		if (product.isPresent()) {
+			model.addAttribute("product", product.get());
+			return "productPage";
 		} else {
-			return "books";
+			return "productNotFound";
 		}
 
+	}
+
+	@GetMapping("/search")
+	public String searchProduct(Model model, @RequestParam("title") String title) {
+
+		List<Product> products = productService.findByTitle(title).stream().filter(product -> product.getBuyer() == null).toList();
+		model.addAttribute("found", products);
+		return "foundProducts";
+	}
+
+	@GetMapping("/upload_product")
+	public String uploadProduct(Model model) {
+		return "uploadProduct";
 	}
 
 }

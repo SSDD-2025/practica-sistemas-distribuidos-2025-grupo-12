@@ -9,7 +9,10 @@ import es.grupo12.model.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+	@Query("SELECT p FROM Product p WHERE p.title LIKE CONCAT(:title, '%')")
 	List<Product> findByTitle(String title);
+
+	List<Product> findByBuyerIsNull();
 	
 }
     

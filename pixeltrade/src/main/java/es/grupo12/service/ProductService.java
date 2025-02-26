@@ -22,6 +22,10 @@ public class ProductService {
 	public Optional<Product> findById(long id) {
 		return productRepository.findById(id);
 	}
+
+	public List<Product> findByTitle(String title) {
+		return productRepository.findByTitle(title);
+	}
 	
 	public boolean exist(long id) {
 		return productRepository.existsById(id);
@@ -35,4 +39,9 @@ public class ProductService {
 
 		return productRepository.save(product);
 	}
+
+	public List<Product> findByBuyerIsNull() {
+		return productRepository.findByBuyerIsNull();
+	}
+
 }
