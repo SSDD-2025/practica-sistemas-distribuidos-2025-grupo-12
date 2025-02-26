@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda de Videojuegos</title>
+  <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>PixelTrade</h1>
+    <p>¡Encuentra los mejores videojuegos, consolas y accesorios de segunda mano!</p>
+  </header>
+
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="/products">Productos</a>
+    <a href="chat.html">Chat</a>
+    <a href="register.html">Regístrate</a>
+    <a href="login.html">Iniciar sesión</a>
+  </nav>
+
+  <section class="products">
+    {{#products}}
+    <div class="product">
+    <img src="https://thumb.pccomponentes.com/w-530-530/articles/16/167414/42183732944-ec9733ee04-b.jpg" alt="Juego {{-index}}">
+    <h3>{{title}}</h3>
+    <p>{{desc}}</p>
+    <p class="price">{{price}}€</p>
+    <button>Agregar al carrito</button>
+    </div>
+    {{/products}}
+</section>
+
+  <footer>
+    &copy; 2025 PixelTrade - Todos los derechos reservados
+  </footer>
+</body>
+</html>

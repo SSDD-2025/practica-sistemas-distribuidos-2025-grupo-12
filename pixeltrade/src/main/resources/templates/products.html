@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="products">
+        {{#products}}
+        <div class="product">
+        <img src="https://thumb.pccomponentes.com/w-530-530/articles/16/167414/42183732944-ec9733ee04-b.jpg" alt="Juego {{-index}}">
+        <h3>{{title}}</h3>
+        <p>{{desc}}</p>
+        <p class="price">{{price}}€</p>
+        <button>Agregar al carrito</button>
+        </div>
+        {{/products}}
+    </section>
+</body>
+</html>
