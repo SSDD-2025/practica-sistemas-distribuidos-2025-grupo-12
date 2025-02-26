@@ -25,10 +25,13 @@ public class UserService {
 		return UserRepository.findById(id);
 	}
 
-	public List<User> findByTitle(String mail) {
+	public List<User> findByMail(String mail) {
 		return UserRepository.findByMail(mail);
 	}
-	
+
+	public List<User> findByUsername(String username) {
+		return UserRepository.findByUsername(username);
+	}
 	public boolean exist(long id) {
 		return UserRepository.existsById(id);
 	}

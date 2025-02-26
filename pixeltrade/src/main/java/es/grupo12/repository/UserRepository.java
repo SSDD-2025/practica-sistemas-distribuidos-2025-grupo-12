@@ -11,5 +11,5 @@ import es.grupo12.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByMail(String mail);
-
+    List<User> findByUsername(String username);
 }
