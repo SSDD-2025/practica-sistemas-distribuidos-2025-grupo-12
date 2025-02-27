@@ -4,21 +4,13 @@
     <link type="text/css" rel="stylesheet" href="style1.css">
 </head>
 <body>
-
-    <nav>
-        <a href="/">Inicio</a>
-        <a href="/products">Productos</a>
-        <a href="chat.html">Chat</a>
-        <a href="register.html">Regístrate</a>
-        <a href="login.html">Iniciar sesión</a>
-      </nav>
-
+    {{>header}}
 
     <section class="products">
         {{#found}}
         <div class="product">
             <a href="/products/{{id}}">
-                <img src="{{{img}}}" alt="Juego {{-index}}">
+                <img src="/products/{{id}}/image" alt="Juego {{-index}}">
             </a>
             <h3>{{title}}</h3>
             <p>{{descr}}</p>
@@ -28,5 +20,6 @@
         {{/found}}
     </section>
 
+    {{>footer}}
 </body>
 </html>

@@ -7,6 +7,7 @@
   <link type="text/css" rel="stylesheet" href="loginstyle.css">
 </head>
 <body>
+  {{>header}}
   <div class="login-container">
     <h2>Iniciar Sesión</h2>
     <form action="/login" method="post">
@@ -16,5 +17,6 @@
       <button type="submit">Ingresar</button>
     </form>
   </div>
+  {{>footer}}
 </body>
 </html>

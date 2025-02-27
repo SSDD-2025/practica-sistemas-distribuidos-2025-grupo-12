@@ -7,25 +7,13 @@
   <link type="text/css" rel="stylesheet" href="style1.css">
 </head>
 <body>
-  <header>
-    <h1>PixelTrade</h1>
-    <p>¡Encuentra los mejores videojuegos, consolas y accesorios de segunda mano!</p>
-  </header>
-
-  <nav>
-    <a href="/">Inicio</a>
-    <a href="/products">Productos</a>
-    <a href="chat.html">Chat</a>
-    <a href="/register">Regístrate</a>
-    <a href="/login">Iniciar sesión</a>
-    <a href="uploadProduct.html">Subir un producto</a>
-  </nav>
+  {{>header}}
 
   <section class="products">
     {{#products}}
     <div class="product">
       <a href="/products/{{id}}">
-        <img src="{{{img}}}" alt="Juego {{-index}}">
+        <img src="/products/{{id}}/image" alt="Juego {{-index}}">
       </a>
     <h3>{{title}}</h3>
     <p>{{descr}}</p>
@@ -35,8 +23,6 @@
     {{/products}}
   </section>
 
-  <footer>
-    &copy; 2025 PixelTrade - Todos los derechos reservados
-  </footer>
+  {{>footer}}
 </body>
 </html>

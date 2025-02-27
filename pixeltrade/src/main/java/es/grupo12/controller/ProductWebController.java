@@ -24,6 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 import es.grupo12.model.Product;
 import es.grupo12.repository.ProductRepository;
 import es.grupo12.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -34,9 +35,9 @@ public class ProductWebController {
 	private ProductService productService;
 
 	@GetMapping("/")
-	public String showRecommended(Model model) {
+	public String showRecommended(Model model, HttpSession session) {
 		List<Product> allProducts = productService.findByBuyerIsNull();
-    	List<Product> limitedProducts = allProducts.stream().limit(3).toList(); // Máximo 3
+    	List<Product> limitedProducts = allProducts.stream().limit(3).toList(); // Max 3
 		model.addAttribute("products", limitedProducts);
 		return "mainweb";
 	}
@@ -79,6 +80,27 @@ public class ProductWebController {
 		Product newprod = new Product(title, description, price, null, null);
 		productService.save(newprod, image);
 		return "uploadedProduct";
+	}
+
+	@GetMapping("/products/{id}/image")
+	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException, IOException {
+
+		Optional<Product> op = productService.findById(id);
+
+		if(op.isPresent()) {
+			Product product = op.get();
+			Resource image;
+			try {
+				image = new InputStreamResource(product.getImg().getBinaryStream());
+			} catch (Exception e) {
+				ClassPathResource resource = new ClassPathResource("static/noPicture.jpg");
+        		byte[] imageBytes = resource.getInputStream().readAllBytes();
+				return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(imageBytes);
+			}
+			return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(image);
+		}else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pic not found");
+		}
 	}
 
 }

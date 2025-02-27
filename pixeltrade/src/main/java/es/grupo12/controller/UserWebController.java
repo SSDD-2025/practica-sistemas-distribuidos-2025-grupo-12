@@ -29,20 +29,20 @@ public class UserWebController {
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        return "register";  // Página HTML del formulario
+        return "register";  // Form HTML page
     }
     @PostMapping("/register")
-    public String newUser(Model model, User user){
+    public String newUser(Model model, User user, HttpSession session){
         
-		User newUser = userService.save(user);
-        model.addAttribute("name", newUser.getUsername());
-
+        session.setAttribute("user", user);
+        model.addAttribute("username", user.getUsername());
+        userService.save(user);
 		return  "saved_user";
 	}
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
-        return "login";  // Página HTML del formulario
+        return "login";  // HTML page
     }
     @PostMapping("/login")
     public String loginUser(@RequestParam String username, 
@@ -52,9 +52,9 @@ public class UserWebController {
         User user = users.get(0);
         
         if (user != null && user.getPassword().equals(password)) {
-            session.setAttribute("user", user); // Guarda el usuario en sesión
+            session.setAttribute("user", user); // Save user in http sesion
             model.addAttribute("name", user.getUsername());
-            return "logged_user";  // Página de bienvenida
+            return "logged_user";  // Welcome page
         } else {
             model.addAttribute("error", "Usuario o contraseña incorrectos");
             return "login";
