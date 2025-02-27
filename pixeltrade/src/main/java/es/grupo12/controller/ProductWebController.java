@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.grupo12.model.Product;
+import es.grupo12.model.User;
 import es.grupo12.repository.ProductRepository;
 import es.grupo12.service.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -39,19 +40,25 @@ public class ProductWebController {
 		List<Product> allProducts = productService.findByBuyerIsNull();
     	List<Product> limitedProducts = allProducts.stream().limit(3).toList(); // Max 3
 		model.addAttribute("products", limitedProducts);
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
 		return "mainweb";
 	}
 
 
 	@GetMapping("/products")
-	public String showProducts(Model model) {
+	public String showProducts(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
 		model.addAttribute("products", productService.findByBuyerIsNull());
 		return "products";
 	}
 
 	@GetMapping("/products/{id}")
-	public String showProduct(Model model, @PathVariable long id) {
+	public String showProduct(Model model, @PathVariable long id, HttpSession session) {
 
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
 		Optional<Product> product = productService.findById(id);
 		if (product.isPresent()) {
 			model.addAttribute("product", product.get());
@@ -63,21 +70,18 @@ public class ProductWebController {
 	}
 
 	@GetMapping("/search")
-	public String searchProduct(Model model, @RequestParam("title") String title) {
+	public String searchProduct(Model model, @RequestParam("title") String title, HttpSession session) {
 
 		List<Product> products = productService.findByTitle(title).stream().filter(product -> product.getBuyer() == null).toList();
 		model.addAttribute("found", products);
 		return "foundProducts";
 	}
 
-	@GetMapping("/upload_product")
-	public String uploadProduct(Model model) {
-		return "uploadProduct";
-	}
-
 	@PostMapping("/uploaded_product")
-	public String uploadedProduct(Model model, @RequestParam String title, @RequestParam MultipartFile image, @RequestParam String description, @RequestParam double price) throws IOException {
-		Product newprod = new Product(title, description, price, null, null);
+	public String uploadedProduct(Model model, @RequestParam String title, @RequestParam MultipartFile image, @RequestParam String description, @RequestParam double price, HttpSession session) throws IOException {
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+		Product newprod = new Product(title, description, price, null, user);
 		productService.save(newprod, image);
 		return "uploadedProduct";
 	}

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.grupo12.model.User;
@@ -31,12 +30,11 @@ public class UserWebController {
         model.addAttribute("user", new User());
         return "register";  // Form HTML page
     }
+
     @PostMapping("/register")
-    public String newUser(Model model, User user, HttpSession session){
-        
-        session.setAttribute("user", user);
-        model.addAttribute("username", user.getUsername());
-        userService.save(user);
+    public String newUser(Model model, User user){
+        User newUser = userService.save(user);
+        model.addAttribute("name", newUser.getUsername());
 		return  "saved_user";
 	}
 
@@ -59,6 +57,12 @@ public class UserWebController {
             model.addAttribute("error", "Usuario o contraseña incorrectos");
             return "login";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "/";
     }
     
 }

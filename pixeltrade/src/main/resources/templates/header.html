@@ -7,9 +7,16 @@
     <nav>
         <a href="/">Inicio</a>
         <a href="/products">Productos</a>
-        <a href="chat.html">Chat</a>
-        <a href="/register">Regístrate</a>
-        <a href="/login">Iniciar sesión</a>
-        <a href="uploadProduct.html">Subir un producto</a>
-      </nav>
+        <a href="/chat">Chat</a>
+    
+        {{#user}}
+            <a href="uploadProduct.html">Subir un producto</a>
+            <a href="/logout">Cerrar sesión ({{user.username}})</a>
+        {{/user}}
+        
+        {{^user}}
+            <a href="/register">Regístrate</a>
+            <a href="/login">Iniciar sesión</a>
+        {{/user}}
+    </nav>
 </html>

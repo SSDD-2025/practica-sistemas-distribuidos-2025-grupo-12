@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <link rel="stylesheet" href="chatstyle.css">
+</head>
+<body>
+    {{>header}}
+    <div class="container">
+        <div class="sidebar">
+            <ul class="chat-list" id="chatList">
+                <li>Tayson</li>
+                <li>Dani</li>
+                <li>Martín</li>
+            </ul>
+        </div>
+        <div class="chat">
+            <div class="chat-header">
+                <span id="chatHeader">Selecciona un chat</span>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Escribe un mensaje..." disabled>
+                <button>Enviar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
