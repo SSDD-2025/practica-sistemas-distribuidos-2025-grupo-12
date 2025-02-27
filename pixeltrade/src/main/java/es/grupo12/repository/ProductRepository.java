@@ -1,6 +1,8 @@
 package es.grupo12.repository;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	List<Product> findByBuyerIsNull();
 	
+	Optional<Product> findById(long id);
 }
     
 

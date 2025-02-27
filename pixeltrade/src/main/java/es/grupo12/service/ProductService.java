@@ -42,6 +42,10 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 
+	public Product save(Product product) {
+		return productRepository.save(product);
+	}
+
 	public List<Product> findByBuyerIsNull() {
 		return productRepository.findByBuyerIsNull();
 	}

@@ -108,8 +108,14 @@ public class ProductWebController {
 	}
 
 	@GetMapping("/buy_product")
-	public String buyProduct(HttpSession session) {
-		return new String();
+	public String buyProduct(Model model, @RequestParam long id, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+		product.setBuyer(user);
+		productService.save(product);
+
+		return "boughtProduct";
 	}
 	
 }
