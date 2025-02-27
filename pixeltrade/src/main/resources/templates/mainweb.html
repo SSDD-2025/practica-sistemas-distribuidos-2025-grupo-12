@@ -11,15 +11,14 @@
 
   <section class="products">
     {{#products}}
-    <div class="product">
-      <a href="/products/{{id}}">
-        <img src="/products/{{id}}/image" alt="Juego {{-index}}">
-      </a>
-    <h3>{{title}}</h3>
-    <p>{{descr}}</p>
-    <p class="price">{{price}}€</p>
-    <button>Agregar al carrito</button>
-    </div>
+      <div class="product">
+        <a href="/products/{{id}}">
+          <img src="/products/{{id}}/image" alt="Juego {{-index}}">
+        </a>
+      <h3>{{title}}</h3>
+      <p>{{descr}}</p>
+      <p class="price">{{price}}€</p>
+      </div>
     {{/products}}
   </section>
 

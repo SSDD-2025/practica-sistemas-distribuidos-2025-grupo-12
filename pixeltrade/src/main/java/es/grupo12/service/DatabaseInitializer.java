@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import es.grupo12.model.Message;
 import es.grupo12.model.Product;
 import es.grupo12.model.User;
 import jakarta.annotation.PostConstruct;
@@ -23,18 +24,29 @@ public class DatabaseInitializer {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageService messageService;
+
     @PostConstruct
     public void init() throws IOException {
         
+        User admin = new User("admin", "admin@host", "1234");
         User usuario1 = new User("martinGP", "martingut@gmail.com", "martiN0par");
         User usuario2 = new User("DavidA","davidarce@gmail.com", "DavArce44");
         User usuario3 = new User("TayPB","taysonpb@gmail.com", "Tayson0Pb");
         User usuario4 = new User("DanMM","danmunmar@gmail.com", "DanIel1");
 
+        userService.save(admin);
         userService.save(usuario1);
         userService.save(usuario2);
         userService.save(usuario3);
         userService.save(usuario4);
+
+        Message message1 = new Message("Aceptas ofertas??", usuario1, usuario2);
+        Message message2 = new Message("Lo tienes muy caro", usuario3, usuario1);
+
+        messageService.save(message1);
+        messageService.save(message2);
 
 
 

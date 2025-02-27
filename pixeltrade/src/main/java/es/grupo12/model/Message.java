@@ -18,6 +18,10 @@ public class Message {
     @OneToOne
     private User receiver;
 
+    public Message(){
+        
+    }
+
     public Message(String text, User sender, User receiver) {
         this.text = text;
         this.sender = sender;

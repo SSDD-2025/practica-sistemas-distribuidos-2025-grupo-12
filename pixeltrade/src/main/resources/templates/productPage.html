@@ -20,6 +20,17 @@
                 <input type="hidden" name="id" value="{{product.id}}">
                 <button type="submit" class="cart">Comprar</button>
             </form>
+
+            <form action="/send_message" method="POST">
+                <label for="message">Mensaje para el vendedor:</label>
+                <textarea id="message" name="text" rows="4" cols="50" placeholder="Escribe tu mensaje aquí..."></textarea>
+                
+                <input type="hidden" name="idsender" value="{{user.id}}">
+                <input type="hidden" name="idreceiver" value="{{product.seller.id}}">
+                
+                <button type="submit">Enviar mensaje</button>
+            </form>
+
         {{/user}}
     </div>
 
