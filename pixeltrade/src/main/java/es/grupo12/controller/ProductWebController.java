@@ -107,4 +107,9 @@ public class ProductWebController {
 		}
 	}
 
+	@GetMapping("/buy_product")
+	public String buyProduct(HttpSession session) {
+		return new String();
+	}
+	
 }
