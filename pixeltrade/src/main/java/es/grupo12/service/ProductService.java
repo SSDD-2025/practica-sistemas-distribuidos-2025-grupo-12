@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.grupo12.model.Product;
+import es.grupo12.model.User;
 import es.grupo12.repository.ProductRepository;;
 
 @Service
@@ -48,6 +49,13 @@ public class ProductService {
 
 	public List<Product> findByBuyerIsNull() {
 		return productRepository.findByBuyerIsNull();
+	}
+
+	public List<Product> findByBuyer(User user) {
+		return productRepository.findByBuyer(user);
+	}
+	public List<Product> findBySeller(User user) {
+		return productRepository.findBySeller(user);
 	}
 
 }

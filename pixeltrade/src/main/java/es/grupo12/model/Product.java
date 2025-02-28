@@ -77,13 +77,6 @@ public class Product {
 	public String getDescr() {
 		return descr;
 	}
-
-	@Override
-	public String toString() {
-		return String.format("Product[id=%d, title='%s', desc='%s', price='%f']",
-				id, title, descr, price);
-	}
-
 	public void setImg(Blob img) {
 		this.img = img;
 	}
@@ -117,6 +110,14 @@ public class Product {
 	public void setSeller(User seller) {
 		this.seller = seller;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("Product[id=%d, title='%s', desc='%s', price='%f']",
+				id, title, descr, price);
+	}
+
+	
 
 	
 

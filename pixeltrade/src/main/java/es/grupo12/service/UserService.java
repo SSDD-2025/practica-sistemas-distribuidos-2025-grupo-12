@@ -1,16 +1,16 @@
 package es.grupo12.service;
 
-import java.io.IOException;
+import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import es.grupo12.model.User;
-import es.grupo12.repository.UserRepository;;
+import es.grupo12.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;;
 
 @Service
 public class UserService {
@@ -43,4 +43,7 @@ public class UserService {
 	public User save(User user){
 		return UserRepository.save(user);
 	}
+
+
+	
 }

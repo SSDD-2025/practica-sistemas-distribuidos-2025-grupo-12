@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="style1.css">
+    <title>Reseñas</title>
+</head>
+<body>
+
+    {{>header}}
+        <ul>
+            {{#reviews}}
+            <li>
+                <div class="review">
+                    <p>{{message}} ({{author.username}})</p>
+                </div>
+            </li>
+            {{/reviews}}
+        </ul>
+        
+
+    {{>footer}}
+</body>
+</html>

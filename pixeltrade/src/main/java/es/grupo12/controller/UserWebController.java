@@ -64,5 +64,12 @@ public class UserWebController {
         session.invalidate();
         return "/";
     }
+
+    @GetMapping("/profile")
+    public String showProfile(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        return "profile"; 
+    }
     
 }

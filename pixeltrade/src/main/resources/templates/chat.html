@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat</title>
-  <link rel="stylesheet" href="chatstyle.css">
+  <link type="text/css" rel="stylesheet" href="style1.css">
 </head>
 <body>
     {{>header}}
@@ -24,8 +24,11 @@
             </div>
             <div class="chat-messages" id="chatMessages"></div>
             <div class="chat-input">
-                <input type="text" id="messageInput" placeholder="Escribe un mensaje..." disabled>
-                <button>Enviar</button>
+                <form action="/send_message" method="post">
+                    <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
+                    <button>Enviar</button>
+                </form>
+                
             </div>
         </div>
     </div>

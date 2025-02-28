@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import es.grupo12.model.Message;
 import es.grupo12.model.Product;
+import es.grupo12.model.Review;
 import es.grupo12.model.User;
 import jakarta.annotation.PostConstruct;
 
@@ -26,6 +27,10 @@ public class DatabaseInitializer {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private ReviewService reviewService;
+
 
     @PostConstruct
     public void init() throws IOException {
@@ -71,8 +76,11 @@ public class DatabaseInitializer {
         Product juego10= new Product("Yakuza Kiwami", "Sandbox ambientado en Japon", 21, null, usuario4);
         saveProductWithURLImage(juego10,"https://www.rpgfan.com/wp-content/uploads/2020/07/Yakuza-Kiwami-Cover-Art-US.jpg");
         
-                
+        Product consola1 = new Product("PlayStation 4 Pro","Comprada en el 2019 sigue como nueva por poco uso",249.99,usuario4,usuario2);  
+        saveProductWithURLImage(consola1,"https://m.media-amazon.com/images/I/71GrRdRbV3L.jpg");
         
+        Review review1 = new Review("Es un comprador excelente. Puntual y profesional",null,null);
+        reviewService.save(review1,usuario2,usuario4);
             }
         
             private Product saveProductWithURLImage(Product product, String image) throws IOException {

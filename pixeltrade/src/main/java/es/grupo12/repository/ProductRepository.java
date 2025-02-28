@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 import es.grupo12.model.Product;
+import es.grupo12.model.User;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -15,8 +16,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> findByTitle(String title);
 
 	List<Product> findByBuyerIsNull();
-	
+	List<Product> findByBuyer(User user);
 	Optional<Product> findById(long id);
+
+    List<Product> findBySeller(User user);
 }
     
 

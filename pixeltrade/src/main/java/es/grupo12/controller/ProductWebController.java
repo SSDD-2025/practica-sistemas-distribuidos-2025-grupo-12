@@ -2,6 +2,7 @@ package es.grupo12.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,14 +18,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.grupo12.model.Product;
+import es.grupo12.model.Review;
 import es.grupo12.model.User;
-import es.grupo12.repository.ProductRepository;
+
 import es.grupo12.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 
@@ -39,6 +41,7 @@ public class ProductWebController {
 	@GetMapping("/")
 	public String showRecommended(Model model, HttpSession session) {
 		List<Product> allProducts = productService.findByBuyerIsNull();
+		Collections.shuffle(allProducts);
     	List<Product> limitedProducts = allProducts.stream().limit(3).toList(); // Max 3
 		model.addAttribute("products", limitedProducts);
 		User user = (User) session.getAttribute("user");
@@ -53,6 +56,22 @@ public class ProductWebController {
         model.addAttribute("user", user);
 		model.addAttribute("products", productService.findByBuyerIsNull());
 		return "products";
+	}
+
+	@GetMapping("/purchases")
+	public String showPurchases(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+		model.addAttribute("products", productService.findByBuyer(user));
+		return "purchases";
+	}
+
+	@GetMapping("/sales")
+	public String showSales(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+		model.addAttribute("products", productService.findBySeller(user));
+		return "sales";
 	}
 
 	@GetMapping("/products/{id}")
@@ -115,7 +134,7 @@ public class ProductWebController {
 		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 		product.setBuyer(user);
 		productService.save(product);
-
+		session.setAttribute("lastBoughtProduct", product);
 		return "boughtProduct";
 	}
 	
