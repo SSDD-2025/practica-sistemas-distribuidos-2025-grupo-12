@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat List</title>
+  <link type="text/css" rel="stylesheet" href="style1.css">
+</head>
+<body>
+    {{>header}}
+    <section class="chats">
+        {{#chats}}
+          <div class="chat">
+            <form action="/show_chat" method="POST">
+                <input type="hidden" name="id" value="{{id}}">
+                <button type="submit">{{username}}</button>
+            </form>
+          </div>
+        {{/chats}}
+    </section>
+    <!--<div class="container">
+        <div class="sidebar">
+            <ul class="chat-list" id="chatList">
+                {{#chats}}
+                    <li>
+                        <a href="#" class="user-link">{{username}}</a>
+                    </li>
+                {{/chats}}
+            </ul>
+        </div>
+        <div class="chat">
+            <div class="chat-header">
+                <span id="chatHeader">Selecciona un chat</span>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <form action="/send_message" method="post">
+                    <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
+                    <button>Enviar</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>-->
+</body>
+</html>

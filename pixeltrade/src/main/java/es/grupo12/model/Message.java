@@ -1,10 +1,12 @@
 package es.grupo12.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Message {
@@ -13,17 +15,19 @@ public class Message {
 	private long id;
 
     private String text;
-    @OneToOne
+    private LocalDateTime date;
+    @ManyToOne
     private User sender;
-    @OneToOne
+    @ManyToOne
     private User receiver;
 
     public Message(){
         
     }
 
-    public Message(String text, User sender, User receiver) {
+    public Message(String text, LocalDateTime date, User sender, User receiver) {
         this.text = text;
+        this.date = date;
         this.sender = sender;
         this.receiver = receiver;
     }
@@ -59,4 +63,13 @@ public class Message {
     public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
 }

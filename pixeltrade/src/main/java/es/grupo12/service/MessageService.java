@@ -15,7 +15,7 @@ public class MessageService {
     @Autowired
 	private MessageRepository messageRepository;
 
-		public Message save(Message message) {
+	public Message save(Message message) {
 		return messageRepository.save(message);
 	}
 
@@ -25,5 +25,9 @@ public class MessageService {
 
     public List<Message> findByReceiver(User user) {
 		return messageRepository.findByReceiver(user);
+	}
+
+	public List<Message> findMessagesBetweenUsers(User user1, User user2) {
+		return messageRepository.findMessagesBetweenUsers(user1, user2);
 	}
 }

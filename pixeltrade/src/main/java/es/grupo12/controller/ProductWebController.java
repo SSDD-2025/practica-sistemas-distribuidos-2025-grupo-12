@@ -24,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.grupo12.model.Product;
-import es.grupo12.model.Review;
 import es.grupo12.model.User;
 
 import es.grupo12.service.ProductService;

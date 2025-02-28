@@ -2,7 +2,7 @@ package es.grupo12.service;
 
 import es.grupo12.utils.ImageUtils;
 import java.io.IOException;
-import java.util.List;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -47,12 +47,16 @@ public class DatabaseInitializer {
         userService.save(usuario3);
         userService.save(usuario4);
 
-        Message message1 = new Message("Aceptas ofertas??", usuario1, usuario2);
-        Message message2 = new Message("Lo tienes muy caro", usuario3, usuario1);
+        LocalDateTime date1 = LocalDateTime.of(2025, 2, 20, 12, 30, 32);
+        Message message1 = new Message("Aceptas ofertas??", date1, usuario1, usuario2);
+        LocalDateTime date2 = LocalDateTime.of(2025, 2, 20, 12, 31, 45);
+        Message message2 = new Message("Lo tienes muy caro", date2, usuario3, usuario1);
+        LocalDateTime date3 = LocalDateTime.of(2025, 2, 20, 12, 33, 12);
+        Message message3 = new Message("Claro!", date3, usuario2, usuario1);
 
         messageService.save(message1);
         messageService.save(message2);
-
+        messageService.save(message3);
 
 
         Product juego1 = new Product("Persona 3 Reload", "JRPG de PS5", 60, null, usuario2 );
