@@ -82,18 +82,47 @@ public class ProductWebController {
 
 	@GetMapping("/products/{id}")
 	public String showProduct(Model model, @PathVariable long id, HttpSession session) {
-
 		User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
+
 		Optional<Product> product = productService.findById(id);
 		if (product.isPresent()) {
 			model.addAttribute("product", product.get());
+
+			if (user != null && product.get().getSeller().getId() == user.getId()) {
+				model.addAttribute("isOwnProduct", true);
+			} else {
+				model.addAttribute("isOwnProduct", false);
+			}
+
+			if (user != null && user.getId() == 1) {
+				model.addAttribute("isAdmin", true);  // Pass this flag to Mustache
+			} else {
+				model.addAttribute("isAdmin", false);
+			}
+
 			return "productPage";
 		} else {
 			return "productNotFound";
 		}
 
 	}
+
+	@GetMapping("/edit_product/{id}")
+	public String editProduct(Model model, @PathVariable long id, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+
+		Optional<Product> product = productService.findById(id);
+		if (product.isPresent()) {
+			model.addAttribute("product", product.get());
+			return "editProductPage"; 
+		} else {
+			return "productNotFound";
+		}
+
+	}
+	
 
 	@GetMapping("/search")
 	public String searchProduct(Model model, @RequestParam("title") String title, HttpSession session) {
