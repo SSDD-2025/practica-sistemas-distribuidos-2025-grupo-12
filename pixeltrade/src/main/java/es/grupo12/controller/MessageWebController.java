@@ -20,8 +20,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import ch.qos.logback.core.joran.sanity.Pair;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
@@ -59,24 +58,24 @@ public class MessageWebController {
     }
 
     @PostMapping("/send_message")
-    public String sendMessage(Model model, @RequestParam String text, @RequestParam Long idsender, @RequestParam Long idreceiver) {
+    public String sendMessage(@RequestParam String text, @RequestParam Long idsender, @RequestParam Long idreceiver, HttpSession session) {
 
-        User sender = userService.findById(idsender).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        User receiver = userService.findById(idreceiver).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        User sender = userService.findById(idsender).orElseThrow(() -> new RuntimeException("User not found"));
+        User receiver = userService.findById(idreceiver).orElseThrow(() -> new RuntimeException("User not found"));
 
         LocalDateTime now = LocalDateTime.now();
         Message message = new Message(text, now, sender, receiver);
         messageService.save(message);
-        
-        return "/";
+
+        return "redirect:/show_chat?id=" + idreceiver;
     }
     
-    @PostMapping("/show_chat")
+    @GetMapping("/show_chat")
     public String showChat(Model model, @RequestParam Long id, HttpSession session) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
 
-        User sender = userService.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        User sender = userService.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("contact", sender);
 
         List<Message> messages = messageService.findMessagesBetweenUsers(sender, user);

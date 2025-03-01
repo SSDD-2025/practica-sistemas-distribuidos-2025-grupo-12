@@ -8,6 +8,7 @@
 </head>
 <body>
     {{>header}}
+    <h1>{{contact.username}}</h1>
     <div class="messages">
         {{#messages}}
             {{#value}}
@@ -26,12 +27,11 @@
     </div>
     <div class="chat-input">
         <form action="/send_message" method="post">
-            <textarea id="message" name="text" rows="4" cols="50" placeholder="Escribe tu mensaje aquí..."></textarea>
+            <textarea id="message" name="text" rows="4" cols="50" placeholder="Escribe tu mensaje aquí..." required></textarea>
             <input type="hidden" name="idsender" value="{{user.id}}">
             <input type="hidden" name="idreceiver" value="{{contact.id}}">
             <button type="submit">Enviar</button>
         </form>
-        
     </div>
 </body>
 </html>
