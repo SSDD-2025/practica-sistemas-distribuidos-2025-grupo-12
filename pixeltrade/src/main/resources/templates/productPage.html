@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{product.title}}</title>
-    <link type="text/css" rel="stylesheet" href="/productStyle.css">
+    <link type="text/css" rel="stylesheet" href="/style1.css">
 </head>
 <body>
     {{>header}}
@@ -15,23 +15,28 @@
         <p class="price">${{product.price}}</p>
         <p>{{product.descr}}</p>
         <p><strong>Vendedor:</strong> <a href="/seller/{{product.seller.id}}" class="username">{{product.seller.username}}</a></p>
-        {{#user}}
-            <form action="/buy_product" method="GET">
-                <input type="hidden" name="id" value="{{product.id}}">
-                <button type="submit" class="cart">Comprar</button>
-            </form>
 
-            <form action="/send_message" method="POST">
-                <label for="message">Mensaje para el vendedor:</label>
-                <textarea id="message" name="text" rows="4" cols="50" placeholder="Escribe tu mensaje aquí..."></textarea>
-                
-                <input type="hidden" name="idsender" value="{{user.id}}">
-                <input type="hidden" name="idreceiver" value="{{product.seller.id}}">
-                
-                <button type="submit">Enviar mensaje</button>
-            </form>
+        <div>
+            {{#user}}
+                <form action="/buy_product" method="GET">
+                    <input type="hidden" name="id" value="{{product.id}}">
+                    <button type="submit" class="cart">Comprar</button>
+                </form>
 
-        {{/user}}
+                <form action="/send_message" method="POST">
+                    <label for="message">Mensaje para el vendedor:</label>
+                    <textarea id="message" name="text" rows="4" cols="50" placeholder="Escribe tu mensaje aquí..."></textarea>
+                    
+                    <input type="hidden" name="idsender" value="{{user.id}}">
+                    <input type="hidden" name="idreceiver" value="{{product.seller.id}}">
+                    
+                    <div>
+                        <button type="submit">Enviar mensaje</button>
+                    </div>
+                </form>
+
+            {{/user}}
+        </div>
     </div>
 
     {{>footer}}

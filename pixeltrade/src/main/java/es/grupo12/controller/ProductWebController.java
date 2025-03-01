@@ -57,6 +57,13 @@ public class ProductWebController {
 		return "products";
 	}
 
+	@GetMapping("/uploadProduct")
+	public String uploadProduct(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+		return "uploadProduct";
+	}
+
 	@GetMapping("/purchases")
 	public String showPurchases(Model model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
