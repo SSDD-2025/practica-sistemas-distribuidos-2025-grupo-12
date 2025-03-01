@@ -54,8 +54,13 @@ public class ProductService {
 	public List<Product> findByBuyer(User user) {
 		return productRepository.findByBuyer(user);
 	}
+
 	public List<Product> findBySeller(User user) {
 		return productRepository.findBySeller(user);
+	}
+
+	public void deleteById(Long id) {
+		productRepository.deleteById(id);
 	}
 
 }

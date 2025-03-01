@@ -27,6 +27,7 @@ import es.grupo12.model.Product;
 import es.grupo12.model.User;
 
 import es.grupo12.service.ProductService;
+import es.grupo12.service.UserService;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -36,6 +37,9 @@ public class ProductWebController {
 
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("/")
 	public String showRecommended(Model model, HttpSession session) {
@@ -121,6 +125,34 @@ public class ProductWebController {
 			return "productNotFound";
 		}
 
+	}
+
+	@PostMapping("/update_product/{id}")
+	public String updateProduct(@PathVariable long id, @RequestParam String title, @RequestParam String description, @RequestParam double price, @RequestParam long sellerId, @RequestParam(required = false) MultipartFile image) throws IOException {
+
+		User seller = userService.findById(sellerId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+		product.setTitle(title);
+		product.setDescr(description);
+		product.setPrice(price);
+
+		if (image != null && !image.isEmpty()) {
+			productService.save(product, image);
+		}
+		else {
+			productService.save(product);
+		}
+
+    	return "updatedProduct"; 
+	}
+
+	@PostMapping("/delete_product/{id}")
+	public String deleteProduct(@PathVariable long id) throws IOException {
+
+		productService.deleteById(id);
+
+    	return "deletedProduct"; 
 	}
 	
 

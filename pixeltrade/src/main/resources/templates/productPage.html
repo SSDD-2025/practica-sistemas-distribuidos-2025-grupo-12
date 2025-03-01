@@ -42,6 +42,11 @@
                     <form action="/edit_product/{{product.id}}" method="GET">
                         <button type="submit">Editar producto</button>
                     </form>
+
+                    <form action="/delete_product/{{product.id}}" method="POST">
+                        <button type="submit">Borrar producto</button>
+                    </form>
+
                 {{/isAdmin}}
 
             {{/user}}

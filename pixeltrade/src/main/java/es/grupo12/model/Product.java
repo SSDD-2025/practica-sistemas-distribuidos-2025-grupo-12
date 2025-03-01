@@ -31,9 +31,6 @@ public class Product {
 	private User seller;
 
 	
-	
-
-	
 
 	public Product(String title, String descr, double price, User buyer, User seller) {
 		this.title = title;

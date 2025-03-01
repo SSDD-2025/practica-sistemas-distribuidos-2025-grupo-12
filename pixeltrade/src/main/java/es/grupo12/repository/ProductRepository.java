@@ -16,10 +16,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> findByTitle(String title);
 
 	List<Product> findByBuyerIsNull();
+	
 	List<Product> findByBuyer(User user);
+
 	Optional<Product> findById(long id);
 
     List<Product> findBySeller(User user);
+
 }
     
 
