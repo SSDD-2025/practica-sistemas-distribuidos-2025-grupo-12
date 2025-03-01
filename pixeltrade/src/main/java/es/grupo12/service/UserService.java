@@ -1,6 +1,5 @@
 package es.grupo12.service;
 
-import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import es.grupo12.model.User;
 import es.grupo12.repository.UserRepository;
-import jakarta.servlet.http.HttpSession;;
 
 @Service
 public class UserService {
