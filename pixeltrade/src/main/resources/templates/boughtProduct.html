@@ -4,12 +4,14 @@
 </head>
 <body>
     {{>header}}
-    <h2>Comprado con éxito!</h2>
-    <form action="/write_review" method="post"> 
-        <p>Valora tu experiencia con el vendedor:</p>
-        <textarea id="message" name="message" rows="7" placeholder="Escriba aquí..."></textarea>
-        <button type="submit">Enviar</button>
-    </form>
+    <div class="review-container">
+        <h2>¡Comprado con éxito!</h2>
+        <form action="/write_review" method="post"> 
+            <p>Valora tu experiencia con el vendedor:</p>
+            <textarea id="message" name="message" rows="7" placeholder="Escriba aquí..." required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
     {{>footer}}
 </body>
     

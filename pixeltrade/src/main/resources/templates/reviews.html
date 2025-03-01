@@ -6,15 +6,19 @@
 <body>
 
     {{>header}}
-        <ul>
-            {{#reviews}}
-            <li>
-                <div class="review">
-                    <p>{{message}} ({{author.username}})</p>
-                </div>
-            </li>
-            {{/reviews}}
-        </ul>
+    <h2 class="head-title">Mis reseñas</h2>
+    <div class="reviews-container">
+        
+        {{#reviews}}
+        <div class="review-card">
+            <p>{{message}} ({{author.username}})</p>
+        </div>
+        {{/reviews}}
+
+        {{^reviews}}
+        <p class="no-reviews">Todavía no tiene ninguna reseña.</p>
+        {{/reviews}}
+    </div>
         
 
     {{>footer}}

@@ -70,5 +70,11 @@ public class UserWebController {
         model.addAttribute("user", user);
         return "profile"; 
     }
-    
+    @GetMapping("/personalInfo")
+    public String showPersonalInformation(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        return "personalInfo"; 
+    }
+
 }

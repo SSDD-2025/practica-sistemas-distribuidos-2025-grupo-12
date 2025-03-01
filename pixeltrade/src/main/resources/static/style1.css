@@ -195,6 +195,147 @@ footer {
 .register-container button:hover {
     background-color: #2980b9;
 }
+.profile-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 50px auto; 
+}
+
+.profile-container h2 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.profile-container label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #34495e;
+}
+
+.profile-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    cursor: not-allowed;
+}
+
+.profile-container a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.profile-container a:hover {
+    color: #2980b9;
+}
+.head-title {
+    text-align: center;
+    font-size: 28px;
+    color: #2c3e50;
+    margin-top: 20px; 
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.reviews-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.review-card {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+.no-reviews {
+    color: #777;
+    font-size: 16px;
+}
+
+.review-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    justify-items: center;
+}
+.review-container textarea {
+    width: 95%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.review-container button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 20px;
+}
+
+.review-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.review-container form p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.new-product-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    justify-items: center;
+}
+.new-product-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.new-product-container button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 20px;
+    
+}
 
 .chats {
     display: flex;
