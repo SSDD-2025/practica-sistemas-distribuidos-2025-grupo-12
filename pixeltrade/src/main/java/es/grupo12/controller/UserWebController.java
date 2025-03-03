@@ -1,16 +1,22 @@
 package es.grupo12.controller;
 
+import java.io.IOException;
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.grupo12.model.User;
 import es.grupo12.repository.UserRepository;
+import es.grupo12.service.MessageService;
+import es.grupo12.service.ProductService;
+import es.grupo12.service.ReviewService;
 import es.grupo12.service.UserService;
 import jakarta.servlet.http.HttpSession;
 
@@ -20,6 +26,15 @@ public class UserWebController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ProductService productService;
+
+    @Autowired
+    ReviewService reviewService;
+
+    @Autowired
+    MessageService messageService;
 
     @Autowired
     UserRepository userRepository;
@@ -47,6 +62,7 @@ public class UserWebController {
                             HttpSession session, Model model) {
         List<User> users = userService.findByUsername(username);
         User user = users.get(0);
+
         
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("user", user); // Save user in http sesion
@@ -70,11 +86,37 @@ public class UserWebController {
         model.addAttribute("user", user);
         return "profile"; 
     }
+
+    @GetMapping("/administration")
+    public String showAdministration(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        if (user != null && user.getId() == 1) {
+            model.addAttribute("isAdmin", true);  // Pass this flag to Mustache
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+        return "administration"; 
+    }
+    @GetMapping("/users")
+    public String showUser(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        List<User> allUsers = userService.findAll();
+        model.addAttribute("users", allUsers);
+        model.addAttribute("user", user);
+        return "users"; 
+    }
+
     @GetMapping("/personalInfo")
     public String showPersonalInformation(Model model,HttpSession session) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         return "personalInfo"; 
     }
-
+    @PostMapping("/delete_user")
+	public String deleteUser(@RequestParam String id) throws IOException {
+        long iden = Long.parseLong(id);
+        userService.deleteById(iden);
+    	return "redirect:/users"; 
+	}
 }

@@ -12,5 +12,9 @@ import es.grupo12.model.User;
 public interface ReviewRepository extends JpaRepository<Review,Long>{
 
     List<Review> findBySeller(User user);
+
+    void deleteByAuthor(User user);
+
+    void deleteBySeller(User user);
     
 }

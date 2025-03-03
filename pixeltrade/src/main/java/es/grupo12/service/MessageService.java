@@ -30,4 +30,20 @@ public class MessageService {
 	public List<Message> findMessagesBetweenUsers(User user1, User user2) {
 		return messageRepository.findMessagesBetweenUsers(user1, user2);
 	}
+
+    public List<Message> findAll() {
+        return messageRepository.findAll();
+    }
+
+	public void deleteById(long id) {
+		messageRepository.deleteById(id);
+	}
+
+    public void deleteBySender(User user) {
+        messageRepository.deleteBySender(user);
+    }
+
+    public void deleteByReceiver(User user) {
+        messageRepository.deleteByReceiver(user);
+    }
 }

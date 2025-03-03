@@ -215,10 +215,37 @@ footer {
     display: block;
     text-align: left;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 5px;
     color: #34495e;
 }
 
+.table-container table {
+    width: 100%;
+    background: white;
+}
+
+.table-container thead {
+    background-color: #444;
+    color: white;
+}
+
+.table-container th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.table-container tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+.table-container button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
 .profile-container input {
     width: 100%;
     padding: 10px;
@@ -454,17 +481,6 @@ footer {
     background-color: #0056b3;
 }
 
-/*a.button {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #2c3e50;
-    font-weight: bold;
-    border: 2px solid #2c3e50;
-    padding: 10px 20px;
-    display: inline-block;
-    border-radius: 5px;
-    transition: color 0.3s ease, background-color 0.3s ease;
-}*/
 
 a.button {
     margin: 0 auto;

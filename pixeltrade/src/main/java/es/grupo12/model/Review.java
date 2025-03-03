@@ -3,6 +3,7 @@ package es.grupo12.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -14,9 +15,11 @@ public class Review {
     private String message;
 
     @ManyToOne
+    @JoinColumn(name = "author_id")
     private User author;
 
     @ManyToOne
+    @JoinColumn(name = "seller_id")
     private User seller;
 
     public Review() {

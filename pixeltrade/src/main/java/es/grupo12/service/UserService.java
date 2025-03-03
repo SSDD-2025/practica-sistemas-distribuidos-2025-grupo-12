@@ -8,39 +8,73 @@ import org.springframework.stereotype.Service;
 
 
 import es.grupo12.model.User;
+import es.grupo12.repository.MessageRepository;
+import es.grupo12.repository.ProductRepository;
+import es.grupo12.repository.ReviewRepository;
 import es.grupo12.repository.UserRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
 
 
 	@Autowired
-	private UserRepository UserRepository;
+	private UserRepository userRepository;
 
 	
+	@Autowired
+    private ProductRepository productRepository;
 
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+	
 	public Optional<User> findById(long id) {
-		return UserRepository.findById(id);
+		return userRepository.findById(id);
 	}
 
 	public List<User> findByMail(String mail) {
-		return UserRepository.findByMail(mail);
+		return userRepository.findByMail(mail);
 	}
 
 	public List<User> findByUsername(String username) {
-		return UserRepository.findByUsername(username);
+		return userRepository.findByUsername(username);
 	}
 	public boolean exist(long id) {
-		return UserRepository.existsById(id);
+		return userRepository.existsById(id);
 	}
 
 	public List<User> findAll() {
-		return UserRepository.findAll();
+		return userRepository.findAll();
 	}
 
 	public User save(User user){
-		return UserRepository.save(user);
+		return userRepository.save(user);
 	}
+
+    
+    @Transactional 
+    public void deleteById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            if (user.getId()!= 1){
+				productRepository.deleteBySeller(user);
+				messageRepository.deleteBySender(user);
+				messageRepository.deleteByReceiver(user);
+				reviewRepository.deleteByAuthor(user);
+				reviewRepository.deleteBySeller(user);
+
+				
+				userRepository.delete(user);
+			}
+            
+        }
+    
+    }
 
 
 	

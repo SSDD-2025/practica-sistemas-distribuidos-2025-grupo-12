@@ -1,10 +1,15 @@
 package es.grupo12.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -20,11 +25,20 @@ public class User {
     private String mail;
     private String password;
 
-    // @OneToMany(cascade = CascadeType.ALL)
-    // private List<Review> sentReviews;
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Review> sentReviews;
     
-    // @OneToMany(cascade = CascadeType.ALL)
-    // private List<Review> receivedReviews;
+    @OneToMany( mappedBy ="seller",cascade =CascadeType.REMOVE, orphanRemoval = true)
+    private List<Review> receivedReviews;
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Message> sentMessages;
+    
+    @OneToMany( mappedBy ="receiver",cascade =CascadeType.REMOVE)
+    private List<Message> receivedMessages;
 
 
     
@@ -36,8 +50,8 @@ public class User {
         this.username = username;
         this.mail = mail;
         this.password = password;
-        // sentReviews = new ArrayList<>();
-        // receivedReviews = new ArrayList<>();
+        sentReviews = new ArrayList<>();
+        receivedReviews = new ArrayList<>();
     }
 
     public String getUsername(){
@@ -77,18 +91,30 @@ public class User {
         return mail;
     }
 
-    // public List<Review> getReceivedReviews() {
-    //     return receivedReviews;
-    // }
+    public List<Review> getReceivedReviews() {
+        return receivedReviews;
+    }
 
-    // public List<Review> getSentReviews() {
-    //     return sentReviews;
-    // }
+    public List<Review> getSentReviews() {
+        return sentReviews;
+    }
+    public List<Product> getProducts() {
+        return products;
+    }
 
+    public List<Message> getSentMessages() {
+        return sentMessages;
+    }
+
+    public List<Message> getReceivedMessages() {
+        return receivedMessages;
+    }
     @Override
     public String toString() {
         return "User [id=" + id + ", username=" + username + ", mail=" + mail + ", password=" + password;
                 
     }
+
+    
     
 }

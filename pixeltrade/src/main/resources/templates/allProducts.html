@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    {{>header2}}
+    <h2 class="head-title">Gestión de Productos</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Vendedor</th>
+                    <th>Comprador</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#products}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{title}}</td>
+                    <td>{{descr}}</td>
+                    <td>{{seller.username}}</td>
+                    {{#buyer.username}}
+                        <td>{{buyer.username}}</td>
+                    {{/buyer.username}}
+                    {{^buyer.username}}
+                        <td>No</td>
+                    {{/buyer.username}}
+                    <td>{{price}}€</td>
+                    <td>
+                        <form action="/delete_productFromList/{{id}}" method="POST" style="display:inline;">
+                            <input type="hidden" value="DELETE"> 
+                            <button type="submit" class="deleteProduct">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {{/products}}
+            </tbody>
+        </table>
+    </div>
+</html>

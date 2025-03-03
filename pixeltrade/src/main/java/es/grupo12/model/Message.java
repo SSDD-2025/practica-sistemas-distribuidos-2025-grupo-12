@@ -2,10 +2,12 @@ package es.grupo12.model;
 
 import java.time.LocalDateTime;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -16,9 +18,11 @@ public class Message {
 
     private String text;
     private LocalDateTime date;
-    @ManyToOne
+    @ManyToOne 
+    @JoinColumn(name = "sender_id")
     private User sender;
-    @ManyToOne
+    @ManyToOne 
+    @JoinColumn(name = "receiver_id")
     private User receiver;
 
     public Message(){

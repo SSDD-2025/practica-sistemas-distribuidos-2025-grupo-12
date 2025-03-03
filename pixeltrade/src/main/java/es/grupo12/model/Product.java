@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
@@ -25,9 +26,11 @@ public class Product {
     private Blob img;
 
 	@ManyToOne
+	@JoinColumn(name = "buyer_id")
 	private User buyer;
 
 	@ManyToOne
+	@JoinColumn(name = "seller_id")
 	private User seller;
 
 	

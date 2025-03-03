@@ -63,4 +63,8 @@ public class ProductService {
 		productRepository.deleteById(id);
 	}
 
+	public void deleteBySeller(User user) {
+		productRepository.deleteBySeller(user);
+	}
+
 }

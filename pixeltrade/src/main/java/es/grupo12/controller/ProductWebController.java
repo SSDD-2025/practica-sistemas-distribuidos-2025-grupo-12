@@ -27,7 +27,6 @@ import es.grupo12.model.Product;
 import es.grupo12.model.User;
 
 import es.grupo12.service.ProductService;
-import es.grupo12.service.UserService;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -38,8 +37,6 @@ public class ProductWebController {
 	@Autowired
 	private ProductService productService;
 
-	@Autowired
-	private UserService userService;
 
 	@GetMapping("/")
 	public String showRecommended(Model model, HttpSession session) {
@@ -49,6 +46,11 @@ public class ProductWebController {
 		model.addAttribute("products", limitedProducts);
 		User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
+		if (user != null && user.getId() == 1) {
+            model.addAttribute("isAdmin", true);  // Pass this flag to Mustache
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
 		return "mainweb";
 	}
 
@@ -58,7 +60,20 @@ public class ProductWebController {
 		User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
 		model.addAttribute("products", productService.findByBuyerIsNull());
+		if (user != null && user.getId() == 1) {
+            model.addAttribute("isAdmin", true);  // Pass this flag to Mustache
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
 		return "products";
+	}
+
+	@GetMapping("/allProducts")
+	public String showAllProducts(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+		model.addAttribute("products", productService.findAll());
+		return "allProducts";
 	}
 
 	@GetMapping("/uploadProduct")
@@ -98,13 +113,11 @@ public class ProductWebController {
 			} else {
 				model.addAttribute("isOwnProduct", false);
 			}
-
 			if (user != null && user.getId() == 1) {
 				model.addAttribute("isAdmin", true);  // Pass this flag to Mustache
 			} else {
 				model.addAttribute("isAdmin", false);
 			}
-
 			return "productPage";
 		} else {
 			return "productNotFound";
@@ -130,7 +143,6 @@ public class ProductWebController {
 	@PostMapping("/update_product/{id}")
 	public String updateProduct(@PathVariable long id, @RequestParam String title, @RequestParam String description, @RequestParam double price, @RequestParam long sellerId, @RequestParam(required = false) MultipartFile image) throws IOException {
 
-		User seller = userService.findById(sellerId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
 		product.setTitle(title);
@@ -153,6 +165,14 @@ public class ProductWebController {
 		productService.deleteById(id);
 
     	return "deletedProduct"; 
+	}
+
+	@PostMapping("/delete_productFromList/{id}")
+	public String deleteProduct2(@PathVariable long id) throws IOException {
+
+		productService.deleteById(id);
+
+    	return "redirect:/allProducts"; 
 	}
 	
 

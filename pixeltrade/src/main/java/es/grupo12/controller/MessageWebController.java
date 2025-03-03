@@ -1,5 +1,6 @@
 package es.grupo12.controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -93,5 +94,22 @@ public class MessageWebController {
         model.addAttribute("messages", messagesList);
         return "chat";
     }
+
+    @GetMapping("/messages")
+    public String showMessages(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        List<Message> allMessages = messageService.findAll();
+        model.addAttribute("messages", allMessages);
+        model.addAttribute("user", user);
+        return "messages"; 
+    }
+
+    @PostMapping("/delete_message")
+	public String deleteMessage(@RequestParam String id) throws IOException {
+        long iden = Long.parseLong(id);
+		messageService.deleteById(iden);
+
+    	return "redirect:/messages"; 
+	}
     
 }

@@ -23,6 +23,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findBySeller(User user);
 
+    void deleteBySeller(User user);
+
 }
     
 

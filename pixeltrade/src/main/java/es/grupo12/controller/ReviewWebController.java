@@ -1,5 +1,8 @@
 package es.grupo12.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,11 +42,26 @@ public class ReviewWebController {
 
     
 	@GetMapping("/reviews")
-	public String showProducts(Model model, HttpSession session) {
+	public String showMyReviews(Model model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
 		model.addAttribute("reviews", reviewService.findBySeller(user));
 		return "reviews";
 	}
-    
+
+    @GetMapping("/allReviews")
+    public String showReviews(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        List<Review> allReviews = reviewService.findAll();
+        model.addAttribute("reviews", allReviews);
+        model.addAttribute("user", user);
+        return "allReviews"; 
+    }
+    @PostMapping("/delete_review")
+	public String deleteUser(@RequestParam String id) throws IOException {
+        long iden = Long.parseLong(id);
+		reviewService.deleteById(iden);
+
+    	return "redirect:/allReviews"; 
+	}
 }

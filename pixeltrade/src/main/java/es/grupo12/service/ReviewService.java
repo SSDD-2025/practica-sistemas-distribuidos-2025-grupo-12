@@ -26,23 +26,39 @@ public class ReviewService {
 
     public void save(Review review,User author ,User userToReview) {
       review.setSeller(userToReview);
-      review.setAuthor(author); 
-      // userToReview.getReceivedReviews().add(review);
-      // author.getSentReviews().add(review);
+      review.setAuthor(author);
       reviewRepository.save(review);
     }
 
-    // public void delete(Long reviewId, User user) {
-    //   Review review = this.findById(reviewId).get();
-    //   user.getReceivedReviews().remove(review);
-
-    //   reviewRepository.delete(review);		
-    // }
-
+    
 
 
     public List<Review> findBySeller(User user) {
         return reviewRepository.findBySeller(user);
+    }
+
+
+
+    public List<Review> findAll() {
+        return reviewRepository.findAll();
+    }
+
+
+
+    public void deleteById(long id) {
+        reviewRepository.deleteById(id);
+    }
+
+
+
+    public void deleteByAuthor(User user) {
+        reviewRepository.deleteByAuthor(user);
+    }
+
+
+
+    public void deleteBySeller(User user) {
+        reviewRepository.deleteBySeller(user);
     }
   
 

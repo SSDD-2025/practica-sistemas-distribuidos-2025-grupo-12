@@ -9,9 +9,14 @@
         <a href="/products">Productos</a>
     
         {{#user}}
-            <a href="/chat_list">Chat</a>
-            <a href="/profile">Perfil</a>
-            <a href="/uploadProduct">Subir un producto</a>
+            {{^isAdmin}}
+                <a href="/chat_list">Chat</a>
+                <a href="/profile">Perfil</a>
+                <a href="/uploadProduct">Subir un producto</a>
+            {{/isAdmin}}
+            {{#isAdmin}}
+                <a href="/administration">Administración</a>
+            {{/isAdmin}}
             <a href="/logout">Cerrar sesión ({{user.username}})</a>
         {{/user}}
         
@@ -19,5 +24,6 @@
             <a href="/register">Regístrate</a>
             <a href="/login">Iniciar sesión</a>
         {{/user}}
+        
     </nav>
 </html>
