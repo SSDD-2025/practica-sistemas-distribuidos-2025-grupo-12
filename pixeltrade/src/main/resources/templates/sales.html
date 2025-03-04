@@ -19,7 +19,13 @@
         {{/products}}
     </section>
     
-    <a href="/profile"><button >Volver al perfil</button></a>
+    {{^products}}
+        <div class="reviews-container">
+            <p class="no-reviews">No tiene artículos en venta.</p>
+        </div>
+    {{/products}}
+
+    <a href="/profile" class="button">Volver al perfil</a>
     {{>footer}}
 </body>
 </html>

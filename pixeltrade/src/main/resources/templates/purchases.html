@@ -17,8 +17,12 @@
         </div>
         {{/products}}
     </section>
-    
-    <a href="/profile"><button >Volver al perfil</button></a>
+        {{^products}}
+            <div class="reviews-container">
+                <p class="no-reviews">Aún no se han realizado compras.</p>
+            </div>
+        {{/products}}
+    <a href="/profile" class="button">Volver al perfil</a>
     {{>footer}}
 </body>
 </html>

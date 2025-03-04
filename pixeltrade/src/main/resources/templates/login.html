@@ -16,6 +16,9 @@
       <a href="/register">¿No tienes cuenta? Regístrate aquí</a>
       <button type="submit">Ingresar</button>
     </form>
+    {{#error}}
+      <p style="color: red; text-align: center;">{{error}}</p>
+    {{/error}}
   </div>
   {{>footer}}
 </body>
