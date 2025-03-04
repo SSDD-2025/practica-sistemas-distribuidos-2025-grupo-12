@@ -10,10 +10,12 @@
 ## Aspectos Principales
 ### Entidades: 
 Usuario, producto, mensaje y review. Todas las entidades tienen dos relaciones 1 a N con la entidad usuario. Esto se debe a que un usuario compra y vende N productos, al igual que envía y recibe N mensajes y reseñas.
+
 ### Permisos de los usuarios:  
 - Anónimo: puede consultar información de los productos.
 - Usuario registrado: puede consultar información de los produuctos, puede comprar y vender productos, enviar y recibir mensajes y poner y recibir reviews. También pueden acceder a su perfil donde tienen su información de cuenta, un listado de productos a la venta y comprados y pueden ver las reviews recibidas.
-- Administrador: puede hacer todo lo que hace un usuario registrado y además puede borrar cuentas y editar y borrar productos.
+- Administrador: tiene permisos para borrar productos, mensajes y reviews. Además puede borrar usuarios con lo cuál se eliminan todas las entidades asociadas a esa cuenta.
+
 ### Imágenes
 La entidad producto tiene una imagen asociada.
 
@@ -51,6 +53,21 @@ La entidad producto tiene una imagen asociada.
 - Ver Reviews: página con las reviews que he recibido.
 ![Ver_review](Images/resenas.png)
 
+- Menú admin: menú con todas las opciones del administrador.
+![Administracion](Images/administracion.png)
+
+- Gestión usuarios: página para la gestión de usuarios.
+![GestionUsuarios](Images/gestion_usuarios.png)
+
+- Gestión productos: página para la gestión de productos.
+![GestionProductos](Images/gestion_productos.png)
+
+- Moderar reseñas: página para la moderación de reseñas.
+![ModerarResenas](Images/moderar_resenas.png)
+
+- Moderar mensajes: página para la moderación de mensajes.
+![ModerarMensajes](Images/moderar_mensajes.png)
+
 
 ## Diagrama de navegación
 ![DiagramaNavegacion](Images/DiagramaNavegacion.png)
@@ -67,7 +84,7 @@ La entidad producto tiene una imagen asociada.
 Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordenador por lo que muchos de los commits asociados a una cuenta específica son desarrollados por todos, al igual que los ficheros creados.
 ### Martín Gutiérrez Parada
 
-- **Tareas:**  Gestión de la sesión de los usuarios, subir imágenes en un producto, todas las funciones relacionadas con los mensajes, creación de htmls y css, header y footer, diseños de páginas, codificación de métodos de los controladores, diagrama de entidades y navegación, desarrollo de la documentación.
+- **Tareas:**  Gestión de la sesión de los usuarios, subir imágenes en un producto, todas las funciones relacionadas con los mensajes, creación de htmls y css, header y footer, diseños de páginas, codificación de métodos de los controladores, diagramas de entidades y navegación, desarrollo de la documentación.
 
 - **5 commits más significativos:**  
     - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/24b955c4ecb21f694ed85e6669a3ef802a64ff4e)
@@ -106,7 +123,7 @@ Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordena
 
 ### Daniel Muñoz Martínez
 
-- **Tareas:**  Gestión de la sesión de los usuarios, persistencia de las imágenes en BD mySQL, todas las funciones relacionadas con las reseñas, creación de htmls de (inicio sesión, registro, relacionados con el perfil y admin...), gestión del usuario admin (consulta y borrado entidades), codificación de métodos de los controladores (principalmente en las clases User, Review y Product) y desarrolo de documentación.
+- **Tareas:**  Gestión de la sesión de los usuarios, persistencia de las imágenes en BD mySQL, todas las funciones relacionadas con las reseñas, creación de htmls de (inicio sesión, registro, relacionados con el perfil y admin...), gestión del usuario admin (consulta y borrado entidades), codificación de métodos de los controladores (principalmente en las clases User, Review y Product) y desarrollo de documentación.
 
 - **5 commits más significativos:**  
     - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/e905e0f33fb5c00e49011f401fa5a2d27ef62dc4)
