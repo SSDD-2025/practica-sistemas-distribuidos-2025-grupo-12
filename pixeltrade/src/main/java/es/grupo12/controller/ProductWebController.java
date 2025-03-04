@@ -141,7 +141,10 @@ public class ProductWebController {
 	}
 
 	@PostMapping("/update_product/{id}")
-	public String updateProduct(@PathVariable long id, @RequestParam String title, @RequestParam String description, @RequestParam double price, @RequestParam long sellerId, @RequestParam(required = false) MultipartFile image) throws IOException {
+	public String updateProduct(Model model, @PathVariable long id, @RequestParam String title, @RequestParam String description, @RequestParam double price, @RequestParam long sellerId, @RequestParam(required = false) MultipartFile image, HttpSession session) throws IOException {
+
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
 
 		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
@@ -160,7 +163,10 @@ public class ProductWebController {
 	}
 
 	@PostMapping("/delete_product/{id}")
-	public String deleteProduct(@PathVariable long id) throws IOException {
+	public String deleteProduct(Model model, @PathVariable long id, HttpSession session) throws IOException {
+
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
 
 		productService.deleteById(id);
 
