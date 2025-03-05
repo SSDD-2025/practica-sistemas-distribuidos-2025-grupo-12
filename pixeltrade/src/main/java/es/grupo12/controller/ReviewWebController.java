@@ -57,11 +57,22 @@ public class ReviewWebController {
         model.addAttribute("user", user);
         return "allReviews"; 
     }
+
     @PostMapping("/delete_review")
 	public String deleteUser(@RequestParam String id) throws IOException {
         long iden = Long.parseLong(id);
 		reviewService.deleteById(iden);
 
     	return "redirect:/allReviews"; 
+	}
+
+    @GetMapping("/user_reviews")
+	public String userReviews(Model model, @RequestParam long id, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        User account = userService.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        model.addAttribute("contact", account);
+		model.addAttribute("reviews", reviewService.findBySeller(account));
+		return "userReviews";
 	}
 }

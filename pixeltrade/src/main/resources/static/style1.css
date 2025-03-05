@@ -93,6 +93,8 @@ nav a:hover {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .product button:hover {
@@ -512,6 +514,15 @@ a.button:hover {
 
 a.username {
     color: blue;
+}
+
+button.username {
+    color: black;
+    background-color: white;
+}
+
+button.username:hover {
+    background-color: lightblue;
 }
 
 textarea {

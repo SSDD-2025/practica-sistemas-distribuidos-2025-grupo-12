@@ -56,14 +56,12 @@ public class UserWebController {
     public String showLoginForm(Model model) {
         return "login";  // HTML page
     }
+    
     @PostMapping("/login")
-    public String loginUser(@RequestParam String username, 
-                            @RequestParam String password, 
-                            HttpSession session, Model model) {
+    public String loginUser(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
         List<User> users = userService.findByUsername(username);
         User user = users.get(0);
 
-        
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("user", user); // Save user in http sesion
             model.addAttribute("name", user.getUsername());
@@ -81,14 +79,14 @@ public class UserWebController {
     }
 
     @GetMapping("/profile")
-    public String showProfile(Model model,HttpSession session) {
+    public String showProfile(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         return "profile"; 
     }
 
     @GetMapping("/administration")
-    public String showAdministration(Model model,HttpSession session) {
+    public String showAdministration(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         if (user != null && user.getId() == 1) {
@@ -98,8 +96,9 @@ public class UserWebController {
         }
         return "administration"; 
     }
+
     @GetMapping("/users")
-    public String showUser(Model model,HttpSession session) {
+    public String showUser(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         List<User> allUsers = userService.findAll();
         model.addAttribute("users", allUsers);
@@ -108,11 +107,12 @@ public class UserWebController {
     }
 
     @GetMapping("/personalInfo")
-    public String showPersonalInformation(Model model,HttpSession session) {
+    public String showPersonalInformation(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         return "personalInfo"; 
     }
+
     @PostMapping("/delete_user")
 	public String deleteUser(@RequestParam String id) throws IOException {
         long iden = Long.parseLong(id);
