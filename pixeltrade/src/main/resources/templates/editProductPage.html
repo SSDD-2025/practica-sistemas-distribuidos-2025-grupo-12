@@ -8,10 +8,9 @@
 </head>
 <body>
     {{>header}}
-
+    <h1>Editar Producto: {{product.title}}</h1>
+    
     <div class="edit-product">
-        <h1>Editar Producto: {{product.title}}</h1>
-
         <form action="/update_product/{{product.id}}" method="post" enctype="multipart/form-data">
             <label for="title">Título:</label>
             <input type="text" id="title" name="title" value="{{product.title}}" required>

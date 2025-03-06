@@ -67,7 +67,7 @@ public class UserWebController {
             model.addAttribute("name", user.getUsername());
             return "logged_user";  // Welcome page
         } else {
-            model.addAttribute("error", "Usuario o contraseña incorrectos");
+            model.addAttribute("error", "Contraseña incorrecta");
             return "login";
         }
     }

@@ -185,6 +185,9 @@ public class ProductWebController {
 	@GetMapping("/search")
 	public String searchProduct(Model model, @RequestParam("title") String title, HttpSession session) {
 
+		User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+		
 		List<Product> products = productService.findByTitle(title).stream().filter(product -> product.getBuyer() == null).toList();
 		model.addAttribute("found", products);
 		return "foundProducts";
@@ -194,6 +197,10 @@ public class ProductWebController {
 	public String uploadedProduct(Model model, @RequestParam String title, @RequestParam MultipartFile image, @RequestParam String description, @RequestParam double price, HttpSession session) throws IOException {
 		User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
+		if (title == null || title.isEmpty()){
+			model.addAttribute("error", "El título del producto no puede estar vacío");
+			return "uploadProduct";
+		}
 		Product newprod = new Product(title, description, price, null, user);
 		productService.save(newprod, image);
 		return "uploadedProduct";

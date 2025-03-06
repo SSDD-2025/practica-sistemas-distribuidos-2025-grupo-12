@@ -123,3 +123,15 @@ footer {
     color: white;
     border-radius: 10px;
 }
+
+.error-text {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
