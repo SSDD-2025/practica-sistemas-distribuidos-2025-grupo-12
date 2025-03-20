@@ -39,12 +39,8 @@ public class UserService {
 		return userRepository.findByMail(mail);
 	}
 
-	public List<User> findByUsername(String username) {
+	public Optional<User> findByUsername(String username) {
 		return userRepository.findByUsername(username);
-	}
-
-	public Optional<User> findByName(String username) {
-		return userRepository.findByName(username);
 	}
 
 	public boolean exist(long id) {

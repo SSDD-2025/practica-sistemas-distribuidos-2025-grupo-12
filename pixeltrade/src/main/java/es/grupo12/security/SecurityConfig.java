@@ -19,20 +19,15 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import es.grupo12.security.jwt.JwtRequestFilter;
 import es.grupo12.security.jwt.UnauthorizedHandlerJwt;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Autowired
-	private JwtRequestFilter jwtRequestFilter;
+
 
 	@Autowired
 	RepositoryUserDetailsService userDetailsService;
-
-	@Autowired
-	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -61,7 +56,12 @@ public class SecurityConfig {
                     .password(passwordEncoder().encode("pass"))
                     .roles("USER")
                     .build();
-        return new InMemoryUserDetailsManager(user);
+		UserDetails admin = User.builder()
+					.username("admin")
+					.password(passwordEncoder().encode("adminpass"))
+					.roles("USER","ADMIN")
+					.build();
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
 	@Bean
@@ -74,14 +74,20 @@ public class SecurityConfig {
 				.authorizeHttpRequests(authorize -> authorize
 						// PUBLIC PAGES
 						.requestMatchers("/").permitAll()
-						.requestMatchers("/images/**").permitAll() // Allow access to static resources
-						.requestMatchers("/books/**").permitAll()
+						.requestMatchers("/products/**").permitAll() 
 						.requestMatchers("/error").permitAll()
-						// PRIVATE PAGES
-						.requestMatchers("/newbook").hasAnyRole("USER")
-						.requestMatchers("/editbook").hasAnyRole("USER")
-						.requestMatchers("/editbook/*").hasAnyRole("USER")
-						.requestMatchers("/removebook/*").hasAnyRole("ADMIN")
+						.requestMatchers("/search").permitAll()
+						.requestMatchers("/register").permitAll()
+						.requestMatchers("/logged_user").permitAll()
+						.requestMatchers( "/login").permitAll()
+						.requestMatchers("/css/**").permitAll()
+						//ADMIN PAGES
+						.requestMatchers("/administration").hasAnyRole("ADMIN")
+						.requestMatchers("/allProducts").hasAnyRole("ADMIN")
+						.requestMatchers("/allReviews").hasAnyRole("ADMIN")
+						.requestMatchers("/users").hasAnyRole("ADMIN")
+						//PRIVATE PAGES
+						.anyRequest().hasAnyRole("USER")
 				)
 				.formLogin(formLogin -> formLogin
 						.loginPage("/login")

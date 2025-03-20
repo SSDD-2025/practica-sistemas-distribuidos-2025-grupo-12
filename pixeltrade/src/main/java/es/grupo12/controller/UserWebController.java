@@ -3,8 +3,8 @@ package es.grupo12.controller;
 import java.io.IOException;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +39,10 @@ public class UserWebController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
@@ -59,8 +63,7 @@ public class UserWebController {
     
     @PostMapping("/login")
     public String loginUser(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
-        List<User> users = userService.findByUsername(username);
-        User user = users.get(0);
+        User user = userService.findByUsername(username).orElseThrow(() -> new RuntimeException("Usuario no valido"));
 
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("user", user); // Save user in http sesion
@@ -70,6 +73,7 @@ public class UserWebController {
             model.addAttribute("error", "Contraseña incorrecta");
             return "login";
         }
+        
     }
 
     @GetMapping("/logout")
