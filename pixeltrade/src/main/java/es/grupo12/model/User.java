@@ -5,7 +5,9 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,18 +42,22 @@ public class User {
     @OneToMany( mappedBy ="receiver",cascade =CascadeType.REMOVE)
     private List<Message> receivedMessages;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
+
 
     
     public User(){
         
     }
 
-    public User(String username, String mail, String password) {
+    public User(String username, String mail, String password, String... roles) {
         this.username = username;
         this.mail = mail;
         this.password = password;
         sentReviews = new ArrayList<>();
         receivedReviews = new ArrayList<>();
+        this.roles = List.of(roles);
     }
 
     public String getUsername(){
@@ -114,6 +120,14 @@ public class User {
         return "User [id=" + id + ", username=" + username + ", mail=" + mail + ", password=" + password;
                 
     }
+
+    public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 
     
     
