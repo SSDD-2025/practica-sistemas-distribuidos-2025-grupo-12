@@ -40,6 +40,7 @@
                         <form action="/delete_productFromList/{{id}}" method="POST" style="display:inline;">
                             <input type="hidden" value="DELETE"> 
                             <button type="submit" class="deleteProduct">Eliminar</button>
+                            <input type="hidden" name="_csrf" value="{{token}}"/>
                         </form>
                     </td>
                 </tr>

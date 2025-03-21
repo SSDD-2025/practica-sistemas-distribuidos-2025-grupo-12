@@ -25,6 +25,7 @@
       <input type="text" name="username" placeholder="Nombre de usuario" required>
       <input type="email" name="mail" placeholder="Correo electrónico" required>
       <input type="password" name="password" placeholder="Contraseña" required>
+      <input type="hidden" name="_csrf" value="{{token}}"/>
     <button type="submit">Registrarse</button>
     </form>
   </div>

@@ -1,6 +1,7 @@
 package es.grupo12.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +19,7 @@ import es.grupo12.service.MessageService;
 import es.grupo12.service.ProductService;
 import es.grupo12.service.ReviewService;
 import es.grupo12.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -42,6 +44,18 @@ public class UserWebController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+		Principal principal = request.getUserPrincipal();
+		if(principal != null) {
+			model.addAttribute("logged", true);
+			model.addAttribute("userName", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
+
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -61,20 +75,11 @@ public class UserWebController {
         return "login";  // HTML page
     }
     
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public String loginUser(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
-        User user = userService.findByUsername(username).orElseThrow(() -> new RuntimeException("Usuario no valido"));
-
-        if (user != null && user.getPassword().equals(password)) {
-            session.setAttribute("user", user); // Save user in http sesion
-            model.addAttribute("name", user.getUsername());
-            return "logged_user";  // Welcome page
-        } else {
-            model.addAttribute("error", "Contraseña incorrecta");
             return "login";
-        }
         
-    }
+    } */ 
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
@@ -83,27 +88,22 @@ public class UserWebController {
     }
 
     @GetMapping("/profile")
-    public String showProfile(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+    public String showProfile(Model model) {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("user", user);
         return "profile"; 
     }
 
     @GetMapping("/administration")
-    public String showAdministration(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
-        if (user != null && user.getId() == 1) {
-            model.addAttribute("isAdmin", true);  // Pass this flag to Mustache
-        } else {
-            model.addAttribute("isAdmin", false);
-        }
-        return "administration"; 
+    public String showAdministration(Model model) {
+        return "administration";  //Revise
     }
 
     @GetMapping("/users")
-    public String showUser(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+    public String showUser(Model model) {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         List<User> allUsers = userService.findAll();
         model.addAttribute("users", allUsers);
         model.addAttribute("user", user);
@@ -111,8 +111,9 @@ public class UserWebController {
     }
 
     @GetMapping("/personalInfo")
-    public String showPersonalInformation(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+    public String showPersonalInformation(Model model) {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("user", user);
         return "personalInfo"; 
     }

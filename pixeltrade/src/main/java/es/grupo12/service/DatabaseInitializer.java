@@ -39,10 +39,10 @@ public class DatabaseInitializer {
     @PostConstruct
     public void init() throws IOException {
         
-        User admin = new User("admin", "admin@host", passwordEncoder.encode("1234"), "USER", "ADMIN");
+        User admin = new User("admin", "admin@host", passwordEncoder.encode("1234"), "ADMIN", "USER");
         User usuario1 = new User("martinGP", "martingut@gmail.com", passwordEncoder.encode("marting"), "USER");
         User usuario2 = new User("DavidA","davidarce@gmail.com", passwordEncoder.encode("davida"), "USER");
-        User usuario3 = new User("TayPB","taysonpb@gmail.com", "taysonp", "USER");
+        User usuario3 = new User("TayPB","taysonpb@gmail.com", passwordEncoder.encode("taysonp"), "USER");
         User usuario4 = new User("DanMM","danmunmar@gmail.com", passwordEncoder.encode("danielm"), "USER");
 
         userService.save(admin);

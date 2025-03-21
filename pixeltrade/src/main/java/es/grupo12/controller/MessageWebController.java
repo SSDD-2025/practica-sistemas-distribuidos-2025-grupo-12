@@ -1,6 +1,7 @@
 package es.grupo12.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -16,9 +17,10 @@ import es.grupo12.model.Message;
 import es.grupo12.model.User;
 import es.grupo12.service.MessageService;
 import es.grupo12.service.UserService;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,10 +35,22 @@ public class MessageWebController {
     @Autowired
     UserService userService;
 
+    @ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+		Principal principal = request.getUserPrincipal();
+		if(principal != null) {
+			model.addAttribute("logged", true);
+			model.addAttribute("userName", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
+
     @GetMapping("/chat_list")
-    public String getChats(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+    public String getChats(Model model) {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
 
         List<Message> received = messageService.findByReceiver(user);
         List<Message> sent = messageService.findBySender(user);
@@ -58,7 +72,7 @@ public class MessageWebController {
     }
 
     @PostMapping("/send_message")
-    public String sendMessage(@RequestParam String text, @RequestParam Long idsender, @RequestParam Long idreceiver, HttpSession session) {
+    public String sendMessage(@RequestParam String text, @RequestParam Long idsender, @RequestParam Long idreceiver) {
 
         User sender = userService.findById(idsender).orElseThrow(() -> new RuntimeException("User not found"));
         User receiver = userService.findById(idreceiver).orElseThrow(() -> new RuntimeException("User not found"));
@@ -71,8 +85,9 @@ public class MessageWebController {
     }
     
     @GetMapping("/show_chat")
-    public String showChat(Model model, @RequestParam Long id, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+    public String showChat(Model model, @RequestParam Long id) {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("user", user);
 
         User sender = userService.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
@@ -96,8 +111,10 @@ public class MessageWebController {
     }
 
     @GetMapping("/messages")
-    public String showMessages(Model model,HttpSession session) {
-        User user = (User) session.getAttribute("user");
+    public String showMessages(Model model) {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+
         List<Message> allMessages = messageService.findAll();
         model.addAttribute("messages", allMessages);
         model.addAttribute("user", user);

@@ -31,6 +31,7 @@
             <input type="hidden" name="idsender" value="{{user.id}}">
             <input type="hidden" name="idreceiver" value="{{contact.id}}">
             <button type="submit">Enviar</button>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
     </div>
 </body>

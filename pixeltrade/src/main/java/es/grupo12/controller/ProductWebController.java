@@ -1,6 +1,7 @@
 package es.grupo12.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -27,6 +29,8 @@ import es.grupo12.model.Product;
 import es.grupo12.model.User;
 
 import es.grupo12.service.ProductService;
+import es.grupo12.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -37,72 +41,70 @@ public class ProductWebController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private UserService userService;
+
+	@ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+		Principal principal = request.getUserPrincipal();
+		if(principal != null) {
+			model.addAttribute("logged", true);
+			model.addAttribute("userName", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
+ 
+
 
 	@GetMapping("/")
-	public String showRecommended(Model model, HttpSession session) {
+	public String showRecommended(Model model) {
 		List<Product> allProducts = productService.findByBuyerIsNull();
 		Collections.shuffle(allProducts);
     	List<Product> limitedProducts = allProducts.stream().limit(3).toList(); // Max 3
 		model.addAttribute("products", limitedProducts);
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
-		if (user != null && user.getId() == 1) {
-            model.addAttribute("isAdmin", true);  // Pass this flag to Mustache
-        } else {
-            model.addAttribute("isAdmin", false);
-        }
 		return "mainweb";
 	}
 
 
 	@GetMapping("/products")
-	public String showProducts(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String showProducts(Model model) {
 		model.addAttribute("products", productService.findByBuyerIsNull());
-		if (user != null && user.getId() == 1) {
-            model.addAttribute("isAdmin", true);  // Pass this flag to Mustache
-        } else {
-            model.addAttribute("isAdmin", false);
-        }
 		return "products";
 	}
 
 	@GetMapping("/allProducts")
-	public String showAllProducts(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String showAllProducts(Model model) {
 		model.addAttribute("products", productService.findAll());
 		return "allProducts";
 	}
 
 	@GetMapping("/uploadProduct")
-	public String uploadProduct(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String uploadProduct(Model model) {
 		return "uploadProduct";
 	}
 
 	@GetMapping("/purchases")
-	public String showPurchases(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String showPurchases(Model model) {
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
 		model.addAttribute("products", productService.findByBuyer(user));
 		return "purchases";
 	}
 
 	@GetMapping("/sales")
-	public String showSales(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String showSales(Model model) {
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
 		model.addAttribute("products", productService.findBySeller(user));
 		return "sales";
 	}
 
 	@GetMapping("/products/{id}")
-	public String showProduct(Model model, @PathVariable long id, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String showProduct(Model model, @PathVariable long id) {
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
 
 		Optional<Product> product = productService.findById(id);
 		if (product.isPresent()) {
@@ -113,11 +115,7 @@ public class ProductWebController {
 			} else {
 				model.addAttribute("isOwnProduct", false);
 			}
-			if (user != null && user.getId() == 1) {
-				model.addAttribute("isAdmin", true);  // Pass this flag to Mustache
-			} else {
-				model.addAttribute("isAdmin", false);
-			}
+
 			return "productPage";
 		} else {
 			return "productNotFound";
@@ -126,9 +124,9 @@ public class ProductWebController {
 	}
 
 	@GetMapping("/edit_product/{id}")
-	public String editProduct(Model model, @PathVariable long id, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String editProduct(Model model, @PathVariable long id) {
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
 
 		Optional<Product> product = productService.findById(id);
 		if (product.isPresent()) {
@@ -141,10 +139,7 @@ public class ProductWebController {
 	}
 
 	@PostMapping("/update_product/{id}")
-	public String updateProduct(Model model, @PathVariable long id, @RequestParam String title, @RequestParam String description, @RequestParam double price, @RequestParam long sellerId, @RequestParam(required = false) MultipartFile image, HttpSession session) throws IOException {
-
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String updateProduct(Model model, @PathVariable long id, @RequestParam String title, @RequestParam String description, @RequestParam double price, @RequestParam long sellerId, @RequestParam(required = false) MultipartFile image) throws IOException {
 
 		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
@@ -163,10 +158,7 @@ public class ProductWebController {
 	}
 
 	@PostMapping("/delete_product/{id}")
-	public String deleteProduct(Model model, @PathVariable long id, HttpSession session) throws IOException {
-
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String deleteProduct(Model model, @PathVariable long id) throws IOException {
 
 		productService.deleteById(id);
 
@@ -183,10 +175,7 @@ public class ProductWebController {
 	
 
 	@GetMapping("/search")
-	public String searchProduct(Model model, @RequestParam("title") String title, HttpSession session) {
-
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String searchProduct(Model model, @RequestParam("title") String title) {
 		
 		List<Product> products = productService.findByTitle(title).stream().filter(product -> product.getBuyer() == null).toList();
 		model.addAttribute("found", products);
@@ -194,9 +183,9 @@ public class ProductWebController {
 	}
 
 	@PostMapping("/uploaded_product")
-	public String uploadedProduct(Model model, @RequestParam String title, @RequestParam MultipartFile image, @RequestParam String description, @RequestParam double price, HttpSession session) throws IOException {
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String uploadedProduct(Model model, @RequestParam String title, @RequestParam MultipartFile image, @RequestParam String description, @RequestParam double price) throws IOException {
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
 		if (title == null || title.isEmpty()){
 			model.addAttribute("error", "El título del producto no puede estar vacío");
 			return "uploadProduct";

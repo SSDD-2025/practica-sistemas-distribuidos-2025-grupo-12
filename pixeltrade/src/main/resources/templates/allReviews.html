@@ -33,6 +33,7 @@
                         <form action="/delete_review" method="POST" style="display:inline;">
                             <input type="hidden" name="id" value="{{id}}"> 
                             <button type="submit" class="deleteReview">Eliminar</button>
+                            <input type="hidden" name="_csrf" value="{{token}}"/>
                         </form>
                     </td>
                 </tr>

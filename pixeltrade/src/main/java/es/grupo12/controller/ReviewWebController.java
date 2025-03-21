@@ -1,6 +1,7 @@
 package es.grupo12.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,11 @@ import es.grupo12.model.Review;
 import es.grupo12.model.User;
 import es.grupo12.service.ReviewService;
 import es.grupo12.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,6 +31,18 @@ public class ReviewWebController {
 
     @Autowired
     UserService userService;
+
+    @ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+		Principal principal = request.getUserPrincipal();
+		if(principal != null) {
+			model.addAttribute("logged", true);
+			model.addAttribute("userName", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
 
     @PostMapping("/write_review")
     public String writeReview(Model model, HttpSession session, @RequestParam String message) {

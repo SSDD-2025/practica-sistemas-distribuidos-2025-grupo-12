@@ -8,22 +8,22 @@
         <a href="/">Inicio</a>
         <a href="/products">Productos</a>
     
-        {{#user}}
-            {{^isAdmin}}
+        {{#logged}}
+            {{^admin}}
                 <a href="/chat_list">Chat</a>
                 <a href="/profile">Perfil</a>
                 <a href="/uploadProduct">Subir un producto</a>
-            {{/isAdmin}}
-            {{#isAdmin}}
+            {{/admin}}
+            {{#admin}}
                 <a href="/administration">Administración</a>
-            {{/isAdmin}}
-            <a href="/logout">Cerrar sesión ({{user.username}})</a>
-        {{/user}}
+            {{/admin}}
+            <a href="/logout">Cerrar sesión ({{userName}})</a>
+        {{/logged}}
         
-        {{^user}}
+        {{^logged}}
             <a href="/register">Regístrate</a>
             <a href="/login">Iniciar sesión</a>
-        {{/user}}
+        {{/logged}}
         
     </nav>
 </html>
