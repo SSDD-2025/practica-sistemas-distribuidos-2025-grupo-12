@@ -105,6 +105,7 @@ public class ProductWebController {
 	public String showProduct(Model model, @PathVariable long id) {
 		String userName = (String) model.getAttribute("userName");
         User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+		model.addAttribute(user);
 
 		Optional<Product> product = productService.findById(id);
 		if (product.isPresent()) {

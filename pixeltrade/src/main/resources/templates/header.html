@@ -17,7 +17,11 @@
             {{#admin}}
                 <a href="/administration">Administración</a>
             {{/admin}}
-            <a href="/logout">Cerrar sesión ({{userName}})</a>
+            <form action="/logout" method="POST">
+                <input type="hidden" name="_csrf" value="{{token}}"/> 
+                <button class="logout" type="submit">Cerrar sesión ({{userName}})</button>
+            </form>
+
         {{/logged}}
         
         {{^logged}}

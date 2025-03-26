@@ -20,7 +20,6 @@ import es.grupo12.service.ProductService;
 import es.grupo12.service.ReviewService;
 import es.grupo12.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -66,6 +65,9 @@ public class UserWebController {
     @PostMapping("/register")
     public String newUser(Model model, User user){
         User newUser = userService.save(user);
+        String password = user.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+        user.setPassword(encodedPassword);
         model.addAttribute("name", newUser.getUsername());
 		return  "saved_user";
 	}
@@ -81,11 +83,11 @@ public class UserWebController {
         
     } */ 
 
-    @GetMapping("/logout")
+    /*@GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "/";
-    }
+    } */ 
 
     @GetMapping("/profile")
     public String showProfile(Model model) {
