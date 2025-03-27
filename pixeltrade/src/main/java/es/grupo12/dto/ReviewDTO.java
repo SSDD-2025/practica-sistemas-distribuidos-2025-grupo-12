@@ -1,4 +1,4 @@
-package es.dto;
+package es.grupo12.dto;
 
 import es.grupo12.model.User;
 
