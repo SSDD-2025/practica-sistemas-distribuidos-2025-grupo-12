@@ -1,4 +1,4 @@
-package es.grupo12.controller;
+package es.grupo12.controller.web;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -64,10 +64,10 @@ public class UserWebController {
 
     @PostMapping("/register")
     public String newUser(Model model, User user){
-        User newUser = userService.save(user);
         String password = user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         user.setPassword(encodedPassword);
+        User newUser = userService.save(user);
         model.addAttribute("name", newUser.getUsername());
 		return  "saved_user";
 	}
@@ -126,4 +126,6 @@ public class UserWebController {
         userService.deleteById(iden);
     	return "redirect:/users"; 
 	}
+
+
 }

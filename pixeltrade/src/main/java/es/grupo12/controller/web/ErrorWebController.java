@@ -1,4 +1,4 @@
-package es.grupo12.controller;
+package es.grupo12.controller.web;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;

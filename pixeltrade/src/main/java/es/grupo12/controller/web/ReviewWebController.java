@@ -1,4 +1,4 @@
-package es.grupo12.controller;
+package es.grupo12.controller.web;
 
 import java.io.IOException;
 import java.security.Principal;
