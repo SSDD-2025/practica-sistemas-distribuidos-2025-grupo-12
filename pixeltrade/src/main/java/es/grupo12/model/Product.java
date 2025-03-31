@@ -77,6 +77,11 @@ public class Product {
 	public String getDescr() {
 		return descr;
 	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public void setImg(Blob img) {
 		this.img = img;
 	}
@@ -116,12 +121,6 @@ public class Product {
 		return String.format("Product[id=%d, title='%s', desc='%s', price='%f']",
 				id, title, descr, price);
 	}
-
 	
-
-	
-
-	
-
 	
 }

@@ -23,7 +23,7 @@ public class ProductService {
 	public Optional<Product> findById(long id) {
 		return productRepository.findById(id);
 	}
-
+	
 	public List<Product> findByTitle(String title) {
 		return productRepository.findByTitle(title);
 	}
