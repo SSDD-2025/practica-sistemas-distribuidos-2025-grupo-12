@@ -4,8 +4,6 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import java.net.URI;
 import java.util.Collection;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,74 +17,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.grupo12.dto.ProductDTO;
-import es.grupo12.dto.ProductMapper;
-import es.grupo12.model.Product;
 import es.grupo12.service.ProductService;
 
 @RestController
 @RequestMapping("/api/products")
 public class RestProductController {
 
-    @Autowired
-    private ProductMapper mapper;
+    
 
     @Autowired
     private ProductService productService;
 
 
-    private ProductDTO toDTO (Product product) {
-        return mapper.toDTO(product);
-    }
-
-    private Product toDomain (ProductDTO productDTO) {
-        return mapper.toDomain(productDTO);
-    }
-
-    private List<ProductDTO> toDTOs(Collection<Product> products){
-        return mapper.toDTOs(products);
-    }
 
     @GetMapping("/")
 	public Collection<ProductDTO> getProducts() {
-        List<Product> allProducts = productService.findAll();
-		return toDTOs(allProducts);
+		return productService.getProducts();
 	}
 
     @GetMapping("/{id}")
 	public ProductDTO getProduct(@PathVariable long id) {
-        return toDTO(productService.findById(id).orElseThrow());
+        return productService.getProduct(id);
 	}
 
     @PostMapping("/")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
 
-        Product product = toDomain(productDTO);
+        productDTO = productService.createProduct(productDTO);
 
-        productService.save(product);
 
         URI location = fromCurrentRequest().path("/{id}")
-            .buildAndExpand(product.getId()).toUri();
+            .buildAndExpand(productDTO.id()).toUri();
 
-        return ResponseEntity.created(location).body(toDTO(product));
+        return ResponseEntity.created(location).body(productDTO);
     }
 
     @PutMapping("/{id}")
-    public ProductDTO replaceProduct(@PathVariable long id, @RequestBody ProductDTO newProductDTO) {
-        if (productService.exist(id)) {
-            Product newProduct = toDomain(newProductDTO);
-            newProduct.setId(id);
-            productService.save(newProduct);
-            return toDTO(newProduct);
-        } else {
-            throw new NoSuchElementException();
-        }
+    public ProductDTO replaceProduct(@PathVariable long id, @RequestBody ProductDTO updatedProductDTO) {
+        return productService.replaceProduct(id, updatedProductDTO);
     }
 
     @DeleteMapping("/{id}")
     public ProductDTO deleteProduct(@PathVariable long id) {
-        Product product = productService.findById(id).orElseThrow();
-        productService.deleteById(id);
-        return toDTO(product);
+        return productService.deleteProduct(id);
+
     }
 
 

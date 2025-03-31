@@ -1,5 +1,6 @@
 package es.grupo12.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
+import es.grupo12.dto.UserDTO;
+import es.grupo12.dto.UserMapper;
 import es.grupo12.model.User;
 import es.grupo12.repository.MessageRepository;
 import es.grupo12.repository.ProductRepository;
@@ -18,11 +21,12 @@ import jakarta.transaction.Transactional;
 @Service
 public class UserService {
 
+	@Autowired
+    private UserMapper mapper;
 
 	@Autowired
 	private UserRepository userRepository;
 
-	
 	@Autowired
     private ProductRepository productRepository;
 
@@ -56,9 +60,9 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
-	public User getLoggedUser() {
+	public UserDTO getLoggedUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findByUsername(username).get();
+        return toDTO(userRepository.findByUsername(username).orElseThrow());
     }
 
     
@@ -82,6 +86,25 @@ public class UserService {
         }
     
     }
+	private UserDTO toDTO (User user) {
+        return mapper.toDTO(user);
+    }
+
+    private User toDomain (UserDTO userDTO) {
+        return mapper.toDomain(userDTO);
+    }
+
+    private List<UserDTO> toDTOs(Collection<User> users){
+        return mapper.toDTOs(users);
+    }
+
+	public Collection<UserDTO> getUsers() {
+		return toDTOs(userRepository.findAll());
+	}
+
+	public UserDTO getUser(long id) {
+		return toDTO(userRepository.findById(id).orElseThrow());
+	}
 
 
 	
