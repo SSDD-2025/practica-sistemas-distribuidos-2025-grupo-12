@@ -24,7 +24,7 @@ import es.grupo12.model.Product;
 import es.grupo12.service.ProductService;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 public class RestProductController {
 
     @Autowired

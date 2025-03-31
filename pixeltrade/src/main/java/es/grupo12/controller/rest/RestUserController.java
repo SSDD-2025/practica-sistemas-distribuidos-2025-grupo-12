@@ -19,7 +19,7 @@ import es.grupo12.model.User;
 import es.grupo12.service.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class RestUserController {
 
     @Autowired
