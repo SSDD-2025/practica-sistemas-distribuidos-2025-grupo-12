@@ -89,6 +89,8 @@ public class SecurityConfig {
 							.requestMatchers("/api/products/**").permitAll()
 							.requestMatchers("/api/users/").permitAll()
 							.requestMatchers("/api/users/**").permitAll()
+							.requestMatchers("/api/reviews/").permitAll()
+							.requestMatchers("/api/reviews/**").permitAll()
 							//PRIVATE PAGES
 							.anyRequest().hasAnyRole("USER")
 			)
