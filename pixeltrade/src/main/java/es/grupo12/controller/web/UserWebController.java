@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.grupo12.model.User;
-import es.grupo12.repository.UserRepository;
 import es.grupo12.service.MessageService;
 import es.grupo12.service.ProductService;
 import es.grupo12.service.ReviewService;
@@ -38,9 +37,6 @@ public class UserWebController {
     MessageService messageService;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @ModelAttribute
@@ -54,7 +50,6 @@ public class UserWebController {
 			model.addAttribute("logged", false);
 		}
 	}
-
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -126,6 +121,5 @@ public class UserWebController {
         userService.deleteById(iden);
     	return "redirect:/users"; 
 	}
-
 
 }

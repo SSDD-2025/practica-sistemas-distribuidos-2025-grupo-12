@@ -13,5 +13,4 @@ public class ErrorWebController implements ErrorController {
         return "errorPage";
     }
     
-    
 }

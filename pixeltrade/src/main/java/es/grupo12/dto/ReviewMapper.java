@@ -10,8 +10,11 @@ import es.grupo12.model.Review;
 
 @Mapper(componentModel = "spring")
 public interface ReviewMapper {
+
     ReviewDTO toDTO(Review review);
 
     List<ReviewDTO> toDTOs(Collection<Review> reviews);
+
     Review toDomain(ReviewDTO reviewDTO);
+    
 }

@@ -9,8 +9,11 @@ import es.grupo12.model.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
     UserDTO toDTO(User user);
 
     List<UserDTO> toDTOs(Collection<User> users);
-    User toDomain(UserDTO postDTO);
+
+    User toDomain(UserDTO userDTO);
+
 }

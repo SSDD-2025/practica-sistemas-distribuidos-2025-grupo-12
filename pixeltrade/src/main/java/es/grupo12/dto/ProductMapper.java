@@ -9,8 +9,10 @@ import es.grupo12.model.Product;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
+
     ProductDTO toDTO(Product product);
 
     List<ProductDTO> toDTOs(Collection<Product> products);
-    Product toDomain(ProductDTO postDTO);
+
+    Product toDomain(ProductDTO productDTO);
 }

@@ -33,8 +33,6 @@ import es.grupo12.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-
-
 @Controller
 public class ProductWebController {
 
@@ -56,8 +54,6 @@ public class ProductWebController {
 		}
 	}
  
-
-
 	@GetMapping("/")
 	public String showRecommended(Model model) {
 		List<Product> allProducts = productService.findByBuyerIsNull();
@@ -66,7 +62,6 @@ public class ProductWebController {
 		model.addAttribute("products", limitedProducts);
 		return "mainweb";
 	}
-
 
 	@GetMapping("/products")
 	public String showProducts(Model model) {
