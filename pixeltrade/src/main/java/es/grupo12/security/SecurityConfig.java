@@ -84,6 +84,8 @@ public class SecurityConfig {
 							.requestMatchers("/users").hasAnyRole("ADMIN")
 							.requestMatchers("/delete_productFromList/**").hasAnyRole("ADMIN")
 							.requestMatchers("/messages").hasAnyRole("ADMIN")
+							// API PAGES
+							.requestMatchers("/api/products/").permitAll()
 							//PRIVATE PAGES
 							.anyRequest().hasAnyRole("USER")
 			)

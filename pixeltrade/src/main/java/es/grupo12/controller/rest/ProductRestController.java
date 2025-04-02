@@ -2,10 +2,13 @@ package es.grupo12.controller.rest;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
+import java.io.IOException;
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,21 +17,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.grupo12.dto.ProductDTO;
 import es.grupo12.service.ProductService;
+import jakarta.annotation.Resource;
 
 @RestController
 @RequestMapping("/api/products")
-public class RestProductController {
-
-    
+public class ProductRestController {
 
     @Autowired
     private ProductService productService;
-
-
 
     @GetMapping("/")
 	public Collection<ProductDTO> getProducts() {
@@ -42,13 +44,8 @@ public class RestProductController {
 
     @PostMapping("/")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
-
         productDTO = productService.createProduct(productDTO);
-
-
-        URI location = fromCurrentRequest().path("/{id}")
-            .buildAndExpand(productDTO.id()).toUri();
-
+        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(productDTO.id()).toUri();
         return ResponseEntity.created(location).body(productDTO);
     }
 
@@ -60,9 +57,23 @@ public class RestProductController {
     @DeleteMapping("/{id}")
     public ProductDTO deleteProduct(@PathVariable long id) {
         return productService.deleteProduct(id);
-
     }
 
+    @PostMapping("/{id}/image")
+    public ResponseEntity<Object> createProductImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+        productService.createProductImage(id, imageFile.getInputStream(), imageFile.getSize());
+        URI location = fromCurrentRequest().build().toUri();
+        return ResponseEntity.created(location).build();
+    }
 
+    @GetMapping("/{id}/image")
+    public ResponseEntity<Object> getProductImage(@PathVariable long id) throws SQLException, IOException {
+        Resource productImage = productService.getProductImage(id);
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                .body(productImage);
+    }
+    
 
 }

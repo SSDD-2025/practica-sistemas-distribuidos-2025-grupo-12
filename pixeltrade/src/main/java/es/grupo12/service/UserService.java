@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import es.grupo12.dto.UserDTO;
 import es.grupo12.dto.UserMapper;
+import es.grupo12.model.Product;
 import es.grupo12.model.User;
 import es.grupo12.repository.MessageRepository;
 import es.grupo12.repository.ProductRepository;
@@ -104,6 +105,18 @@ public class UserService {
 
 	public UserDTO getUser(long id) {
 		return toDTO(userRepository.findById(id).orElseThrow());
+	}
+
+    public UserDTO deleteUser(long id) {
+        User user = userRepository.findById(id).orElseThrow();
+ 		userRepository.deleteById(id);
+ 		return toDTO(user);
+    }
+
+	public UserDTO createUser(UserDTO userDTO) {
+		User user = toDomain(userDTO);
+ 		userRepository.save(user);
+ 		return toDTO(user);
 	}
 
 
