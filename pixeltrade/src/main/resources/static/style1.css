@@ -41,14 +41,31 @@ nav a:hover {
     color: #e74c3c;
 }
 
+nav form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+nav form button {
+    all: unset;
+    color: inherit;
+    text-decoration: inherit;
+    cursor: pointer;
+    font: inherit;
+    display: inline;
+}
+
+nav form button:hover {
+    color: #e74c3c
+}
+
 form .logout{
     margin: 0 15px;
     text-decoration: none;
     color: #2c3e50;
     font-weight: bold;
 }
-
-
 
 .products {
     display: grid;

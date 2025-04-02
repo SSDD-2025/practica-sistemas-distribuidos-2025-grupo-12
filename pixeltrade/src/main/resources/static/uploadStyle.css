@@ -99,23 +99,6 @@ header {
     border-radius: 10px;
 }
 
-nav {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #2c3e50;
-    font-weight: bold;
-}
-
-nav a:hover {
-    color: #e74c3c;
-}
-
 footer {
     text-align: center;
     padding: 10px;
@@ -134,4 +117,30 @@ h1 {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+nav form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    border: none;
+    width: auto;
+    max-width: none;
+}
+
+nav form button {
+    all: unset;
+    color: #2c3e50;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 15px;
+    display: inline;
+}
+
+nav form button:hover {
+    color: #e74c3c;
+    background: none !important;
 }

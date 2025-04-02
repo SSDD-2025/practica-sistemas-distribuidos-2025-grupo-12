@@ -86,6 +86,9 @@ public class SecurityConfig {
 							.requestMatchers("/messages").hasAnyRole("ADMIN")
 							// API PAGES
 							.requestMatchers("/api/products/").permitAll()
+							.requestMatchers("/api/products/**").permitAll()
+							.requestMatchers("/api/users/").permitAll()
+							.requestMatchers("/api/users/**").permitAll()
 							//PRIVATE PAGES
 							.anyRequest().hasAnyRole("USER")
 			)

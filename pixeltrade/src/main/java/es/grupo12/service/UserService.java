@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import es.grupo12.dto.UserDTO;
 import es.grupo12.dto.UserMapper;
-import es.grupo12.model.Product;
 import es.grupo12.model.User;
 import es.grupo12.repository.MessageRepository;
 import es.grupo12.repository.ProductRepository;

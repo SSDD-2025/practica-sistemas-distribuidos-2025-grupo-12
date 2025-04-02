@@ -125,9 +125,6 @@ public class ProductWebController {
 
 	@GetMapping("/edit_product/{id}")
 	public String editProduct(Model model, @PathVariable long id) {
-		String userName = (String) model.getAttribute("userName");
-        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
-
 		Optional<Product> product = productService.findById(id);
 		if (product.isPresent()) {
 			model.addAttribute("product", product.get());

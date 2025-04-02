@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +20,6 @@ import es.grupo12.dto.ProductMapper;
 import es.grupo12.model.Product;
 import es.grupo12.model.User;
 import es.grupo12.repository.ProductRepository;
-import jakarta.annotation.Resource;;
 
 @Service
 public class ProductService {
@@ -131,7 +131,7 @@ public class ProductService {
 		Product product = productRepository.findById(id).orElseThrow();
 
 		if (product.getImg() != null) {
-			return (Resource) new InputStreamResource(product.getImg().getBinaryStream());
+			return new InputStreamResource(product.getImg().getBinaryStream());
 		} else {
 			throw new NoSuchElementException();
 		}

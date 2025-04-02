@@ -6,8 +6,6 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 import java.net.URI;
 import java.util.Collection;
 
-// import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.grupo12.dto.ProductDTO;
 import es.grupo12.dto.UserDTO;
 import es.grupo12.service.UserService;
 
