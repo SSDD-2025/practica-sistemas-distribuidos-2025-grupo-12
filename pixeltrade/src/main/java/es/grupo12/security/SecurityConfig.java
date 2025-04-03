@@ -65,6 +65,8 @@ public class SecurityConfig {
 
 		http.authenticationProvider(authenticationProvider());
 
+		http.csrf(csrf -> csrf.disable());
+
         http
 			.authorizeHttpRequests(authorize -> authorize
 							// PUBLIC PAGES
@@ -110,42 +112,4 @@ public class SecurityConfig {
 
 		return http.build();
 	}
-
-   /*  @Bean
-	@Order(1)
-	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
-		
-		http.authenticationProvider(authenticationProvider());
-		
-		http
-			.securityMatcher("/api/**")
-			.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
-		
-		http
-			.authorizeHttpRequests(authorize -> authorize
-                    // PRIVATE ENDPOINTS
-                    .requestMatchers(HttpMethod.POST,"/api/books/").hasRole("USER")
-                    .requestMatchers(HttpMethod.PUT,"/api/books/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.DELETE,"/api/books/**").hasRole("ADMIN")
-					// PUBLIC ENDPOINTS
-					.anyRequest().permitAll()
-			);
-		
-        // Disable Form login Authentication
-        http.formLogin(formLogin -> formLogin.disable());
-
-        // Disable CSRF protection (it is difficult to implement in REST APIs)
-        http.csrf(csrf -> csrf.disable());
-
-        // Disable Basic Authentication
-        http.httpBasic(httpBasic -> httpBasic.disable());
-
-        // Stateless session
-        http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-		// Add JWT Token filter
-		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-		return http.build();
-	}*/
 }
