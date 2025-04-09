@@ -10,8 +10,7 @@ import es.grupo12.dto.MessageDTO;
 import es.grupo12.dto.MessageMapper;
 import es.grupo12.dto.UserDTO;
 import es.grupo12.model.Message;
-import es.grupo12.model.Product;
-import es.grupo12.model.Review;
+
 import es.grupo12.model.User;
 import es.grupo12.repository.MessageRepository;
 
@@ -53,6 +52,10 @@ public class MessageService {
 
 	public List<Message> findMessagesBetweenUsers(User user1, User user2) {
 		return messageRepository.findMessagesBetweenUsers(user1, user2);
+	}
+
+	public List<MessageDTO> getConversations(User user1, User user2){
+		return toDTOs(messageRepository.findMessagesBetweenUsers(user1, user2));
 	}
 
     public List<Message> findAll() {

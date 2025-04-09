@@ -125,6 +125,8 @@ public class UserService {
  		return toDTO(user);
 	}
 
+	public List<UserDTO> findUsersBySharedMessages(Long userId){
+		return toDTOs(userRepository.findUsersBySharedMessages(userId)) ;
+	}
 
-	
 }

@@ -52,4 +52,14 @@ public class UserRestController {
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.id()).toUri();
         return ResponseEntity.created(location).body(userDTO);
     }
+
+    @GetMapping("/{id}/shared-messages")
+    public Collection<UserDTO> getSharedMessages(@PathVariable long id){
+
+        /*UserDTO loggedUser = userService.getLoggedUser();
+        if (!loggedUser.id().equals(id)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }*/
+        return userService.findUsersBySharedMessages(id);
+    }
 }

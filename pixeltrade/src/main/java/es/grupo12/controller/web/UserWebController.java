@@ -5,7 +5,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +36,6 @@ public class UserWebController {
     @Autowired
     MessageService messageService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
