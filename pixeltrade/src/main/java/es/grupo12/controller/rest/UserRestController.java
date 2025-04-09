@@ -47,7 +47,7 @@ public class UserRestController {
     }
 
 	@PostMapping("/")
-    public ResponseEntity<UserDTO> createProduct(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         userDTO = userService.createUser(userDTO);
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.id()).toUri();
         return ResponseEntity.created(location).body(userDTO);

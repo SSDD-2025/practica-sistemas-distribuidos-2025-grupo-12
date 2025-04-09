@@ -59,11 +59,8 @@ public class UserWebController {
 
     @PostMapping("/register")
     public String newUser(Model model, User user){
-        String password = user.getPassword();
-        String encodedPassword = passwordEncoder.encode(password);
-        user.setPassword(encodedPassword);
-        User newUser = userService.save(user);
-        model.addAttribute("name", newUser.getUsername());
+        userService.save(user);
+        model.addAttribute("name", user.getUsername());
 		return  "saved_user";
 	}
 
