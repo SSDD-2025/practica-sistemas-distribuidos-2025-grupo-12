@@ -4,25 +4,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import es.grupo12.security.jwt.JwtRequestFilter;
+import es.grupo12.security.jwt.UnauthorizedHandlerJwt;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-
+	@Autowired
+	private JwtRequestFilter jwtRequestFilter;
+	
 	@Autowired
 	RepositoryUserDetailsService userDetailsService;
+
+	@Autowired
+	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -61,11 +72,56 @@ public class SecurityConfig {
 
 	@Bean
 	@Order(1)
+	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+		
+		http.authenticationProvider(authenticationProvider());
+		
+		http
+			.securityMatcher("/api/**")
+			.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
+		
+		http
+			.authorizeHttpRequests(authorize -> authorize
+                    // PRIVATE ENDPOINTS
+					.requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+					.requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("USER")
+					.requestMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("USER")
+					.requestMatchers(HttpMethod.PUT, "/api/products/**").hasRole("USER")
+					.requestMatchers(HttpMethod.GET, "/api/users/**").hasRole("USER")
+					.requestMatchers(HttpMethod.POST, "/api/users/**").permitAll()
+					.requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll()
+					.requestMatchers(HttpMethod.POST, "/api/reviews/**").hasRole("USER")
+					.requestMatchers(HttpMethod.DELETE, "/api/reviews/**").hasRole("USER")
+					.requestMatchers(HttpMethod.GET, "/api/messages/**").hasRole("USER")
+					.requestMatchers(HttpMethod.POST, "/api/messages/**").hasRole("USER")
+					.requestMatchers(HttpMethod.DELETE, "/api/messages/**").hasRole("ADMIN")
+					// PUBLIC ENDPOINTS
+					.anyRequest().permitAll()
+			);
+		
+        // Disable Form login Authentication
+        http.formLogin(formLogin -> formLogin.disable());
+
+        // Disable CSRF protection (it is difficult to implement in REST APIs)
+        http.csrf(csrf -> csrf.disable());
+
+        // Disable Basic Authentication
+        http.httpBasic(httpBasic -> httpBasic.disable());
+
+        // Stateless session
+        http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+		// Add JWT Token filter
+		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
+
+	@Bean
+	@Order(1)
 	public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
 
 		http.authenticationProvider(authenticationProvider());
-
-		http.csrf(csrf -> csrf.disable());
 
         http
 			.authorizeHttpRequests(authorize -> authorize
@@ -86,15 +142,6 @@ public class SecurityConfig {
 							.requestMatchers("/users").hasAnyRole("ADMIN")
 							.requestMatchers("/delete_productFromList/**").hasAnyRole("ADMIN")
 							.requestMatchers("/messages").hasAnyRole("ADMIN")
-							// API PAGES
-							.requestMatchers("/api/products/").permitAll()
-							.requestMatchers("/api/products/**").permitAll()
-							.requestMatchers("/api/users/").permitAll()
-							.requestMatchers("/api/users/**").permitAll()
-							.requestMatchers("/api/reviews/").permitAll()
-							.requestMatchers("/api/reviews/**").permitAll()
-							.requestMatchers("/api/messages/").permitAll()
-							.requestMatchers("/api/messages/**").permitAll()
 							//PRIVATE PAGES
 							.anyRequest().hasAnyRole("USER")
 			)

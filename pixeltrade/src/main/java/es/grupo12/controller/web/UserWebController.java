@@ -66,18 +66,6 @@ public class UserWebController {
     public String showLoginForm(Model model) {
         return "login";  // HTML page
     }
-    
-    /*@PostMapping("/login")
-    public String loginUser(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
-            return "login";
-        
-    } */ 
-
-    /*@GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "/";
-    } */ 
 
     @GetMapping("/profile")
     public String showProfile(Model model) {
