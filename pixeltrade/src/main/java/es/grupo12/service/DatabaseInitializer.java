@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import es.grupo12.model.Message;
@@ -32,18 +31,14 @@ public class DatabaseInitializer {
     @Autowired
     private ReviewService reviewService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-
     @PostConstruct
     public void init() throws IOException {
         
-        User admin = new User("admin", "admin@host", passwordEncoder.encode("1234"), "ADMIN", "USER");
-        User usuario1 = new User("martinGP", "martingut@gmail.com", passwordEncoder.encode("marting"), "USER");
-        User usuario2 = new User("DavidA","davidarce@gmail.com", passwordEncoder.encode("davida"), "USER");
-        User usuario3 = new User("TayPB","taysonpb@gmail.com", passwordEncoder.encode("taysonp"), "USER");
-        User usuario4 = new User("DanMM","danmunmar@gmail.com", passwordEncoder.encode("danielm"), "USER");
+        User admin = new User("admin", "admin@host", "1234", "ADMIN", "USER");
+        User usuario1 = new User("martinGP", "martingut@gmail.com", "marting", "USER");
+        User usuario2 = new User("DavidA","davidarce@gmail.com", "davida", "USER");
+        User usuario3 = new User("TayPB","taysonpb@gmail.com", "taysonp", "USER");
+        User usuario4 = new User("DanMM","danmunmar@gmail.com", "danielm", "USER");
 
         userService.save(admin);
         userService.save(usuario1);

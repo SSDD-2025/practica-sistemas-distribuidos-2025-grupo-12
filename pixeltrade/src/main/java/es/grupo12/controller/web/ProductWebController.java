@@ -98,22 +98,35 @@ public class ProductWebController {
 
 	@GetMapping("/products/{id}")
 	public String showProduct(Model model, @PathVariable long id) {
-		String userName = (String) model.getAttribute("userName");
-        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+		if ((boolean) model.getAttribute("logged")) {
+			String userName = (String) model.getAttribute("userName");
+			User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
 
-		Optional<Product> product = productService.findById(id);
-		if (product.isPresent()) {
-			model.addAttribute("product", product.get());
+			Optional<Product> product = productService.findById(id);
+			if (product.isPresent()) {
+				model.addAttribute("product", product.get());
 
-			if (user != null && product.get().getSeller().getId() == user.getId()) {
-				model.addAttribute("isOwnProduct", true);
+				if (user != null && product.get().getSeller().getId() == user.getId()) {
+					model.addAttribute("isOwnProduct", true);
+				} else {
+					model.addAttribute("isOwnProduct", false);
+				}
+
+				return "productPage";
 			} else {
-				model.addAttribute("isOwnProduct", false);
+				return "productNotFound";
 			}
-
-			return "productPage";
 		} else {
-			return "productNotFound";
+			Optional<Product> product = productService.findById(id);
+			model.addAttribute("isOwnProduuct", false);
+			if (product.isPresent()) {
+				model.addAttribute("product", product.get());
+				return "productPage";
+			} else {
+				return "productNotFound";
+			}
+			
+			
 		}
 
 	}

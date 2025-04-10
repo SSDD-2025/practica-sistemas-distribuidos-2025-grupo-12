@@ -72,7 +72,6 @@ public class UserService {
         return toDTO(userRepository.findByUsername(username).orElseThrow());
     }
 
-    
     @Transactional 
     public void deleteById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);

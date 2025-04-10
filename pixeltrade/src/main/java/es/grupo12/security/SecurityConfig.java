@@ -3,6 +3,7 @@ package es.grupo12.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +28,7 @@ import es.grupo12.security.jwt.UnauthorizedHandlerJwt;
 public class SecurityConfig {
 
 	@Autowired
+	@Lazy
 	private JwtRequestFilter jwtRequestFilter;
 	
 	@Autowired
@@ -75,7 +77,7 @@ public class SecurityConfig {
 	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
 		
 		http.authenticationProvider(authenticationProvider());
-		
+
 		http
 			.securityMatcher("/api/**")
 			.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));

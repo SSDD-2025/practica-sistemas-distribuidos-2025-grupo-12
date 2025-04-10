@@ -14,8 +14,8 @@
       <input type="text" name="username" placeholder="Usuario" required>
       <input type="password" name="password" placeholder="Contraseña" required>
       <a href="/register">¿No tienes cuenta? Regístrate aquí</a>
-      <button type="submit">Ingresar</button>
       <input type="hidden" name="_csrf" value="{{token}}"/>
+      <button type="submit">Ingresar</button>
     </form>
     {{#error}}
       <p class="error-text">{{error}}</p>
