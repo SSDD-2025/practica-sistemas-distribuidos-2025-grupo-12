@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import es.grupo12.dto.MessageDTO;
@@ -60,6 +62,10 @@ public class MessageService {
 
     public List<Message> findAll() {
         return messageRepository.findAll();
+    }
+
+	public Page<Message> findAll(Pageable pageable) {
+        return messageRepository.findAll(pageable);
     }
 
 	public void deleteById(long id) {

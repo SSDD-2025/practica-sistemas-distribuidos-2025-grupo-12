@@ -19,6 +19,7 @@
             <form action="/user_reviews" method="GET">
                 <input type="hidden" name="id" value="{{product.seller.id}}">
                 <button type="submit" class="username">{{product.seller.username}}</button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
         </p>
 
@@ -30,6 +31,7 @@
                         <form action="/buy_product" method="GET">
                             <input type="hidden" name="id" value="{{product.id}}">
                             <button type="submit" class="cart">Comprar</button>
+                            <input type="hidden" name="_csrf" value="{{token}}"/>
                         </form>
                         
                         <form action="/send_message" method="POST">
@@ -50,10 +52,12 @@
                 {{#isOwnProduct}}  
                     <form action="/edit_product/{{product.id}}" method="GET">
                         <button type="submit">Editar producto</button>
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
                     </form>
 
                     <form action="/delete_product/{{product.id}}" method="POST">
                         <button type="submit">Borrar producto</button>
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
                     </form>
 
                 {{/isOwnProduct}}

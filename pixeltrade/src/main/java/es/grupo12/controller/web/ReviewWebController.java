@@ -45,7 +45,8 @@ public class ReviewWebController {
     @PostMapping("/write_review")
     public String writeReview(Model model, HttpSession session, @RequestParam String message) {
         Review review = new Review(message,null,null);
-        User user = (User) session.getAttribute("user");
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("user", user);
         Product lastProduct = (Product) session.getAttribute("lastBoughtProduct");
         User seller = lastProduct.getSeller();
@@ -55,16 +56,18 @@ public class ReviewWebController {
 
     
 	@GetMapping("/reviews")
-	public String showMyReviews(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("user");
+	public String showMyReviews(Model model) {
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("user", user);
 		model.addAttribute("reviews", reviewService.findBySeller(user));
 		return "reviews";
 	}
 
     @GetMapping("/allReviews")
-    public String showReviews(Model model,HttpSession session) {
-        User user = (User) session.getAttribute("user");
+    public String showReviews(Model model) {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         List<Review> allReviews = reviewService.findAll();
         model.addAttribute("reviews", allReviews);
         model.addAttribute("user", user);
@@ -72,7 +75,7 @@ public class ReviewWebController {
     }
 
     @PostMapping("/delete_review")
-	public String deleteUser(@RequestParam String id) throws IOException {
+	public String deleteReview(@RequestParam String id) throws IOException {
         long iden = Long.parseLong(id);
 		reviewService.deleteById(iden);
 
@@ -80,12 +83,17 @@ public class ReviewWebController {
 	}
 
     @GetMapping("/user_reviews")
-	public String userReviews(Model model, @RequestParam long id, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
+	public String userReviews(Model model, @RequestParam long id, Principal principal) {
+        if (principal != null) {
+            String userName = principal.getName();
+            User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+            model.addAttribute("user", user);
+        }
+    
         User account = userService.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("contact", account);
-		model.addAttribute("reviews", reviewService.findBySeller(account));
-		return "userReviews";
+        model.addAttribute("reviews", reviewService.findBySeller(account));
+    
+        return "userReviews";
 	}
 }

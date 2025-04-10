@@ -110,6 +110,9 @@ public class DatabaseInitializer {
         
         Review review1 = new Review("Es un comprador excelente. Puntual y profesional",null,null);
         reviewService.save(review1,usuario2,usuario4);
+
+        Review review2 = new Review("Amable y rápido.",null,null);
+        reviewService.save(review2,usuario3,usuario1);
             }
         
             private Product saveProductWithURLImage(Product product, String image) throws IOException {

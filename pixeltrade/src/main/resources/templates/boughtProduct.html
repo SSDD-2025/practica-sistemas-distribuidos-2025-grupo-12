@@ -10,6 +10,7 @@
             <p>Valora tu experiencia con el vendedor:</p>
             <textarea id="message" name="message" rows="7" placeholder="Escriba aquí..." required></textarea>
             <button type="submit">Enviar</button>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
     </div>
     {{>footer}}

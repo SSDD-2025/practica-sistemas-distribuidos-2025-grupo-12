@@ -5,10 +5,11 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.grupo12.dto.ProductDTO;
+import es.grupo12.dto.ProductMapper;
+import es.grupo12.model.Product;
 import es.grupo12.service.ProductService;
 
 @RestController
@@ -32,9 +35,12 @@ public class ProductRestController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ProductMapper mapper;
+
     @GetMapping("/")
-	public Collection<ProductDTO> getProducts() {
-		return productService.getProducts();
+	public Page<ProductDTO> getProducts(Pageable pageable) {
+        return productService.findAll(pageable).map(this::toDTO);
 	}
 
     @GetMapping("/{id}")
@@ -75,4 +81,7 @@ public class ProductRestController {
                 .body(productImage);
     }
     
+    private ProductDTO toDTO(Product product){
+		return mapper.toDTO(product);
+	}
 }

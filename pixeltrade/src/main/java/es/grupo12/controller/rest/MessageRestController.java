@@ -7,7 +7,8 @@ import java.net.URI;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import es.grupo12.dto.MessageDTO;
-
+import es.grupo12.dto.MessageMapper;
+import es.grupo12.model.Message;
 import es.grupo12.model.User;
 import es.grupo12.service.MessageService;
 import es.grupo12.service.UserService;
@@ -34,9 +36,12 @@ public class MessageRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageMapper mapper;
+
     @GetMapping("/")
-	public Collection<MessageDTO> getMessages() {
-		return messageService.getMessages();
+	public Page<MessageDTO> getMessages(Pageable pageable) {
+		return messageService.findAll(pageable).map(this::toDTO);
 	}
 
     @GetMapping("/{id}")
@@ -66,4 +71,8 @@ public class MessageRestController {
         User user2 = userService.findById(id2).orElseThrow();
         return messageService.getConversations(user1,user2);
     }
+
+    private MessageDTO toDTO(Message message){
+		return mapper.toDTO(message);
+	}
 }

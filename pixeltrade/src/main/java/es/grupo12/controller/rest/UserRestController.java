@@ -7,6 +7,8 @@ import java.net.URI;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.grupo12.dto.UserDTO;
+import es.grupo12.dto.UserMapper;
+import es.grupo12.model.User;
 import es.grupo12.service.UserService;
 
 @RestController
@@ -25,6 +29,9 @@ public class UserRestController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserMapper mapper;
     
     @GetMapping("/me")
 	public UserDTO me() {
@@ -32,8 +39,8 @@ public class UserRestController {
 	}
 
     @GetMapping("/")
-	public Collection<UserDTO> getUsers() {
-		return userService.getUsers();
+	public Page<UserDTO> getUsers(Pageable pageable) {
+		return userService.findAll(pageable).map(this::toDTO);
 	}
 
     @GetMapping("/{id}")
@@ -62,4 +69,8 @@ public class UserRestController {
         }*/
         return userService.findUsersBySharedMessages(id);
     }
+
+    private UserDTO toDTO(User user){
+		return mapper.toDTO(user);
+	}
 }

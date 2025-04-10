@@ -129,9 +129,9 @@ public class SecurityConfig {
 			.authorizeHttpRequests(authorize -> authorize
 							// PUBLIC PAGES
 							.requestMatchers("/").permitAll()
-							.requestMatchers("/products").permitAll()
 							.requestMatchers("/products/**").permitAll()
 							.requestMatchers("/error").permitAll()
+							.requestMatchers("/user_reviews").permitAll()
 							.requestMatchers("/search").permitAll()
 							.requestMatchers("/register").permitAll()
 							.requestMatchers("/logged_user").permitAll()

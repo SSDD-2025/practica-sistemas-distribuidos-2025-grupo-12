@@ -97,38 +97,29 @@ public class ProductWebController {
 	}
 
 	@GetMapping("/products/{id}")
-	public String showProduct(Model model, @PathVariable long id) {
-		if ((boolean) model.getAttribute("logged")) {
-			String userName = (String) model.getAttribute("userName");
-			User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+	public String showProduct(Model model, @PathVariable long id, Principal principal) {
+		System.out.println("Entrando a showProduct con id = " + id);
+		Optional<Product> product = productService.findById(id);
 
-			Optional<Product> product = productService.findById(id);
-			if (product.isPresent()) {
-				model.addAttribute("product", product.get());
-
-				if (user != null && product.get().getSeller().getId() == user.getId()) {
-					model.addAttribute("isOwnProduct", true);
-				} else {
-					model.addAttribute("isOwnProduct", false);
-				}
-
-				return "productPage";
-			} else {
-				return "productNotFound";
-			}
-		} else {
-			Optional<Product> product = productService.findById(id);
-			model.addAttribute("isOwnProduuct", false);
-			if (product.isPresent()) {
-				model.addAttribute("product", product.get());
-				return "productPage";
-			} else {
-				return "productNotFound";
-			}
-			
-			
+		if (!product.isPresent()) {
+			return "productNotFound";
 		}
 
+		model.addAttribute("product", product.get());
+
+		boolean isOwn = false;
+
+		if (principal != null) {
+			String userName = principal.getName();
+			User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+
+			isOwn = product.get().getSeller().getId() == user.getId();
+			model.addAttribute("user", user);
+		}
+
+		model.addAttribute("isOwnProduct", isOwn);
+
+		return "productPage";
 	}
 
 	@GetMapping("/edit_product/{id}")
@@ -223,7 +214,8 @@ public class ProductWebController {
 
 	@GetMapping("/buy_product")
 	public String buyProduct(Model model, @RequestParam long id, HttpSession session) {
-		User user = (User) session.getAttribute("user");
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("user", user);
 		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 		product.setBuyer(user);
