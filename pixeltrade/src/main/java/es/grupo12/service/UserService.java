@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -74,9 +75,25 @@ public class UserService {
 	}
 
 	public UserDTO getLoggedUser() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username;
+
+        if (principal instanceof UserDetails) {
+
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+
+            username = principal.toString();
+
+        }
+
         return toDTO(userRepository.findByUsername(username).orElseThrow());
-    }
+
+	}
+	
 
     @Transactional 
     public void deleteById(Long id) {

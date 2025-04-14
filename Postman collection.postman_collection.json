@@ -239,7 +239,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:8443/api/users/2/3",
+					"raw": "https://localhost:8443/api/messages/users/2/3",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -247,6 +247,7 @@
 					"port": "8443",
 					"path": [
 						"api",
+						"messages",
 						"users",
 						"2",
 						"3"
@@ -618,11 +619,8 @@
 		},
 		{
 			"name": "Admin login",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -652,7 +650,7 @@
 		{
 			"name": "Logout",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
 					"raw": "https://localhost:8443/api/auth/logout",
