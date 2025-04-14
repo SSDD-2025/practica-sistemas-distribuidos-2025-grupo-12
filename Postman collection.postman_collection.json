@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "cc5fc4c9-3c43-4694-863c-42c363c7b56c",
+		"_postman_id": "a63e5bd4-5bca-4be3-a995-de0c35d1a8d8",
 		"name": "Postman collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43692445",
-		"_collection_link": "https://tay-4200443.postman.co/workspace/Tay's-Workspace~d98a2167-cf77-4f33-8b15-9ce7a164b2e2/collection/43692445-cc5fc4c9-3c43-4694-863c-42c363c7b56c?action=share&source=collection_link&creator=43692445"
+		"_exporter_id": "43621233",
+		"_collection_link": "https://danielmm-7772219.postman.co/workspace/New-Team-Workspace~8830cb76-9064-4e38-a8f5-4b47af0e58a9/collection/43621233-a63e5bd4-5bca-4be3-a995-de0c35d1a8d8?action=share&source=collection_link&creator=43621233"
 	},
 	"item": [
 		{
@@ -75,19 +75,7 @@
 			"name": "POST Product Image",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "taysonp",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "tayPB",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [],
@@ -97,12 +85,12 @@
 						{
 							"key": "imageFile",
 							"type": "file",
-							"src": "/C:/Users/tayso/Downloads/patapon.jpg"
+							"src": "c:\\Users\\danie\\OneDrive\\Documentos\\practicaSD\\practica-sistemas-distribuidos-2025-grupo-12-1\\pixeltrade\\src\\main\\resources\\static\\patapon.jpg"
 						}
 					]
 				},
 				"url": {
-					"raw": "https://localhost:8443/api/products/3/image",
+					"raw": "https://localhost:8443/api/products/17/image",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -111,7 +99,7 @@
 					"path": [
 						"api",
 						"products",
-						"3",
+						"17",
 						"image"
 					]
 				}
@@ -122,19 +110,7 @@
 			"name": "POST Product",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "marting",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "martinGP",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [],
@@ -167,19 +143,7 @@
 			"name": "DELETE Product",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "taysonp",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "tayPB",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "DELETE",
 				"header": [],
@@ -245,19 +209,7 @@
 			"name": "GET Users with shared messages",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "marting4",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "martinGP",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],
@@ -281,10 +233,13 @@
 		{
 			"name": "GET Messages between users",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:8443/api/users/1/2",
+					"raw": "https://localhost:8443/api/users/2/3",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -293,8 +248,8 @@
 					"path": [
 						"api",
 						"users",
-						"1",
-						"2"
+						"2",
+						"3"
 					]
 				}
 			},
@@ -333,21 +288,6 @@
 		{
 			"name": "DELETE Message",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "1234",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						}
-					]
-				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
@@ -369,6 +309,9 @@
 		{
 			"name": "GET Users",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -411,6 +354,9 @@
 		{
 			"name": "POST User",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -441,21 +387,6 @@
 		{
 			"name": "DELETE User",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "1234",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						}
-					]
-				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
@@ -519,6 +450,9 @@
 		{
 			"name": "POST Review",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -562,6 +496,175 @@
 						"api",
 						"reviews",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=A86574AA087C7FA7E4C945AF7E4CE418",
+						"name": "cookie",
+						"type": "text"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"name": "cache-control",
+						"type": "text"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "<calculated when request is sent>",
+						"name": "postman-token",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "content-type",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "<calculated when request is sent>",
+						"name": "content-length",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": "<calculated when request is sent>",
+						"name": "host",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.39.1",
+						"name": "user-agent",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"name": "accept",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"name": "accept-encoding",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"name": "connection",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"martinGP\", \"password\": \"marting\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/auth/refresh",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"auth",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"admin\", \"password\": \"1234\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/auth/logout",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"auth",
+						"logout"
 					]
 				}
 			},
