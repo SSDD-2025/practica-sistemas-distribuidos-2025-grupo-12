@@ -135,11 +135,7 @@ public class UserService {
 		return toDTO(userRepository.findById(id).orElseThrow());
 	}
 
-    public UserDTO deleteUser(long id) {
-        User user = userRepository.findById(id).orElseThrow();
- 		userRepository.deleteById(id);
- 		return toDTO(user);
-    }
+    
 
 	public UserDTO createUser(UserDTO userDTO) {
 		User user = toDomain(userDTO);

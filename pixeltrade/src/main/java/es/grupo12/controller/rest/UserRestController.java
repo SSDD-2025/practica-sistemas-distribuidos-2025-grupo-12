@@ -52,7 +52,9 @@ public class UserRestController {
 
 	@DeleteMapping("/{id}")
     public UserDTO deleteUser(@PathVariable long id) {
-        return userService.deleteUser(id);
+        UserDTO deletedUser = userService.getUser(id);
+        userService.deleteById(id);
+        return deletedUser;
     }
 
 	@PostMapping("/")
