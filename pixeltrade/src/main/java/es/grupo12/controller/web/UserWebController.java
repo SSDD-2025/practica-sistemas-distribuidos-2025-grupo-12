@@ -103,5 +103,20 @@ public class UserWebController {
         userService.deleteById(iden);
     	return "redirect:/users"; 
 	}
-
+    
+    @GetMapping("/deleteAccount")
+    public String showDeleteAccount(Model model) {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+        model.addAttribute("user", user);
+        model.addAttribute("id", user.getId());
+        return "deleteAccount";
+    }
+    
+    @PostMapping("/deleteAccount")
+	public String deleteAccount(@RequestParam String id) throws IOException {
+        long iden = Long.parseLong(id);
+        userService.deleteById(iden);
+    	return "/logout"; 
+	}
 }

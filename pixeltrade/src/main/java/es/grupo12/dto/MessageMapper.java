@@ -12,5 +12,5 @@ public interface MessageMapper {
     MessageDTO toDTO(Message message);
 
     List<MessageDTO> toDTOs(Collection<Message> message);
-    Message toDomain(MessageDTO postDTO);
+    Message toDomain(MessageDTO messageDTO);
 }

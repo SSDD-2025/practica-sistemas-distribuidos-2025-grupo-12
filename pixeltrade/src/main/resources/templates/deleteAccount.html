@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+    <title>Perfil</title>
+</head>
+<body>
+
+    {{>header}}
+
+    <section style="max-width: 500px; margin: 50px auto; padding: 2rem; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05); text-align: center; background-color: #f9f9f9;">
+        <h2 style="margin-bottom: 1.5rem;">¿Estás seguro que quieres eliminar tu cuenta?</h2>
+        
+        <form action="/deleteAccount" method="POST" style="margin-bottom: 1rem;">
+            <input type="hidden" name="id" value="{{id}}"> 
+            <input type="hidden" name="_csrf" value="{{token}}"/>
+
+            <button type="submit" style="
+                    background-color: #e74c3c;
+                    color: white;
+                    padding: 0.75rem 1.5rem;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: 1rem;
+                    box-sizing: border-box;">
+                Eliminar
+            </button>
+        </form>
+
+        <a href="/profile" style="
+                display: inline-block;
+                padding: 0.75rem 1.5rem;
+                background-color: #27ae60;
+                color: white;
+                border-radius: 5px;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 1rem;
+                box-sizing: border-box;
+                line-height: normal;">
+            Cancelar
+        </a>
+    </section>
+
+    {{>footer}}
+    
+</body>
+</html>

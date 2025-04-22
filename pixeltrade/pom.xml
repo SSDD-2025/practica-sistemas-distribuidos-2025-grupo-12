@@ -164,7 +164,7 @@
 				<version>1.4</version>
 				<executions>
 					<execution>
-						<phase>integration-test</phase>
+						<phase>generate-resources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
@@ -182,7 +182,7 @@
 				<version>7.12.0</version>
 				<executions>
 					<execution>
-						<phase>generate-sources</phase>
+						<phase>generate-resources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
@@ -202,7 +202,7 @@
 				<executions>
 					<execution>
 						<id>copy-file</id>
-						<phase>integration-test</phase>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>rename</goal>
 						</goals>
