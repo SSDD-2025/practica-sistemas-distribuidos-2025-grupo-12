@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.grupo12.dto.ProductDTO;
 import es.grupo12.dto.ProductMapper;
 import es.grupo12.model.Product;
 import es.grupo12.service.ProductService;
+import es.grupo12.service.UserService;
 
 @RestController
 @RequestMapping("/api/products")
@@ -34,6 +37,9 @@ public class ProductRestController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ProductMapper mapper;
@@ -57,11 +63,19 @@ public class ProductRestController {
 
     @PutMapping("/{id}")
     public ProductDTO replaceProduct(@PathVariable long id, @RequestBody ProductDTO updatedProductDTO) {
+        Product product = productService.findById(id).orElseThrow();
+        if (!userService.getLoggedUser().id().equals(product.getSeller().getId())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return productService.replaceProduct(id, updatedProductDTO);
     }
 
     @DeleteMapping("/{id}")
     public ProductDTO deleteProduct(@PathVariable long id) {
+        Product product = productService.findById(id).orElseThrow();
+        if (!userService.getLoggedUser().id().equals(product.getSeller().getId())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return productService.deleteProduct(id);
     }
 
