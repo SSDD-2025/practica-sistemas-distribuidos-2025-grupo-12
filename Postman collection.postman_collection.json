@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "da959398-1838-4e3b-ab92-8ce00f567b28",
+		"_postman_id": "a63e5bd4-5bca-4be3-a995-de0c35d1a8d8",
 		"name": "Postman collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43692445",
-		"_collection_link": "https://tay-4200443.postman.co/workspace/Tay's-Workspace~d98a2167-cf77-4f33-8b15-9ce7a164b2e2/collection/43692445-da959398-1838-4e3b-ab92-8ce00f567b28?action=share&source=collection_link&creator=43692445"
+		"_exporter_id": "43621233",
+		"_collection_link": "https://danielmm-7772219.postman.co/workspace/New-Team-Workspace~8830cb76-9064-4e38-a8f5-4b47af0e58a9/collection/43621233-a63e5bd4-5bca-4be3-a995-de0c35d1a8d8?action=share&source=collection_link&creator=43621233"
 	},
 	"item": [
 		{
@@ -90,7 +90,7 @@
 					]
 				},
 				"url": {
-					"raw": "https://localhost:8443/api/products/3/image",
+					"raw": "https://localhost:8443/api/products/17/image",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -99,7 +99,7 @@
 					"path": [
 						"api",
 						"products",
-						"3",
+						"17",
 						"image"
 					]
 				}
@@ -154,7 +154,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:8443/api/products/3",
+					"raw": "https://localhost:8443/api/products/6",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -163,7 +163,7 @@
 					"path": [
 						"api",
 						"products",
-						"3"
+						"6"
 					]
 				}
 			},
@@ -178,9 +178,9 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "imageFile",
+							"key": "",
 							"type": "file",
-							"src": "/C:/Users/tayso/Downloads/1745193096201.jpg"
+							"src": "c:\\Users\\danie\\OneDrive\\Documentos\\practicaSD\\practica-sistemas-distribuidos-2025-grupo-12-1\\pixeltrade\\src\\main\\resources\\static\\patapon.jpg"
 						}
 					]
 				},
@@ -453,7 +453,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:8443/api/users/2",
+					"raw": "https://localhost:8443/api/users/3",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -462,7 +462,7 @@
 					"path": [
 						"api",
 						"users",
-						"2"
+						"3"
 					]
 				}
 			},
@@ -575,51 +575,61 @@
 					{
 						"key": "Cookie",
 						"value": "JSESSIONID=A86574AA087C7FA7E4C945AF7E4CE418",
+						"name": "cookie",
 						"type": "text"
 					},
 					{
 						"key": "Cache-Control",
 						"value": "no-cache",
+						"name": "cache-control",
 						"type": "text"
 					},
 					{
 						"key": "Postman-Token",
 						"value": "<calculated when request is sent>",
+						"name": "postman-token",
 						"type": "text"
 					},
 					{
 						"key": "Content-Type",
 						"value": "application/json",
+						"name": "content-type",
 						"type": "text"
 					},
 					{
 						"key": "Content-Length",
 						"value": "<calculated when request is sent>",
+						"name": "content-length",
 						"type": "text"
 					},
 					{
 						"key": "Host",
 						"value": "<calculated when request is sent>",
+						"name": "host",
 						"type": "text"
 					},
 					{
 						"key": "User-Agent",
 						"value": "PostmanRuntime/7.39.1",
+						"name": "user-agent",
 						"type": "text"
 					},
 					{
 						"key": "Accept",
 						"value": "*/*",
+						"name": "accept",
 						"type": "text"
 					},
 					{
 						"key": "Accept-Encoding",
 						"value": "gzip, deflate, br",
+						"name": "accept-encoding",
 						"type": "text"
 					},
 					{
 						"key": "Connection",
 						"value": "keep-alive",
+						"name": "connection",
 						"type": "text"
 					}
 				],
