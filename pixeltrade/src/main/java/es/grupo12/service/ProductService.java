@@ -133,6 +133,18 @@ public class ProductService {
 		productRepository.save(product); 
 	}
 
+	public void replaceProductImage(long id, InputStream inputStream, long size) {
+		Product product = productRepository.findById(id).orElseThrow();
+
+		if(product.getImg() == null){
+			throw new NoSuchElementException();
+		}
+
+		product.setImg(BlobProxy.generateProxy(inputStream, size));
+
+		productRepository.save(product);
+	}
+
     public Resource getProductImage(long id) throws SQLException{
 		Product product = productRepository.findById(id).orElseThrow();
 

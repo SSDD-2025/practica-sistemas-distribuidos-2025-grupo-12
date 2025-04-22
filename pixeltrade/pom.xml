@@ -176,6 +176,7 @@
 					<outputDir>${project.basedir}/api-docs</outputDir>
 				</configuration>
 			</plugin>
+			<!--
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
@@ -213,6 +214,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 		</plugins>
 	</build>
 

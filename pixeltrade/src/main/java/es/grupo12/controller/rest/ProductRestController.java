@@ -94,6 +94,15 @@ public class ProductRestController {
                 .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
                 .body(productImage);
     }
+
+    @PutMapping("/{id}/image")
+    public ResponseEntity<Object> putProductImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+        productService.replaceProductImage(id, imageFile.getInputStream(), imageFile.getSize());
+        return ResponseEntity
+                .noContent()
+                .build();
+        
+    }
     
     private ProductDTO toDTO(Product product){
 		return mapper.toDTO(product);
