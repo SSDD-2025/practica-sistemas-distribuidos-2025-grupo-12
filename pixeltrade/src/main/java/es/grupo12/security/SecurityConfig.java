@@ -80,6 +80,7 @@ public class SecurityConfig {
 					.requestMatchers(HttpMethod.GET, "/api/messages/**").hasRole("USER")
 					.requestMatchers(HttpMethod.POST, "/api/messages/**").hasRole("USER")
 					.requestMatchers(HttpMethod.DELETE, "/api/messages/**").hasRole("ADMIN")
+				
 					// PUBLIC ENDPOINTS
 					.anyRequest().permitAll()
 			);
@@ -127,8 +128,13 @@ public class SecurityConfig {
 							.requestMatchers("/users").hasAnyRole("ADMIN")
 							.requestMatchers("/delete_productFromList/**").hasAnyRole("ADMIN")
 							.requestMatchers("/messages").hasAnyRole("ADMIN")
+							// DOCUMENTATION
+							.requestMatchers("/v3/api-docs*/**").permitAll()
+							.requestMatchers("/swagger-ui.html").permitAll()
+							.requestMatchers("/swagger-ui/**").permitAll()
 							//PRIVATE PAGES
 							.anyRequest().hasAnyRole("USER")
+							
 			)
 			.formLogin(formLogin -> formLogin
 							.loginPage("/login")
