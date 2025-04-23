@@ -520,7 +520,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n    {\r\n        \"message\": \"Un estafador, no le compreis nada\",\r\n        \"author\": {\r\n            \"id\": 5\r\n        },\r\n        \"seller\": {\r\n            \"id\": 2\r\n        }\r\n    }\r\n]",
+					"raw": "\r\n{\r\n    \"message\": \"Un estafador, no le compreis nada\",\r\n    \"author\": {\r\n        \"id\": 5\r\n    },\r\n    \"seller\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
