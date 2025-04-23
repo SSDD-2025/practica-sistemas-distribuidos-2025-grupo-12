@@ -84,8 +84,10 @@ La entidad producto tiene una imagen asociada.
 Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordenador por lo que muchos de los commits asociados a una cuenta específica son desarrollados por todos, al igual que los ficheros creados.
 ### Martín Gutiérrez Parada
 
-- **Tareas:**  Gestión de la sesión de los usuarios, subir imágenes en un producto, todas las funciones relacionadas con los mensajes, creación de htmls y css, header y footer, diseños de páginas, codificación de métodos de los controladores, diagramas de entidades y navegación, desarrollo de la documentación.
+- **Tareas 1:**  Gestión de la sesión de los usuarios, subir imágenes en un producto, todas las funciones relacionadas con los mensajes, creación de htmls y css, header y footer, diseños de páginas, codificación de métodos de los controladores, diagramas de entidades y navegación, desarrollo de la documentación.
 
+- **Tareas 2:** Configu
+- 
 - **5 commits más significativos:**  
     - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/24b955c4ecb21f694ed85e6669a3ef802a64ff4e)
     - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/ce0a39a30d7ab4caa5fbe67f2277e48ac81d08c7)
@@ -100,6 +102,21 @@ Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordena
     - [Fichero 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/java/es/grupo12/model/Message.java)
     - [Fichero 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/resources/static/style1.css)
     - [Fichero 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/resources/templates/chat.html)
+ 
+  **PRÁCTICA 2**
+  - **5 commits más significativos:**
+    - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/13a4181780159460c9c78d65c0f4731b24a83181)
+    - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/ff908ac7d7b3b4cf9a13dd033d507df6f24d745d)
+    - [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/32fee98b7f3c8ed6731b1e2b208acf9d5f4a84be)
+    - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/ffeb363ed6c06b5a10922990feeef4226212d760)
+    - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/568918e2b70db20068071631276a7838dc26394a)
+   
+  - **5 ficheros en los que se ha participado:**
+    - [Fichero 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/java/es/grupo12/security/SecurityConfig.java)
+    - [Fichero 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/java/es/grupo12/controller/rest/ReviewRestController.java)
+    - [Fichero 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blame/main/pixeltrade/src/main/java/es/grupo12/security/jwt/JwtRequestFilter.java)
+    - [Fichero 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blame/main/pixeltrade/src/main/java/es/grupo12/controller/rest/ProductRestController.java)
+    - [Fichero 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blame/main/pixeltrade/src/main/java/es/grupo12/security/jwt/JwtTokenProvider.java)
 
  ### Tayson Pérez Bernaerts
 
