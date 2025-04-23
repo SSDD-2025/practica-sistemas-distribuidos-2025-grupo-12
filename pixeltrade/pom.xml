@@ -9,12 +9,12 @@
 		<version>3.4.4</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>es.grupo13</groupId>
-	<artifactId>ssddgrupo13</artifactId>
+	<groupId>es.grupo12</groupId>
+	<artifactId>ssddgrupo12</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ssddgrupo13</name>
+	<name>ssddgrupo12</name>
 	<description>Demo project for Spring Boot</description>
-	<url />
+	<url/>
 	<licenses>
 		<license />
 	</licenses>
@@ -212,6 +212,7 @@
 					<outputDir>${project.basedir}/api-docs</outputDir>
 				</configuration>
 			</plugin>
+			<!--
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
@@ -248,7 +249,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 

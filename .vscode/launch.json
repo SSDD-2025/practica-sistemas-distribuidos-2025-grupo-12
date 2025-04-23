@@ -5,6 +5,13 @@
             "name": "PixeltradeApplication",
             "request": "launch",
             "mainClass": "es.grupo12.pixeltrade.PixeltradeApplication",
+            "projectName": "ssddgrupo13"
+        },
+        {
+            "type": "java",
+            "name": "PixeltradeApplication",
+            "request": "launch",
+            "mainClass": "es.grupo12.pixeltrade.PixeltradeApplication",
             "projectName": "pixeltrade"
         },
         {
