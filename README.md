@@ -86,7 +86,7 @@ Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordena
 
 - **Tareas 1:**  Gestión de la sesión de los usuarios, subir imágenes en un producto, todas las funciones relacionadas con los mensajes, creación de htmls y css, header y footer, diseños de páginas, codificación de métodos de los controladores, diagramas de entidades y navegación, desarrollo de la documentación.
 
-- **Tareas 2:** Configu
+- **Tareas 2:** Configuración de seguridad, creación de métods REST, controladores REST, paginación.
 - 
 - **5 commits más significativos:**  
     - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/24b955c4ecb21f694ed85e6669a3ef802a64ff4e)
