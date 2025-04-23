@@ -105,6 +105,8 @@ Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordena
 
 - **Tareas:**  Gestión de productos, todo lo relacionado con subir productos, ver la página del producto, compra, edición, recomendados, búsqueda... Código del controlador de productos, repositorio y servicio. Conexión de la aplicación con la base de datos e instalación de dependencias necesarias. Creación de administrador con funciones iniciales. Creación del diagrama de clases y templates.
 
+- **Tareas Práctica 2:** Conexión HTTPS con la página, añadido CSFR, roles de usuarios (USER, ADMIN), encriptado de contraseñas, todo lo relacionado con el apartado de seguridad de la aplicación. Colaborado con el creamiento de varios controladores REST. Creación de la colección postman con operaciones de consulta GET, POST, DELETE, PUT. Actualización del diagrama de clases y templates.
+
 
 - **5 commits más significativos:**
     - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/d11f2e0d2da1f6e5f4afd061074d6958e315ec75)
@@ -120,6 +122,21 @@ Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordena
     - [Fichero 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/java/es/grupo12/repository/ProductRepository.java)
     - [Fichero 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/java/es/grupo12/service/ProductService.java)
     - [Fichero 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/resources/static/style1.css)
+ 
+  **PRÁCTICA 2**
+  - **5 commits más significativos:**
+    - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/db2593a6ab14d564ce9b8ccca6a9b968128cdd71)
+    - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/069a1c772f4a9f6d215c92ad3f58a4b67c5f7ac0)
+    - [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/219ba8d2a789f314d96e9b20dc088ffccd793d90)
+    - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/e2e823d91f7ce27c471d582aee4a3babe7b3188a)
+    - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/commit/9fe2d938c2bbfaefcfc6ca62f9793b9b19661c0e)
+   
+  - **5 ficheros en los que se ha participado:**
+    - [Fichero 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/java/es/grupo12/security/SecurityConfig.java)
+    - [Fichero 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/Postman%20collection.postman_collection.json)
+    - [Fichero 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/java/es/grupo12/controller/rest/MessageRestController.java)
+    - [Fichero 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/src/main/java/es/grupo12/controller/rest/ProductRestController.java))
+    - [Fichero 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-12/blob/main/pixeltrade/pom.xml)
 
 ### Daniel Muñoz Martínez
 
@@ -149,7 +166,8 @@ Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordena
 2. Abrir XAMPP e iniciar servers de Apache y MySQL
 3. Crear una base de datos en MySQL llamada prueba_distribuidos
 4. Ejecutar desde vscode
-5. Entrar a la página desde localhost:8080
+5. Entrar a la página desde https://localhost:8443
+6. Usar el software Postman para importar el archivo de la colección
 
 ### Instalaciones
 - Java 21
@@ -157,3 +175,4 @@ Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordena
 - Maven 4.0
 - XAMPP 8.2.4
 - Spring Boot 3.4.2
+- Postman
