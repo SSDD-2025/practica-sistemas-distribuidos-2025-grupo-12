@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{contact.username}}</title>
+    <link type="text/css" rel="stylesheet" href="style1.css">
+</head>
+<body>
+    {{>header}}
+    <h1>{{contact.username}}</h1>
+    <div class="messages">
+        {{#messages}}
+            {{#value}}
+                <div class="message sent">
+                    <p>{{key.text}}</p>
+                    <div class="date">{{key.date}}</div>
+                </div>
+            {{/value}}
+            {{^value}}
+                <div class="message received">
+                    <p>{{key.text}}</p>
+                    <div class="date">{{key.date}}</div>
+                </div>
+            {{/value}}
+        {{/messages}}
+    </div>
+    <div class="chat-input">
+        <form action="/send_message" method="post">
+            <textarea id="message" name="text" rows="4" cols="50" placeholder="Escribe tu mensaje aquí..." required></textarea>
+            <input type="hidden" name="idsender" value="{{user.id}}">
+            <input type="hidden" name="idreceiver" value="{{contact.id}}">
+            <button type="submit">Enviar</button>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
+        </form>
+    </div>
+</body>
+</html>

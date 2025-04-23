@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="style1.css">
+    <title>Productos</title>
+</head>
+<body>
+    {{>header}}
+    <h2 class="head-title">Mis productos</h2>
+    <section class="products">
+        {{#products}}
+        <div class="product">
+            <a href="/products/{{id}}">
+                <img src="/products/{{id}}/image" alt="Juego {{-index}}">
+            </a>
+            <h3>{{title}}</h3>
+            <p>{{descr}}</p>
+            <p class="price">{{price}}€</p>
+        </div>
+        {{/products}}
+    </section>
+    
+    {{^products}}
+        <div class="reviews-container">
+            <p class="no-reviews">No tiene artículos en venta.</p>
+        </div>
+    {{/products}}
+
+    <a href="/profile" class="button">Volver al perfil</a>
+    {{>footer}}
+</body>
+</html>

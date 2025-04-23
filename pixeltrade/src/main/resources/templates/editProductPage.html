@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Producto</title>
+    <link type="text/css" rel="stylesheet" href="/uploadStyle.css">
+</head>
+<body>
+    {{>header}}
+    <h1>Editar Producto: {{product.title}}</h1>
+    
+    <div class="edit-product">
+        <form action="/update_product/{{product.id}}" method="post" enctype="multipart/form-data">
+            <label for="title">Título:</label>
+            <input type="text" id="title" name="title" value="{{product.title}}" required>
+
+            <label for="image">Imagen:</label>
+            <input type="file" id="image" name="image" accept="image/*">
+            <p>Imagen actual: <img src="/products/{{product.id}}/image" alt="{{product.title}}" width="100"></p>
+
+            <label for="description">Descripción:</label>
+            <textarea id="description" name="description" rows="4" required>{{product.descr}}</textarea>
+
+            <label for="price">Precio (€):</label>
+            <input type="number" id="price" name="price" value="{{product.price}}" min="0" step="0.01" required>
+
+            <input type="hidden" name="sellerId" value="{{product.seller.id}}">
+
+            <button type="submit">Actualizar Producto</button>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
+        </form>
+    </div>
+
+    {{>footer}}
+</body>
+</html>

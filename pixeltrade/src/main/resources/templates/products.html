@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="style1.css">
+    <title>Productos</title>
+</head>
+<body>
+
+    {{>header}}
+
+    <form action="/search" method="GET" class="search-form">
+        <input type="text" name="title" placeholder="Buscar productos..." class="search-input">
+        <button type="submit" class="search-button">Buscar</button>
+    </form>
+
+    <section class="products">
+        {{#products}}
+        <div class="product">
+            <a href="/products/{{id}}">
+                <img src="/products/{{id}}/image" alt="Juego {{-index}}">
+            </a>
+            <h3>{{title}}</h3>
+            <p>{{descr}}</p>
+            <p class="price">{{price}} €</p>
+        </div>
+        {{/products}}
+    </section>
+
+    {{>footer}}
+</body>
+</html>

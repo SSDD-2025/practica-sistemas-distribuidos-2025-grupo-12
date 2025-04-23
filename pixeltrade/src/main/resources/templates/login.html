@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link type="text/css" rel="stylesheet" href="style1.css">
+</head>
+<body>
+  {{>header}}
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form action="/login" method="post">
+      <input type="text" name="username" placeholder="Usuario" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <a href="/register">¿No tienes cuenta? Regístrate aquí</a>
+      <input type="hidden" name="_csrf" value="{{token}}"/>
+      <button type="submit">Ingresar</button>
+    </form>
+    {{#error}}
+      <p class="error-text">{{error}}</p>
+    {{/error}}
+  </div>
+  {{>footer}}
+</body>
+</html>

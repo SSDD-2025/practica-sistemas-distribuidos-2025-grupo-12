@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixeltrade</title>
+  <link type="text/css" rel="stylesheet" href="style1.css">
+</head>
+<body>
+  {{>header}}
+
+  <section class="products">
+    {{#products}}
+      <div class="product">
+        <a href="/products/{{id}}">
+          <img src="/products/{{id}}/image" alt="Juego {{-index}}">
+        </a>
+      <h3>{{title}}</h3>
+      <p>{{descr}}</p>
+      <p class="price">{{price}} €</p>
+      </div>
+    {{/products}}
+  </section>
+
+  {{>footer}}
+</body>
+</html>
