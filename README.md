@@ -78,7 +78,7 @@ La entidad producto tiene una imagen asociada.
 
 
 ## Diagrama de clases y templates
-![DiagramaClasesTemplates](Images/DiagramaClasesTemplates2.png)
+![DiagramaClasesTemplates](Images/DiagramaClasesTemplates.jpg)
 
 ## Participación de miembros
 Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordenador por lo que muchos de los commits asociados a una cuenta específica son desarrollados por todos, al igual que los ficheros creados.
