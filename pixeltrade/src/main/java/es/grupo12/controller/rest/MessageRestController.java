@@ -58,6 +58,9 @@ public class MessageRestController {
 
 	@PostMapping("/")
     public ResponseEntity<MessageDTO> createMessage(@RequestBody MessageDTO messageDTO) {
+        if (!messageDTO.sender().id().equals(userService.getLoggedUser().id())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         messageDTO = messageService.createMessage(messageDTO);
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(messageDTO.id()).toUri();
         return ResponseEntity.created(location).body(messageDTO);

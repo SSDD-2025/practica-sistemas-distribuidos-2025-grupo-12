@@ -64,7 +64,8 @@ public class ProductRestController {
     @PutMapping("/{id}")
     public ProductDTO replaceProduct(@PathVariable long id, @RequestBody ProductDTO updatedProductDTO) {
         Product product = productService.findById(id).orElseThrow();
-        if (!userService.getLoggedUser().id().equals(product.getSeller().getId())){
+        if (!userService.getLoggedUser().id().equals(product.getSeller().getId()) && 
+            userService.getLoggedUser().id() != 1){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return productService.replaceProduct(id, updatedProductDTO);
@@ -73,7 +74,8 @@ public class ProductRestController {
     @DeleteMapping("/{id}")
     public ProductDTO deleteProduct(@PathVariable long id) {
         Product product = productService.findById(id).orElseThrow();
-        if (!userService.getLoggedUser().id().equals(product.getSeller().getId())){
+        if (!userService.getLoggedUser().id().equals(product.getSeller().getId()) &&
+             userService.getLoggedUser().id() != 1){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return productService.deleteProduct(id);

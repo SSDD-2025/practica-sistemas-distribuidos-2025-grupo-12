@@ -53,6 +53,10 @@ public class UserRestController {
 	@DeleteMapping("/{id}")
     public UserDTO deleteUser(@PathVariable long id) {
         UserDTO deletedUser = userService.getUser(id);
+        if (!deletedUser.id().equals(userService.getLoggedUser().id()) &&
+            deletedUser.id() != 1){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         userService.deleteById(id);
         return deletedUser;
     }
