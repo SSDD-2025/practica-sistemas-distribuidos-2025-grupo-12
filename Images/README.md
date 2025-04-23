@@ -1,1 +1,0 @@
-Archivo para meter fotos
