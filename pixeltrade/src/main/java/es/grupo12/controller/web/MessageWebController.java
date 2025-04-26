@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 
 
@@ -72,8 +74,12 @@ public class MessageWebController {
     }
 
     @PostMapping("/send_message")
-    public String sendMessage(@RequestParam String text, @RequestParam Long idsender, @RequestParam Long idreceiver) {
-
+    public String sendMessage(Model model, @RequestParam String text, @RequestParam Long idsender, @RequestParam Long idreceiver) {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+        if (user.getId() != idsender) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         User sender = userService.findById(idsender).orElseThrow(() -> new RuntimeException("User not found"));
         User receiver = userService.findById(idreceiver).orElseThrow(() -> new RuntimeException("User not found"));
 

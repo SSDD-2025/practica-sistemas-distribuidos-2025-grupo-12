@@ -5,12 +5,14 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.grupo12.model.User;
 import es.grupo12.service.MessageService;
@@ -114,8 +116,13 @@ public class UserWebController {
     }
     
     @PostMapping("/deleteAccount")
-	public String deleteAccount(@RequestParam String id) throws IOException {
+	public String deleteAccount(Model model, @RequestParam String id) throws IOException {
+        String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         long iden = Long.parseLong(id);
+        if (user.getId() != iden) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         userService.deleteById(iden);
     	return "/logout"; 
 	}

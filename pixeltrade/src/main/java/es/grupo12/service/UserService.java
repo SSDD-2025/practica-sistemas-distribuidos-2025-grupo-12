@@ -71,7 +71,12 @@ public class UserService {
 		String password = user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         user.setPassword(encodedPassword);
-		user.setRoles(List.of("USER"));
+		if (user.getUsername().equals("admin")) {
+			user.setRoles(List.of("USER", "ADMIN"));
+		} else {
+			user.setRoles(List.of("USER"));
+		}
+		
 		return userRepository.save(user);
 	}
 

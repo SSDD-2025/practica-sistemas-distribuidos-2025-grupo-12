@@ -1,11 +1,12 @@
 package es.grupo12.controller.web;
 
+import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@ControllerAdvice
-public class ErrorWebController {
+@Controller
+public class ErrorWebController implements ErrorController {
 
     @RequestMapping("/error")
     public String invalidUrl(Model model) {

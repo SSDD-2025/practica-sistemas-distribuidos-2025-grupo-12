@@ -54,13 +54,13 @@ public class ReviewWebController {
         return "redirect:/products";
     }
 
-    
 	@GetMapping("/reviews")
 	public String showMyReviews(Model model) {
 		String userName = (String) model.getAttribute("userName");
         User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("user", user);
-		model.addAttribute("reviews", reviewService.findBySeller(user));
+		model.addAttribute("reviewsReceived", reviewService.findBySeller(user));
+        model.addAttribute("reviewsSent", reviewService.findByAuthor(user));
 		return "reviews";
 	}
 

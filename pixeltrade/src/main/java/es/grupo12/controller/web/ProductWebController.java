@@ -98,7 +98,6 @@ public class ProductWebController {
 
 	@GetMapping("/products/{id}")
 	public String showProduct(Model model, @PathVariable long id, Principal principal) {
-		System.out.println("Entrando a showProduct con id = " + id);
 		Optional<Product> product = productService.findById(id);
 
 		if (!product.isPresent()) {
@@ -124,8 +123,13 @@ public class ProductWebController {
 
 	@GetMapping("/edit_product/{id}")
 	public String editProduct(Model model, @PathVariable long id) {
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
 		Optional<Product> product = productService.findById(id);
 		if (product.isPresent()) {
+			if (product.get().getSeller().getId() != user.getId() && user.getId() != 1 || product.get().getBuyer() != null) {
+				throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+			}
 			model.addAttribute("product", product.get());
 			return "editProductPage"; 
 		} else {
@@ -138,6 +142,12 @@ public class ProductWebController {
 	public String updateProduct(Model model, @PathVariable long id, @RequestParam String title, @RequestParam String description, @RequestParam double price, @RequestParam long sellerId, @RequestParam(required = false) MultipartFile image) throws IOException {
 
 		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+		if (product.getSeller().getId() != user.getId() && user.getId() != 1 || product.getBuyer() != null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+		}
 
 		product.setTitle(title);
 		product.setDescr(description);
@@ -155,9 +165,14 @@ public class ProductWebController {
 
 	@PostMapping("/delete_product/{id}")
 	public String deleteProduct(Model model, @PathVariable long id) throws IOException {
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+		if (product.getSeller().getId() != user.getId() && user.getId() != 1 || product.getBuyer() != null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+		}
 
 		productService.deleteById(id);
-
     	return "deletedProduct"; 
 	}
 
@@ -218,6 +233,9 @@ public class ProductWebController {
         User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("user", user);
 		Product product = productService.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+		if (product.getSeller().getId() == user.getId() || product.getBuyer() != null) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+		}
 		product.setBuyer(user);
 		productService.save(product);
 		session.setAttribute("lastBoughtProduct", product);

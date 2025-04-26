@@ -13,6 +13,8 @@ public interface ReviewRepository extends JpaRepository<Review,Long>{
 
     List<Review> findBySeller(User user);
 
+    List<Review> findByAuthor(User user);
+
     void deleteByAuthor(User user);
 
     void deleteBySeller(User user);

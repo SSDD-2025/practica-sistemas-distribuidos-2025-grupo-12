@@ -10,17 +10,33 @@
 
     {{>header}}
     <h2 class="head-title">Mis reseñas</h2>
+    <h2 class="head-title">Recibidas</h2>
+
     <div class="reviews-container">
         
-        {{#reviews}}
+        {{#reviewsReceived}}
         <div class="review-card">
             <p>{{message}} ({{author.username}})</p>
         </div>
-        {{/reviews}}
+        {{/reviewsReceived}}
 
-        {{^reviews}}
+        {{^reviewsReceived}}
         <p class="no-reviews">Todavía no tiene ninguna reseña.</p>
-        {{/reviews}}
+        {{/reviewsReceived}}
+    </div>
+
+    <h2 class="head-title">Publicadas</h2>
+    <div class="reviews-container">
+        
+        {{#reviewsSent}}
+        <div class="review-card">
+            <p>{{message}} ({{seller.username}})</p>
+        </div>
+        {{/reviewsSent}}
+
+        {{^reviewsSent}}
+        <p class="no-reviews">Todavía no ha publicado ninguna reseña.</p>
+        {{/reviewsSent}}
     </div>
     <a href="/profile" class="button">Volver al perfil</a>
 

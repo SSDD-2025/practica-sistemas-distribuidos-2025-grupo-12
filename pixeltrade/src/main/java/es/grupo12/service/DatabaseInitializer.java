@@ -61,7 +61,7 @@ public class DatabaseInitializer {
         Product juego1 = new Product("Persona 3 Reload", "JRPG de PS5", 60, null, usuario2 );
         saveProductWithURLImage(juego1,"https://m.media-amazon.com/images/I/81XeA4hpk+L.jpg");
 
-        Product juego2 = new Product("Hollowknight Silksong", "Juego nuevo de última generación", 100, null, usuario3);
+        Product juego2 = new Product("Hollow Knight Silksong", "Juego nuevo de última generación", 100, null, usuario3);
         saveProductWithURLImage(juego2,"https://www.gamescenter.es/files/images/thumbs/productos_300x400_1659741937-hollow-knight-silksong-nintendo-switch-pre-orden-0.jpg");
 
         Product juego3 = new Product("Stardew Valley", "Simulador de granja, relajante", 20, null, usuario4);
@@ -113,12 +113,12 @@ public class DatabaseInitializer {
 
         Review review2 = new Review("Amable y rápido.",null,null);
         reviewService.save(review2,usuario3,usuario1);
-            }
+    }
         
-            private Product saveProductWithURLImage(Product product, String image) throws IOException {
-                product.setImg(imageUtils.remoteImageToBlob(image));
-                return productService.save(product,null);
-            }
+    private Product saveProductWithURLImage(Product product, String image) throws IOException {
+        product.setImg(imageUtils.remoteImageToBlob(image));
+        return productService.save(product,null);
+    }
         
 
 }
