@@ -612,4 +612,9 @@ label {
     margin-top: 10px;
 }
 
-
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}

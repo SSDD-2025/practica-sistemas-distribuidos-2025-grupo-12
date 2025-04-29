@@ -12,19 +12,63 @@
         <button type="submit" class="search-button">Buscar</button>
     </form>
 
-    <section class="products">
-        {{#products}}
-        <div class="product">
-            <a href="/products/{{id}}">
-                <img src="/products/{{id}}/image" alt="Juego {{-index}}">
-            </a>
-            <h3>{{title}}</h3>
-            <p>{{descr}}</p>
-            <p class="price">{{price}} €</p>
-        </div>
-        {{/products}}
-    </section>
+    <section id="products-container" class="products"></section>
 
+    <div class="pagination">
+        <button id="prev-page">Anterior</button>
+        <span id="current-page">1</span>
+        <button id="next-page">Siguiente</button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const size = 5;
+    
+        function loadProducts(page) {
+            fetch(`/products/page?page=${page}&size=${size}`)
+                .then(response => {
+                    if (!response.ok) throw new Error("Error en la petición");
+                    return response.json();
+                })
+                .then(data => {
+                    const container = document.getElementById('products-container');
+                    container.innerHTML = '';
+    
+                    data.content.forEach(product => {
+                        container.innerHTML += `
+                            <div class="product">
+                                <a href="/products/${product.id}">
+                                    <img src="/products/${product.id}/image" alt="Juego">
+                                </a>
+                                <h3>${product.title}</h3>
+                                <p>${product.descr}</p>
+                                <p class="price">${product.price} €</p>
+                            </div>
+                        `;
+                    });
+    
+                    currentPage = data.page.number;
+                    const totalPages = data.page.totalPages;
+    
+                    document.getElementById('current-page').innerText = currentPage + 1;
+    
+                    const prevBtn = document.getElementById('prev-page');
+                    const nextBtn = document.getElementById('next-page');
+    
+                    prevBtn.disabled = currentPage <= 0;
+                    nextBtn.disabled = currentPage >= totalPages - 1;
+    
+                    prevBtn.onclick = () => loadProducts(currentPage - 1);
+                    nextBtn.onclick = () => loadProducts(currentPage + 1);
+                })
+                .catch(error => {
+                    console.error("Error cargando productos:", error);
+                });
+        }
+    
+        window.addEventListener('DOMContentLoaded', () => loadProducts(0));
+    </script>
+       
     {{>footer}}
 </body>
 </html>

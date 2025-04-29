@@ -155,4 +155,8 @@ public class ProductService {
 		}
     }
 
+	public Page<ProductDTO> getProducts(Pageable pageable) {
+		return productRepository.findByBuyerIsNull(pageable).map(mapper::toDTO);
+	}
+	
 }
