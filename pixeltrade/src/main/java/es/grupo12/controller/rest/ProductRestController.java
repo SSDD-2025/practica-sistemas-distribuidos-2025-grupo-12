@@ -72,17 +72,21 @@ public class ProductRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ProductDTO deleteProduct(@PathVariable long id) {
+    public ResponseEntity<ProductDTO> deleteProduct(@PathVariable long id) {
         Product product = productService.findById(id).orElseThrow();
+        ProductDTO productdto = toDTO(product);
         if (!userService.getLoggedUser().id().equals(product.getSeller().getId()) &&
              userService.getLoggedUser().id() != 1){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
-        return productService.deleteProduct(id);
+        return ResponseEntity.ok().body(productdto);
     }
 
     @PostMapping("/{id}/image")
     public ResponseEntity<Object> createProductImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+        if(userService.getLoggedUser().id() != productService.findById(id).get().getSeller().getId()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         productService.createProductImage(id, imageFile.getInputStream(), imageFile.getSize());
         URI location = fromCurrentRequest().build().toUri();
         return ResponseEntity.created(location).build();
@@ -99,6 +103,9 @@ public class ProductRestController {
 
     @PutMapping("/{id}/image")
     public ResponseEntity<Object> putProductImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+        if(userService.getLoggedUser().id() != productService.findById(id).get().getSeller().getId()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         productService.replaceProductImage(id, imageFile.getInputStream(), imageFile.getSize());
         return ResponseEntity
                 .noContent()

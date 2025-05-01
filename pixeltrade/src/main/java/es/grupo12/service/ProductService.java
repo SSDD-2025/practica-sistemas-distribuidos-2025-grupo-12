@@ -49,43 +49,43 @@ public class ProductService {
 		return productRepository.findById(id);
 	}
 	
-	public List<Product> findByTitle(String title) {
-		return productRepository.findByTitle(title);
+	public List<ProductDTO> findByTitle(String title) {
+		return toDTOs(productRepository.findByTitle(title));
 	}
 	
 	public boolean exist(long id) {
 		return productRepository.existsById(id);
 	}
 
-	public List<Product> findAll() {
-		return productRepository.findAll();
+	public List<ProductDTO> findAll() {
+		return toDTOs(productRepository.findAll());
 	}
 
 	public Page<Product> findAll(Pageable pageable) {
 		return productRepository.findAll(pageable);
 	}
 	
-	public Product save(Product product,MultipartFile imageField) throws IOException {
+	public ProductDTO save(Product product,MultipartFile imageField) throws IOException {
 		if (imageField != null && !imageField.isEmpty()){
 			product.setImg(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
 		}
-		return productRepository.save(product);
+		return toDTO(productRepository.save(product));
 	}
 
-	public Product save(Product product) {
-		return productRepository.save(product);
+	public ProductDTO save(Product product) {
+		return toDTO(productRepository.save(product));
 	}
 
-	public List<Product> findByBuyerIsNull() {
-		return productRepository.findByBuyerIsNull();
+	public List<ProductDTO> findByBuyerIsNull() {
+		return toDTOs(productRepository.findByBuyerIsNull());
 	}
 
-	public List<Product> findByBuyer(User user) {
-		return productRepository.findByBuyer(user);
+	public List<ProductDTO> findByBuyer(User user) {
+		return toDTOs(productRepository.findByBuyer(user));
 	}
 
-	public List<Product> findBySeller(User user) {
-		return productRepository.findBySeller(user);
+	public List<ProductDTO> findBySeller(User user) {
+		return toDTOs(productRepository.findBySeller(user));
 	}
 
 	public void deleteById(Long id) {

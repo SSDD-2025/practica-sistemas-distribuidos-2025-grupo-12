@@ -61,9 +61,9 @@ public class ProductWebController {
  
 	@GetMapping("/")
 	public String showRecommended(Model model) {
-		List<Product> allProducts = productService.findByBuyerIsNull();
+		List<ProductDTO> allProducts = productService.findByBuyerIsNull();
 		Collections.shuffle(allProducts);
-    	List<Product> limitedProducts = allProducts.stream().limit(3).toList(); // Max 3
+    	List<ProductDTO> limitedProducts = allProducts.stream().limit(3).toList(); // Max 3
 		model.addAttribute("products", limitedProducts);
 		return "mainweb";
 	}
@@ -193,7 +193,7 @@ public class ProductWebController {
 	@GetMapping("/search")
 	public String searchProduct(Model model, @RequestParam("title") String title) {
 		
-		List<Product> products = productService.findByTitle(title).stream().filter(product -> product.getBuyer() == null).toList();
+		List<ProductDTO> products = productService.findByTitle(title).stream().filter(product -> product.buyer() == null).toList();
 		model.addAttribute("found", products);
 		return "foundProducts";
 	}

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import es.grupo12.dto.ProductDTO;
 import es.grupo12.model.Message;
 import es.grupo12.model.Product;
 import es.grupo12.model.Review;
@@ -115,7 +116,7 @@ public class DatabaseInitializer {
         reviewService.save(review2,usuario3,usuario1);
     }
         
-    private Product saveProductWithURLImage(Product product, String image) throws IOException {
+    private ProductDTO saveProductWithURLImage(Product product, String image) throws IOException {
         product.setImg(imageUtils.remoteImageToBlob(image));
         return productService.save(product,null);
     }

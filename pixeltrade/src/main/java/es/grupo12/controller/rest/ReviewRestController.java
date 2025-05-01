@@ -58,8 +58,12 @@ public class ReviewRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ReviewDTO deleteReview(@PathVariable long id) {
-        return reviewService.deleteReview(id);
+    public ResponseEntity<ReviewDTO> deleteReview(@PathVariable long id) {
+        Review review = reviewService.findById(id).orElseThrow();
+        if (review.getAuthor().getId() != userService.getLoggedUser().id()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        return ResponseEntity.ok().body(reviewService.deleteReview(id));
     }
 
     private ReviewDTO toDTO(Review review){

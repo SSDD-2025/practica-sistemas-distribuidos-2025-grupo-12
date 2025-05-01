@@ -38,7 +38,7 @@ public class ReviewService {
         return mapper.toDTOs(reviews);
     }
 
-    public Optional<Review> findById(long id) {
+    public Optional<Review> findById(long id) { //?
 		  return reviewRepository.findById(id);
     }
 
@@ -48,16 +48,16 @@ public class ReviewService {
       reviewRepository.save(review);
     }
 
-    public List<Review> findBySeller(User user) {
-        return reviewRepository.findBySeller(user);
+    public List<ReviewDTO> findBySeller(User user) {
+        return toDTOs(reviewRepository.findBySeller(user));
     }
 
-    public List<Review> findByAuthor(User user) {
-        return reviewRepository.findByAuthor(user);
+    public List<ReviewDTO> findByAuthor(User user) {
+        return toDTOs(reviewRepository.findByAuthor(user));
     }
 
-    public List<Review> findAll() {
-        return reviewRepository.findAll();
+    public List<ReviewDTO> findAll() {
+        return toDTOs(reviewRepository.findAll());
     }
 
     public Page<Review> findAll(Pageable pageable) {

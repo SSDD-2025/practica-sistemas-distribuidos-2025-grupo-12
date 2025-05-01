@@ -4,5 +4,7 @@ public record ProductDTO (
     Long id,
     String title,
 	String descr,
+    BasicUserDTO buyer,
+    BasicUserDTO seller,
     Double price) {
 }

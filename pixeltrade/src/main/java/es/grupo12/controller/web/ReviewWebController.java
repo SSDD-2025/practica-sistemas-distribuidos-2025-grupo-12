@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import es.grupo12.dto.BasicUserDTO;
+import es.grupo12.dto.ReviewDTO;
 import es.grupo12.model.Product;
-import es.grupo12.model.Review;
 import es.grupo12.model.User;
 import es.grupo12.service.ReviewService;
 import es.grupo12.service.UserService;
@@ -44,13 +45,15 @@ public class ReviewWebController {
 
     @PostMapping("/write_review")
     public String writeReview(Model model, HttpSession session, @RequestParam String message) {
-        Review review = new Review(message,null,null);
         String userName = (String) model.getAttribute("userName");
         User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("user", user);
         Product lastProduct = (Product) session.getAttribute("lastBoughtProduct");
         User seller = lastProduct.getSeller();
-        reviewService.save(review,user,seller);
+        BasicUserDTO userDTO = new BasicUserDTO(user.getId(), user.getUsername());
+        BasicUserDTO sellerDTO = new BasicUserDTO(seller.getId(), user.getUsername());
+        ReviewDTO review = new ReviewDTO(null, message, userDTO, sellerDTO);
+        reviewService.createReview(review);
         return "redirect:/products";
     }
 
@@ -68,11 +71,11 @@ public class ReviewWebController {
     public String showReviews(Model model) {
         String userName = (String) model.getAttribute("userName");
         User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
-        List<Review> allReviews = reviewService.findAll();
+        List<ReviewDTO> allReviews = reviewService.findAll();
         model.addAttribute("reviews", allReviews);
         model.addAttribute("user", user);
         return "allReviews"; 
-    }
+    } 
 
     @PostMapping("/delete_review")
 	public String deleteReview(@RequestParam String id) throws IOException {
