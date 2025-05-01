@@ -79,6 +79,7 @@ public class ProductRestController {
              userService.getLoggedUser().id() != 1){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
+        productService.deleteById(id);
         return ResponseEntity.ok().body(productdto);
     }
 
