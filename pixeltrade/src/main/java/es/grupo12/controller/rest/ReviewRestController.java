@@ -49,7 +49,7 @@ public class ReviewRestController {
 
     @PostMapping("/")
     public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewDTO reviewDTO) {
-        if (!reviewDTO.author().id().equals(userService.getLoggedUser().id())){
+        if (!reviewDTO.author().id().equals(userService.getLoggedUserDTO().id())){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         reviewDTO = reviewService.createReview(reviewDTO);
@@ -60,7 +60,8 @@ public class ReviewRestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ReviewDTO> deleteReview(@PathVariable long id) {
         Review review = reviewService.findById(id).orElseThrow();
-        if (review.getAuthor().getId() != userService.getLoggedUser().id()){
+        if (review.getAuthor().getId() != userService.getLoggedUserDTO().id() 
+            && userService.getLoggedUserDTO().id() != 1){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return ResponseEntity.ok().body(reviewService.deleteReview(id));

@@ -58,7 +58,7 @@ public class MessageRestController {
 
 	@PostMapping("/")
     public ResponseEntity<MessageDTO> createMessage(@RequestBody MessageDTO messageDTO) {
-        if (!messageDTO.sender().id().equals(userService.getLoggedUser().id())){
+        if (!messageDTO.sender().id().equals(userService.getLoggedUserDTO().id())){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         messageDTO = messageService.createMessage(messageDTO);
@@ -68,7 +68,7 @@ public class MessageRestController {
 
     @GetMapping ("/users/{id1}/{id2}")
     public Collection<MessageDTO> getConversation(@PathVariable long id1, @PathVariable long id2){
-        UserDTO loggedUser = userService.getLoggedUser();
+        UserDTO loggedUser = userService.getLoggedUserDTO();
         if (!loggedUser.id().equals(id1) && !loggedUser.id().equals(id2)) {
              throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }

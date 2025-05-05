@@ -5,6 +5,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,23 +38,31 @@ public class UserRestController {
     
     @GetMapping("/me")
 	public UserDTO me() {
-		return userService.getLoggedUser();
+		return userService.getLoggedUserDTO();
 	}
 
     @GetMapping("/")
 	public Page<UserDTO> getUsers(Pageable pageable) {
+        UserDTO loggedUserDTO = userService.getLoggedUserDTO();
+        if (loggedUserDTO.id() != 1) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 		return userService.findAll(pageable).map(this::toDTO);
 	}
 
     @GetMapping("/{id}")
 	public UserDTO getUser(@PathVariable long id) {
+        UserDTO loggedUserDTO = userService.getLoggedUserDTO();
+        if (!loggedUserDTO.id().equals(id) && loggedUserDTO.id() != 1) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return userService.getUser(id);
 	}
 
 	@DeleteMapping("/{id}")
     public UserDTO deleteUser(@PathVariable long id) {
         UserDTO deletedUser = userService.getUser(id);
-        if (!deletedUser.id().equals(userService.getLoggedUser().id()) && deletedUser.id() != 1){
+        if (!deletedUser.id().equals(userService.getLoggedUserDTO().id()) && userService.getLoggedUserDTO().id() != 1){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         userService.deleteById(id);
@@ -62,6 +71,14 @@ public class UserRestController {
 
 	@PostMapping("/")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+        try {
+            User loggedUser = userService.getLoggedUser();
+            if (loggedUser.getId() != 1){
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
+        } catch (NoSuchElementException ex) {
+            
+        }
         userDTO = userService.createUser(userDTO);
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.id()).toUri();
         return ResponseEntity.created(location).body(userDTO);
@@ -70,7 +87,7 @@ public class UserRestController {
     @GetMapping("/{id}/shared-messages")
     public Collection<UserDTO> getSharedMessages(@PathVariable long id){
 
-        UserDTO loggedUser = userService.getLoggedUser();
+        UserDTO loggedUser = userService.getLoggedUserDTO();
         if (!loggedUser.id().equals(id)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }

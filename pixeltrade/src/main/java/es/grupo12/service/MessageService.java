@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import es.grupo12.dto.MessageDTO;
 import es.grupo12.dto.MessageMapper;
-import es.grupo12.dto.UserDTO;
 import es.grupo12.model.Message;
 
 import es.grupo12.model.User;
@@ -24,9 +23,6 @@ public class MessageService {
 
 	@Autowired
     private MessageMapper mapper;
-
-	@Autowired
-	private UserService userService;
 	
     private MessageDTO toDTO (Message message) {
         return mapper.toDTO(message);
@@ -90,14 +86,8 @@ public class MessageService {
 
     public MessageDTO deleteMessage(long id) {
         Message message = messageRepository.findById(id).orElseThrow();
-		User sender = message.getSender();
-
-		UserDTO logged = userService.getLoggedUser();
-		if(sender.getId() == logged.id()) {
-			messageRepository.deleteById(id);
- 			return toDTO(message);
-		}
-		throw new RuntimeException();
+		messageRepository.deleteById(id);
+		return toDTO(message);
  	
     }
 

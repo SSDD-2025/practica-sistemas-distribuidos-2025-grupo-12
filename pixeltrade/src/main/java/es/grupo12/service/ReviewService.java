@@ -56,8 +56,8 @@ public class ReviewService {
         return toDTOs(reviewRepository.findByAuthor(user));
     }
 
-    public List<ReviewDTO> findAll() {
-        return toDTOs(reviewRepository.findAll());
+    public List<Review> findAll() {
+        return reviewRepository.findAll();
     }
 
     public Page<Review> findAll(Pageable pageable) {

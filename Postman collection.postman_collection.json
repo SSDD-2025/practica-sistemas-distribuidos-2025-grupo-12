@@ -72,6 +72,39 @@
 			"response": []
 		},
 		{
+			"name": "POST Product",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"title\": \"Patapon 3\",\r\n        \"descr\": \"Juego de PSP\",\r\n        \"price\": 100.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/products/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "POST Product Image",
 			"request": {
 				"auth": {
@@ -101,39 +134,6 @@
 						"products",
 						"17",
 						"image"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST Product",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"title\": \"Patapon 3\",\r\n        \"descr\": \"Juego de PSP\",\r\n        \"price\": 100.0\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://localhost:8443/api/products/",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"products",
-						""
 					]
 				}
 			},
@@ -178,14 +178,14 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "",
+							"key": "imageFile",
 							"type": "file",
-							"src": "c:\\Users\\danie\\OneDrive\\Documentos\\practicaSD\\practica-sistemas-distribuidos-2025-grupo-12-1\\pixeltrade\\src\\main\\resources\\static\\patapon.jpg"
+							"src": "c:\\Users\\danie\\OneDrive\\Documentos\\practicaSD\\practica-sistemas-distribuidos-2025-grupo-12\\practica-sistemas-distribuidos-2025-grupo-12\\pixeltrade\\src\\main\\resources\\static\\patapon.jpg"
 						}
 					]
 				},
 				"url": {
-					"raw": "https://localhost:8443/api/products/3/image",
+					"raw": "https://localhost:8443/api/products/6/image",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -194,7 +194,7 @@
 					"path": [
 						"api",
 						"products",
-						"3",
+						"6",
 						"image"
 					]
 				}
@@ -210,7 +210,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:8443/api/products/2",
+					"raw": "https://localhost:8443/api/products/5",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -219,7 +219,7 @@
 					"path": [
 						"api",
 						"products",
-						"2"
+						"5"
 					]
 				}
 			},
@@ -325,7 +325,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"text\": \"No acepto\",\r\n    \"date\": \"2025-02-20T12:55:33\",\r\n    \"sender\": {\r\n        \"id\": 3\r\n    },\r\n    \"receiver\": {\r\n        \"id\": 2\r\n    }\r\n}",
+					"raw": "{\r\n    \"text\": \"No acepto\",\r\n    \"date\": \"2025-02-20T12:55:33\",\r\n    \"sender\": {\r\n        \"id\": 2\r\n    },\r\n    \"receiver\": {\r\n        \"id\": 3\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -364,105 +364,6 @@
 						"api",
 						"messages",
 						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET Users",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/users/",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"users",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET User",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/users/1",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST User",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"username\": \"PostmanUser\",\r\n        \"mail\": \"postmanuser@gmail.com\",\r\n        \"password\": \"postmanpassword\",\r\n        \"roles\": [\"USER\"]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://localhost:8443/api/users/",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"users",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE User",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:8443/api/users/3",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "8443",
-					"path": [
-						"api",
-						"users",
-						"3"
 					]
 				}
 			},
@@ -520,7 +421,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "\r\n{\r\n    \"message\": \"Un estafador, no le compreis nada\",\r\n    \"author\": {\r\n        \"id\": 5\r\n    },\r\n    \"seller\": {\r\n        \"id\": 2\r\n    }\r\n}\r\n",
+					"raw": "\r\n{\r\n    \"message\": \"Un estafador, no le compreis nada\",\r\n    \"author\": {\r\n        \"id\": 2\r\n    },\r\n    \"seller\": {\r\n        \"id\": 5\r\n    }\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -559,6 +460,105 @@
 						"api",
 						"reviews",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Users",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/users/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/users/2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"username\": \"PostmanUser\",\r\n        \"mail\": \"postmanuser@gmail.com\",\r\n        \"password\": \"postmanpassword\",\r\n        \"roles\": [\"USER\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/users/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE User",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/users/2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"users",
+						"2"
 					]
 				}
 			},

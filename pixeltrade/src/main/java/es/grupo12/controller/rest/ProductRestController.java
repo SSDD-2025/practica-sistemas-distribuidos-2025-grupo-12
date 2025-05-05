@@ -64,8 +64,8 @@ public class ProductRestController {
     @PutMapping("/{id}")
     public ProductDTO replaceProduct(@PathVariable long id, @RequestBody ProductDTO updatedProductDTO) {
         Product product = productService.findById(id).orElseThrow();
-        if (!userService.getLoggedUser().id().equals(product.getSeller().getId()) && 
-            userService.getLoggedUser().id() != 1){
+        if (!userService.getLoggedUserDTO().id().equals(product.getSeller().getId()) && 
+            userService.getLoggedUserDTO().id() != 1){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return productService.replaceProduct(id, updatedProductDTO);
@@ -75,8 +75,8 @@ public class ProductRestController {
     public ResponseEntity<ProductDTO> deleteProduct(@PathVariable long id) {
         Product product = productService.findById(id).orElseThrow();
         ProductDTO productdto = toDTO(product);
-        if (!userService.getLoggedUser().id().equals(product.getSeller().getId()) &&
-             userService.getLoggedUser().id() != 1){
+        if (!userService.getLoggedUserDTO().id().equals(product.getSeller().getId()) &&
+             userService.getLoggedUserDTO().id() != 1){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         productService.deleteById(id);
@@ -85,7 +85,7 @@ public class ProductRestController {
 
     @PostMapping("/{id}/image")
     public ResponseEntity<Object> createProductImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
-        if(userService.getLoggedUser().id() != productService.findById(id).get().getSeller().getId()){
+        if(userService.getLoggedUserDTO().id() != productService.findById(id).get().getSeller().getId()){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         productService.createProductImage(id, imageFile.getInputStream(), imageFile.getSize());
@@ -104,7 +104,7 @@ public class ProductRestController {
 
     @PutMapping("/{id}/image")
     public ResponseEntity<Object> putProductImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
-        if(userService.getLoggedUser().id() != productService.findById(id).get().getSeller().getId()){
+        if(userService.getLoggedUserDTO().id() != productService.findById(id).get().getSeller().getId()){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         productService.replaceProductImage(id, imageFile.getInputStream(), imageFile.getSize());

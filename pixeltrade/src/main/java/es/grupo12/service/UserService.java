@@ -2,6 +2,7 @@ package es.grupo12.service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
-	public UserDTO getLoggedUser() {
+	public UserDTO getLoggedUserDTO() {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -97,6 +98,26 @@ public class UserService {
         }
 
         return toDTO(userRepository.findByUsername(username).orElseThrow());
+
+	}
+
+	public User getLoggedUser() {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username;
+
+        if (principal instanceof UserDetails) {
+
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+
+            username = principal.toString();
+
+        }
+
+        return userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("User not logged or registered"));
 
 	}
 	

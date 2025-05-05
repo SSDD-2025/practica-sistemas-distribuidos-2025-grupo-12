@@ -31,6 +31,9 @@ public class ProductService {
 	private ProductRepository productRepository;
 
 	@Autowired
+	private UserService userService;
+
+	@Autowired
     private ProductMapper mapper;
 	
     private ProductDTO toDTO (Product product) {
@@ -57,8 +60,8 @@ public class ProductService {
 		return productRepository.existsById(id);
 	}
 
-	public List<ProductDTO> findAll() {
-		return toDTOs(productRepository.findAll());
+	public List<Product> findAll() {
+		return productRepository.findAll();
 	}
 
 	public Page<Product> findAll(Pageable pageable) {
@@ -105,15 +108,21 @@ public class ProductService {
     }
 
     public ProductDTO createProduct(ProductDTO productDTO) {
+		User loggedUser = userService.getLoggedUser();
         Product product = toDomain(productDTO);
+		product.setSeller(loggedUser);
  		productRepository.save(product);
  		return toDTO(product);
     }
 
     public ProductDTO replaceProduct(long id, ProductDTO updatedProductDTO) {
         if (productRepository.existsById(id)) {
+			Product product = productRepository.findById(id).orElseThrow();
 			Product updatedProduct = toDomain(updatedProductDTO);
 			updatedProduct.setId(id);
+			updatedProduct.setImg(product.getImg());
+			User loggedUser = userService.getLoggedUser();
+			updatedProduct.setSeller(loggedUser);
 			productRepository.save(updatedProduct);
 			return toDTO(updatedProduct);
  		} else {

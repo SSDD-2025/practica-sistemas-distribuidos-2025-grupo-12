@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import es.grupo12.dto.BasicUserDTO;
 import es.grupo12.dto.ReviewDTO;
 import es.grupo12.model.Product;
+import es.grupo12.model.Review;
 import es.grupo12.model.User;
 import es.grupo12.service.ReviewService;
 import es.grupo12.service.UserService;
@@ -50,8 +51,8 @@ public class ReviewWebController {
         model.addAttribute("user", user);
         Product lastProduct = (Product) session.getAttribute("lastBoughtProduct");
         User seller = lastProduct.getSeller();
-        BasicUserDTO userDTO = new BasicUserDTO(user.getId(), user.getUsername());
-        BasicUserDTO sellerDTO = new BasicUserDTO(seller.getId(), user.getUsername());
+        BasicUserDTO userDTO = new BasicUserDTO(user.getId());
+        BasicUserDTO sellerDTO = new BasicUserDTO(seller.getId());
         ReviewDTO review = new ReviewDTO(null, message, userDTO, sellerDTO);
         reviewService.createReview(review);
         return "redirect:/products";
@@ -71,7 +72,7 @@ public class ReviewWebController {
     public String showReviews(Model model) {
         String userName = (String) model.getAttribute("userName");
         User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
-        List<ReviewDTO> allReviews = reviewService.findAll();
+        List<Review> allReviews = reviewService.findAll();
         model.addAttribute("reviews", allReviews);
         model.addAttribute("user", user);
         return "allReviews"; 
