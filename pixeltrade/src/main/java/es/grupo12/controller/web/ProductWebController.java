@@ -82,6 +82,11 @@ public class ProductWebController {
 
 	@GetMapping("/uploadProduct")
 	public String uploadProduct(Model model) {
+		String userName = (String) model.getAttribute("userName");
+        User user = userService.findByUsername(userName).orElseThrow(() -> new RuntimeException("User not found"));
+		if (user.getUsername().equals("admin")) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+		}
 		return "uploadProduct";
 	}
 

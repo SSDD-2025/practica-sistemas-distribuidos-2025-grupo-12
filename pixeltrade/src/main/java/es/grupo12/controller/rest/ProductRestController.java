@@ -56,6 +56,9 @@ public class ProductRestController {
 
     @PostMapping("/")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        if(userService.getLoggedUserDTO().id() == 1){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         productDTO = productService.createProduct(productDTO);
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(productDTO.id()).toUri();
         return ResponseEntity.created(location).body(productDTO);

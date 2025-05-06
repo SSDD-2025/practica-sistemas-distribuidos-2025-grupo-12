@@ -3,10 +3,9 @@ package es.grupo12.controller.rest;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,8 +37,8 @@ public class ReviewRestController {
     private ReviewMapper mapper;
 
     @GetMapping("/")
-	public Page<ReviewDTO> getReviews(Pageable pageable) {
-		return reviewService.findAll(pageable).map(this::toDTO);
+	public List<ReviewDTO> getReviews() {
+		return mapper.toDTOs(reviewService.findAll());
 	}
 
     @GetMapping("/{id}")
@@ -49,7 +48,7 @@ public class ReviewRestController {
 
     @PostMapping("/")
     public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewDTO reviewDTO) {
-        if (!reviewDTO.author().id().equals(userService.getLoggedUserDTO().id())){
+        if (!reviewDTO.author().id().equals(userService.getLoggedUserDTO().id()) || reviewDTO.author().id().equals(reviewDTO.seller().id())){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         reviewDTO = reviewService.createReview(reviewDTO);
@@ -66,8 +65,4 @@ public class ReviewRestController {
         }
         return ResponseEntity.ok().body(reviewService.deleteReview(id));
     }
-
-    private ReviewDTO toDTO(Review review){
-		return mapper.toDTO(review);
-	}
 }

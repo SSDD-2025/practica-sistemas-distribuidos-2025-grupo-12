@@ -5,11 +5,10 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,12 +41,12 @@ public class UserRestController {
 	}
 
     @GetMapping("/")
-	public Page<UserDTO> getUsers(Pageable pageable) {
+	public List<UserDTO> getUsers() {
         UserDTO loggedUserDTO = userService.getLoggedUserDTO();
         if (loggedUserDTO.id() != 1) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
-		return userService.findAll(pageable).map(this::toDTO);
+		return mapper.toDTOs(userService.findAll());
 	}
 
     @GetMapping("/{id}")
@@ -88,13 +87,9 @@ public class UserRestController {
     public Collection<UserDTO> getSharedMessages(@PathVariable long id){
 
         UserDTO loggedUser = userService.getLoggedUserDTO();
-        if (!loggedUser.id().equals(id)) {
+        if (!loggedUser.id().equals(id) && !(loggedUser.id() == 1)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return userService.findUsersBySharedMessages(id);
     }
-
-    private UserDTO toDTO(User user){
-		return mapper.toDTO(user);
-	}
 }
