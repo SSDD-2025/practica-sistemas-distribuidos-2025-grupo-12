@@ -1,14 +1,14 @@
 $DockerUser = "dmunozm5"
 $ImageName = "pixeltrade"
-$Tag = "latest"
+$Tag = "1.0.0"
 
-$FullImageName = "$DockerUser/$ImageName:$Tag"
+$FullImageName = "${DockerUser}/${ImageName}:${Tag}"
 
 docker login
 
-Write-Host "Tagging image as $FullImageName..."
-docker tag "$ImageName:$Tag" $FullImageName
+Write-Host "Tagging image as ${FullImageName}..."
+docker tag "${ImageName}:${Tag}" ${FullImageName}
 
 Write-Host "Pushing image to Docker Hub..."
-docker push $FullImageName
+docker push ${FullImageName}
 Write-Host "Image published successfully: $FullImageName" -ForegroundColor Green

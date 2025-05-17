@@ -1,13 +1,13 @@
 $DockerUser = "dmunozm5"
 $ImageName = "pixeltrade"
-$Tag = "latest"
+$Tag = "1.0.0"
 $File = "docker-compose.prod.yml"
 
-$FullImageName = "$DockerUser/$ImageName:$Tag"
+$FullImageName = "${DockerUser}/${ImageName}-compose:${Tag}"
 
 Write-Host "Publishing $ImageName as OCI Artifact to $FullImageName"
 
-docker compose -f $File publish $FullImageName
+docker compose -f ${File} publish ${FullImageName} --with-env
 
 Write-Host "Published successfully!" -ForegroundColor Green
 
