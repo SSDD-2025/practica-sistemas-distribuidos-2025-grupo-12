@@ -230,7 +230,7 @@ Para acceder a la página web, sólo es necesario acceder a la URL: https://loca
 
 Para crear la imagen con dockerfile, sólo es necesario ejecutar el siguiente comando en la ruta /pixeltrade/docker:
 ````sh
-docker build -f docker/Dockerfile -t danmunoz/pixeltrade:1.0.0 .
+docker build -f docker/Dockerfile -t dmunozm5/pixeltrade:1.0.0 .
 ````
 
 ### Construcción con buildpacks
