@@ -246,3 +246,34 @@ En el caso de que queramos especificar nuestro propio nombre, podemos ejectuar e
 ````sh
 mvn spring-boot:build-image -Dspring-boot.build-image.imageName=username/appname:version
 ````
+
+## Despliege en máquinas virtuales
+
+Para el despliegue de la aplicación en máquinas virtuales, necesitaremos acceder a ambas y ejecutar el siguiente comando para instalar docker:
+````sh
+curl -fsSL https://get.docker.com -o get-docker.sh
+````
+
+Para acceder a la máquina 1, se usará el comando:
+````sh
+ssh -i ssh-keys/sidi12.key vmuser@193.147.60.52
+
+````
+Para acceder a la máquina 2, se usará el comando:
+````sh
+ssh -i ssh-keys/sidi12.key vmuser@sidi12-1.sidi.etsii.urjc.es
+````
+
+Una vez Docker está instalado en ambas, se puede ejecutar el contenedor de MySql para la base de datos en la máquina 2 con el comando:
+````sh
+docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=pixeltrade -e MYSQL_PASSWORD=password -p 3306:3306 -d mysql:8
+````
+
+Después, en la máquina 1, se puede ejecutar el siguiente comando para lanzar el contenedor de la aplicación y conectarlo a través del puerto compartido en la máquina 2 al contenedor de la base de datos:
+````sh
+docker run -p 8443:8443 -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.110.7/pixeltrade dmunozm5/pixeltrade:1.0.0
+
+````
+
+Al terminar estos pasos, se podrá acceder a la aplicación a traves del siguiente enlace, donde se debe usar la ip de la máquina 1:
+`https://193.147.60.52:8443`
