@@ -194,3 +194,55 @@ Cabe destacar que hemos trabajado generalmente en grupo todos en un mismo ordena
 - XAMPP 8.2.4
 - Spring Boot 3.4.2
 - Postman
+
+## Instrucciones de ejecución con ficheros Docker-Compose
+
+### Docker-compose.prod.yml
+
+Este fichero permite ejecutar dos contenedores: 
+- Uno con la aplicación, usando una imagen ya publicada
+- Otro con la base de datos a usar, usando la imagen pública de MySql. Aclarar que se creará un volumen dentro de este contenedor para que la información de la base de datos no pierda sus cambios.
+  
+Para poder ejecutar los ficheros docker compose, simplemente es necesario ejecutar el siguiente comando en la ruta /pixeltrade/docker
+````sh
+docker compose -f docker-compose.prod.yml up
+````
+Esto activará los contenedores de la aplicación pixeltrade y mysql, los cuales se contectarán automáticamente.
+Para acceder a la página web, sólo es necesario acceder a la URL: https://localhost:8443
+
+
+### Docker-compose.local.yml
+
+Este fichero ejecutará dos contenedores
+- Uno con la aplicación. Esta vez, este se dockeriza automáticamente en caso de que no esté instalado en el equipo, usando el dockerfile ya incluido en los archivos
+- Otro con la base de datos a usar, usando la imagen pública de MySql. Esta vez, el volumen se creará en una propia ruta local del host, para preservar los cambios de la base de datos.
+
+Para poder ejecutar los ficheros docker compose, simplemente es necesario ejecutar el siguiente comando en la ruta /pixeltrade/docker
+````sh
+docker compose -f docker-compose.local.yml up
+````
+Esto activará los contenedores de la aplicación pixeltrade (dockerizará antes si es necesario) y mysql, los cuales se contectarán automáticamente.
+Para acceder a la página web, sólo es necesario acceder a la URL: https://localhost:8443
+
+## Instrucciones de construcción de imagen
+
+### Construcción con Dockerfile
+
+Para crear la imagen con dockerfile, sólo es necesario ejecutar el siguiente comando en la ruta /pixeltrade/docker:
+````sh
+docker build -f docker/Dockerfile -t danmunoz/pixeltrade:1.0.0 .
+````
+
+### Construcción con buildpacks
+
+Para construir la imagen con buildpacks, sólo es necesario ejecutar el siguiente comando:
+````sh
+$ mvn spring-boot:build-image
+````
+Este comando usará el nombre y versión especificados en el archivo pom.xml.
+
+
+En el caso de que queramos especificar nuestro propio nombre, podemos ejectuar el siguiente comando:
+````sh
+mvn spring-boot:build-image -Dspring-boot.build-image.imageName=username/appname:version
+````
