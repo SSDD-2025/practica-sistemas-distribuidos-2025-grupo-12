@@ -263,7 +263,7 @@ ssh -i ssh-keys/sidi12.key vmuser@193.147.60.52
 ````
 Para acceder a la máquina 2, se usará el comando:
 ````sh
-ssh -i ssh-keys/sidi12.key vmuser@sidi12-1.sidi.etsii.urjc.es
+ssh -t -i ssh-keys/sidi12.key vmuser@193.147.60.52 ssh sidi12-2
 ````
 
 Una vez Docker está instalado en ambas, se puede ejecutar el contenedor de MySql para la base de datos en la máquina 2 con el comando:
